@@ -11,12 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/org/rank/")
 public class RankCt {
-    @RequestMapping(value = "/list.do",method = RequestMethod.GET)
+    @RequestMapping(value = "/spotList.do",method = RequestMethod.GET)
     public ModelAndView test(){
-        ModelAndView mv=new ModelAndView("org/rank/list");
+        ModelAndView mv=new ModelAndView("org/rank/spotList");
         String s="작동됨";
         mv.addObject("test",s);
 
+        return mv;
+    }
+
+    @RequestMapping(value = "/positionList.do",method=RequestMethod.GET)
+    public ModelAndView positionList(){
+        ModelAndView mv=new ModelAndView("org/rank/getPositions");
         return mv;
     }
 }

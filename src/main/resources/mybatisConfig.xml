@@ -9,16 +9,10 @@
 		 <setting name="defaultExecutorType" value="REUSE" />
 	 </settings>
 	 
-	 <!--<typeAliases>-->
-		 <!--<typeAlias alias="Board" type="kr.purred.springstart.model.board.Board" />-->
-		 <!--<typeAlias alias="CardCategory" type="kr.purred.springstart.model.timeTable.CardCategory" />-->
-		 <!--<typeAlias alias="CardContent" type="kr.purred.springstart.model.timeTable.CardContent" />-->
-		 <!--<typeAlias alias="CardComment" type="kr.purred.springstart.model.timeTable.CardComment" />-->
-		 <!--<typeAlias alias="CardContentWithComment" type="kr.purred.springstart.model.timeTable.CardContentWithComment" />-->
-		 <!--<typeAlias alias="CardContentDm" type="kr.purred.springstart.model.timeTable.CardContentDm" />-->
-		 <!--<typeAlias alias="Member" type="kr.purred.springstart.model.member.Member" />-->
-		 <!--<typeAlias alias="MemberState" type="kr.purred.springstart.model.member.MemberState" />-->
-	 <!--</typeAliases>-->
+	 <typeAliases>
+		 <typeAlias alias="PositionData" type="kr.groupware.model.rank.position.PositionData"/>
+		 <typeAlias alias="SpotData" type="kr.groupware.model.rank.spot.SpotData"/>
+	 </typeAliases>
 	 
 	 <mappers>
 	 </mappers>

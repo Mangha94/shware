@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="position">
+
+    <resultMap id="PositionRs" type="PositionData">
+        <result column="positionNo" property="positionNo" />
+        <result column="ranking" property="ranking" />
+        <result column="positionName" property="positionName" />
+    </resultMap>
+
+    <sql id = "fldPosition">
+        positionNo,
+        ranking,
+        positionName
+    </sql>
+
+    <select id="getPositions" resultMap="PositionRs">
+
+        SELECT <include refid="fldPosition"/> FROM positionData
+
+    </select>
+
+    <select id="getPosition" resultMap="PositionRs">
+
+        SELECT <include refid="fldPosition"/> FROM positionData WHERE positionNo=#{positionNo}
+
+    </select>
+
+    <insert id="addPosition" parameterType="PositionData">
+
+        INSERT INTO positionData (ranking,positionName) VALUE (#{ranking},#{positionName})
+
+    </insert>
+
+    <update id="modifyPosition" parameterType="PositionData">
+
+        UPDATE positionData SET ranking=#{ranking},positionName=#{positionName} WHERE positionNo=#{positionNo}
+
+    </update>
+
+    <delete id="deletePosition" parameterType="int">
+
+        DELETE FROM positionData WHERE positionNo=#{positionNo}
+
+    </delete>
+</mapper>
+
