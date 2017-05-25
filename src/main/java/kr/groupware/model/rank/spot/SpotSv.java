@@ -10,6 +10,8 @@ public interface SpotSv {
     //    리스트 뿌리기
     List<SpotData> getSpots();
 
+    //    하나 가져오기
+    SpotData getSpot(int spotNo);
     //    직책추가
     void addSpot(SpotData spotData);
 

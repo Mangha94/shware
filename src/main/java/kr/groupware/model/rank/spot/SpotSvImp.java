@@ -15,6 +15,10 @@ public class SpotSvImp implements SpotSv {
     }
 
     @Override
+    public SpotData getSpot(int spotNo){
+        return spotRepository.getSpot(spotNo);
+    }
+    @Override
     public void addSpot(SpotData spotData){
         spotRepository.addSpot(spotData);
     }

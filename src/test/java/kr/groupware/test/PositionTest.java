@@ -25,19 +25,19 @@ public class PositionTest {
     public void test1(){
         PositionData positionData=new PositionData();
 
-//        positionData.setPositionName("test1");
-//        positionData.setRanking(1);
-//        positionSv.addPosition(positionData);
+        positionData.setPositionName("test1");
+        positionData.setRanking(1);
+        positionSv.addPosition(positionData);
 
         System.out.println(positionSv.getPositions());
-//        positionData=positionSv.getPosition(1);
-//
-//        positionData.setPositionName("test2");
-//        positionData.setRanking(2);
-//        positionSv.modifyPosition(positionData);
-//        System.out.println(positionData);
-//
-//        positionSv.deletePosition(1);
+        positionData=positionSv.getPosition(3);
+
+        positionData.setPositionName("test2");
+        positionData.setRanking(2);
+        positionSv.modifyPosition(positionData);
+        System.out.println(positionSv.getPositions());
+
+        positionSv.deletePosition(3);
 
     }
 }

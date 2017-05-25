@@ -13,6 +13,11 @@ public class SpotRepositoryImp extends SqlSessionDaoSupport implements SpotRepos
     }
 
     @Override
+    public SpotData getSpot(int spotNo){
+        return getSqlSession().selectOne("spot.getSpot",spotNo);
+    }
+
+    @Override
     public void addSpot(SpotData spotData){
         getSqlSession().insert("spot.addSpot",spotData);
     }
