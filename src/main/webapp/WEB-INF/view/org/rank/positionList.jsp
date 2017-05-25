@@ -4,19 +4,19 @@
 
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
 
-<script>
-    function deletev(positionNo) {
-        if (confirm("삭제하시겠습니까?")) {
-            location.href = "/deletePosition.do?positionNo=" + positionNo;
-        }
-    }
+<%--<script>--%>
+    <%--function deletev(positionNo) {--%>
+        <%--if (confirm("삭제하시겠습니까?")) {--%>
+            <%--location.href = "/deletePosition.do?positionNo=" + positionNo;--%>
+        <%--}--%>
+    <%--}--%>
 
     <%--function modifyPositionv(positionNo) {--%>
     <%--if (confirm("수정하시겠습니까?")) {--%>
     <%--location.href = "/modifyPosition.do?positionNo=" + positionNo;--%>
     <%--}--%>
     <%--}--%>
-</script>
+<%--</script>--%>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -70,9 +70,9 @@
                                         <td>
                                             <input type="submit" class="btn btn-warning" value="수정하기">
                                     </form>
-                                        <%--<input type="submit" class="btn btn-danger" value="삭제하기">--%>
-                                    <a href="javascript: deletev('${position.positonNo}')"
-                                       class="btn btn-danger">삭제하기</a>
+                                        <input type="submit" class="btn btn-danger" value="삭제하기">
+                                    <%--<a href="javascript: deletev('${position.positonNo}')"--%>
+                                       <%--class="btn btn-danger">삭제하기</a>--%>
                                     </td>
 
                                 </tr>

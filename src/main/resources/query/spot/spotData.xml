@@ -18,7 +18,7 @@
 
     <select id="getSpots" resultMap="SpotRs">
 
-        SELECT <include refid="fldSpot"/> FROM spotData
+        SELECT <include refid="fldSpot"/> FROM spotData ORDER BY ranking ASC
 
     </select>
 

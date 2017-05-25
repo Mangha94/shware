@@ -18,7 +18,7 @@
 
     <select id="getPositions" resultMap="PositionRs">
 
-        SELECT <include refid="fldPosition"/> FROM positionData
+        SELECT <include refid="fldPosition"/> FROM positionData ORDER BY ranking ASC
 
     </select>
 
