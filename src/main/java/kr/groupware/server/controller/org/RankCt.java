@@ -1,9 +1,5 @@
 package kr.groupware.server.controller.org;
 
-import kr.groupware.model.rank.position.PositionData;
-import kr.groupware.model.rank.position.PositionSv;
-import kr.groupware.model.rank.spot.SpotData;
-import kr.groupware.model.rank.spot.SpotSv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import kr.groupware.model.rank.position.PositionData;
+import kr.groupware.model.rank.position.PositionSv;
+import kr.groupware.model.rank.spot.SpotData;
+import kr.groupware.model.rank.spot.SpotSv;
 
 /**
  * Created by Lsh on 2017-05-23.
@@ -28,13 +29,12 @@ public class RankCt {
 
     @RequestMapping(value = "/positionList.do",method=RequestMethod.GET)
     public ModelAndView getPositions(
-            @RequestParam(value = "positionNo",required = false)int positionNo
     ){
         ModelAndView mv=new ModelAndView("org/rank/positionList");
         List<PositionData> positionList=positionSv.getPositions();
-        PositionData getPosition=positionSv.getPosition(positionNo);
+
         mv.addObject("positionList",positionList);
-        mv.addObject("getPosition",getPosition);
+
         return mv;
     }
 
@@ -67,16 +67,17 @@ public class RankCt {
     }
 
     @RequestMapping(value = "/modifyPosition.do",method = RequestMethod.POST)
-    public ModelAndView modifyPosition(
+    public String modifyPosition(
             @RequestParam(value = "positionNo",required = false) int positionNo,
-            HttpServletRequest request
+			@RequestParam(value = "positionName", required = false) String positionName,
+			@RequestParam(value = "ranking", required = false) int ranking
     ){
         PositionData positionData=positionSv.getPosition(positionNo);
-        positionData.setPositionName(request.getParameter("positionName_"+positionNo));
-        positionData.setRanking(Integer.parseInt(request.getParameter("ranking_"+positionNo)));
+        positionData.setPositionName(positionName);
+        positionData.setRanking(ranking);
         positionSv.modifyPosition(positionData);
 
-        return new ModelAndView("redirect:/org/rank/positionList.do");
+        return "redirect:/org/rank/positionList.do";
     }
 
     @RequestMapping(value = "/spotList.do",method = RequestMethod.GET)
