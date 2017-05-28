@@ -4,19 +4,36 @@
 
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
 
-<%--<script>--%>
-<%--function deleteSpotv(spotNo) {--%>
-<%--if (confirm("삭제하시겠습니까?")) {--%>
-<%--location.href = "/deleteSpot.do?positionNo=" + spotNo;--%>
-<%--}--%>
-<%--}--%>
+<script>
+    function deleteSpotv(spotNo) {
+        if (confirm("삭제하시겠습니까?")) {
+            $.ajax({
+                type: "GET",
+                url: "/org/rank/deleteSpot.do?spotNo=" + spotNo,
+                dataType: "html",
+                success: function (data, textStatus) {
+                    result = data;
+                    console.log(data);
+                    console.log(result);
+                    alert("삭제되었습니다");
 
-<%--function modifySpotv(spotNo) {--%>
-<%--if (confirm("수정하시겠습니까?")) {--%>
-<%--location.href = "/modifySpot.do?positionNo=" + spotNo;--%>
-<%--}--%>
-<%--}--%>
-<%--</script>--%>
+                    reloadSpot();
+                }
+
+            })
+        }
+    }
+    function reloadSpot() {
+        $("#spotForm").load("/org/rank/reloadSpot.do");
+    }
+
+    function modifySpotv(spotNo) {
+        modifyForm.spotNo.value = spotNo;
+
+        modifyForm.submit();
+    }
+
+</script>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -33,51 +50,47 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>순위</th>
-                                <th>직위명</th>
-                                <th>관리</th>
-                            </tr>
-                            </thead>
-                            <c:forEach items="${spotList}" var="spot">
-                                <tbody>
+                        <form method="post" name="modifyForm" action="/org/rank/modifySpot.do">
+                            <input type="hidden" name="spotNo" value=""/>
+                            <table id="spotForm" class="table table-striped table-bordered table-hover">
+
+                                <thead>
                                 <tr>
-                                    <form method="post" action="/org/rank/modifySpot.do">
-                                        <input type="hidden" name="spotNo" value="${spot.spotNo}"/>
+                                    <th>순위</th>
+                                    <th>직위명</th>
+                                    <th>관리</th>
+                                </tr>
+                                </thead>
+                                <c:forEach items="${spotList}" var="spot">
+                                    <tbody>
+                                    <tr>
+
                                         <td>
-                                                ${spot.ranking}
-                                            <select name="ranking" class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
+                                            <select name="ranking_${spot.spotNo}" class="form-control">
+
+                                                <c:forEach begin="1" end="12" var="idx">
+                                                    <option value="${idx}"
+                                                            <c:if test="${spot.ranking eq idx}">selected</c:if>>${idx}</option>
+
+                                                </c:forEach>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" name="spotName" class="form-control"
+                                            <input type="text" name="spotName_${spot.spotNo}" class="form-control"
                                                    value="${spot.spotName}">
                                         </td>
                                         <td>
-                                            <input type="submit" class="btn btn-warning" value="수정하기">
-                                    </form>
-                                    <input type="submit" class="btn btn-danger" value="삭제하기">
-                                        <%--<a href="javascript: deleteSpotv('${spot.spotNo}')" class="btn btn-danger">삭제하기</a>--%>
-                                    </td>
+                                                <%--<input type="submit" class="btn btn-warning" value="수정하기">--%>
+                                            <a href="javascript: modifySpotv('${spot.spotNo}')" class="btn btn-warning">수정하기</a>
+                                            <a href="javascript: deleteSpotv('${spot.spotNo}')" class="btn btn-danger">삭제하기</a>
+                                        </td>
 
-                                </tr>
-                                </tbody>
-                            </c:forEach>
-                        </table>
+                                    </tr>
+                                    </tbody>
+
+                                </c:forEach>
+                            </table>
+                        </form>
                     </div>
                     <!-- /.table-responsive -->
                 </div>
@@ -93,18 +106,9 @@
                 <table>
                     <td>
                         <select class="form-control" name="ranking">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
+                            <c:forEach begin="1" end="12" var="idx">
+                                <option value="${idx}">${idx}</option>
+                            </c:forEach>
                         </select>
                     </td>
                     <td>
