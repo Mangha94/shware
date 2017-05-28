@@ -28,7 +28,6 @@
 //        positionForm.positionNo.value = positionNo;
 //        modifyPositionv.submit();
         $(document).ready(function () {
-            $("#mul_intput_submit").click(function () {
                 var formData = $("modifyForm").serialize();
                 $.ajax({
                     type: "POST",
@@ -43,7 +42,6 @@
                         reloadPosition();
                     }
                 })
-            })
         })
     }
 
@@ -69,6 +67,7 @@
                 <div class="panel-body">
                     <div class="table-responsive">
                         <c:choose>
+                            <input type="hidden" name="positionNo" value=""/>
                             <c:when test="${getPositon eq null}">
                                 <form method="post" id="addForm" action="/org/rank/addPosition.do">
                             </c:when>
@@ -76,7 +75,6 @@
                                 <form method="post" id="modifyForm" action="">
                             </c:otherwise>
                         </c:choose>
-                            <input type="hidden" name="positionNo" value=""/>
                             <table id="positionForm" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>

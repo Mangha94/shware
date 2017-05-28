@@ -50,8 +50,15 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <form method="post" name="modifyForm" action="/org/rank/modifySpot.do">
-                            <input type="hidden" name="spotNo" value=""/>
+                        <c:choose>
+                            <input type="hidden" name="spotNo" value="${}"/>
+                            <c:when test="${getSpot eq null}">
+                            <form method="post" name="addForm" action="/org/rank/addSpot.do">
+                            </c:when>
+                            <c:otherwise>
+                            <form method="post" name="modifyForm" action="">
+                            </c:otherwise>
+                        </c:choose>
                             <table id="spotForm" class="table table-striped table-bordered table-hover">
 
                                 <thead>
@@ -89,6 +96,25 @@
                                     </tbody>
 
                                 </c:forEach>
+                                <div>
+                                <div class="col-lg-12">
+                                    <table>
+                                        <td>
+                                            <select class="form-control" name="ranking">
+                                                <c:forEach begin="1" end="12" var="idx">
+                                                    <option value="${idx}">${idx}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="spotName" placeholder="spotName"/>
+                                        </td>
+                                        <td>
+                                            <input type="submit" class="btn btn-primary" value="등록하기">
+                                        </td>
+                                    </table>
+                                </div>
+                                </div>
                             </table>
                         </form>
                     </div>
@@ -98,29 +124,6 @@
             </div>
             <!-- /.panel -->
         </div>
-    </div>
-    <div>
-
-        <form method="post" action="/org/rank/addSpot.do">
-            <div class="col-lg-12">
-                <table>
-                    <td>
-                        <select class="form-control" name="ranking">
-                            <c:forEach begin="1" end="12" var="idx">
-                                <option value="${idx}">${idx}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" name="spotName" placeholder="spotName"/>
-                    </td>
-                    <td>
-                        <input type="submit" class="btn btn-primary" value="등록하기">
-                    </td>
-                </table>
-            </div>
-        </form>
-
     </div>
 
 

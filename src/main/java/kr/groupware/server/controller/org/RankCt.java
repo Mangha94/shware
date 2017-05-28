@@ -27,19 +27,13 @@ public class RankCt {
     SpotSv spotSv;
 
     @RequestMapping(value = "/positionList.do",method=RequestMethod.GET)
-    public ModelAndView getPositions(){
-        ModelAndView mv=new ModelAndView("org/rank/positionList");
-        List<PositionData> positionList=positionSv.getPositions();
-        mv.addObject("positionList",positionList);
-        return mv;
-    }
-
-    @RequestMapping(value = "/positonList.do",method=RequestMethod.GET)
-    public ModelAndView getPosition(
+    public ModelAndView getPositions(
             @RequestParam(value = "positionNo",required = false)int positionNo
     ){
         ModelAndView mv=new ModelAndView("org/rank/positionList");
+        List<PositionData> positionList=positionSv.getPositions();
         PositionData getPosition=positionSv.getPosition(positionNo);
+        mv.addObject("positionList",positionList);
         mv.addObject("getPosition",getPosition);
         return mv;
     }
@@ -86,10 +80,14 @@ public class RankCt {
     }
 
     @RequestMapping(value = "/spotList.do",method = RequestMethod.GET)
-    public ModelAndView positionList(){
+    public ModelAndView spotList(
+            @RequestParam(value = "spotNo",required = false)int spotNo
+    ){
         ModelAndView mv=new ModelAndView("org/rank/spotList");
         List<SpotData> spotList=spotSv.getSpots();
+        SpotData getSpot=spotSv.getSpot(spotNo);
         mv.addObject("spotList",spotList);
+        mv.addObject("getSpot",getSpot);
         return mv;
     }
 
