@@ -81,14 +81,10 @@ public class RankCt {
     }
 
     @RequestMapping(value = "/spotList.do",method = RequestMethod.GET)
-    public ModelAndView spotList(
-            @RequestParam(value = "spotNo",required = false)int spotNo
-    ){
+    public ModelAndView spotList(){
         ModelAndView mv=new ModelAndView("org/rank/spotList");
         List<SpotData> spotList=spotSv.getSpots();
-        SpotData getSpot=spotSv.getSpot(spotNo);
         mv.addObject("spotList",spotList);
-        mv.addObject("getSpot",getSpot);
         return mv;
     }
 
@@ -115,11 +111,12 @@ public class RankCt {
     @RequestMapping(value="/modifySpot.do",method = RequestMethod.POST)
     public ModelAndView modifySpot(
             @RequestParam(value = "spotNo",required = false)int spotNo,
-            HttpServletRequest request
+            @RequestParam(value = "ranking",required = false)int ranking,
+            @RequestParam(value = "spotName",required = false)String spotName
     ){
         SpotData spotData=spotSv.getSpot(spotNo);
-        spotData.setRanking(Integer.parseInt(request.getParameter("ranking_" + spotNo)));
-        spotData.setSpotName(request.getParameter("spotName_"+spotNo));
+        spotData.setRanking(ranking);
+        spotData.setSpotName(spotName);
         spotSv.modifySpot(spotData);
         return new ModelAndView("redirect:/org/rank/spotList.do");
     }
