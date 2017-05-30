@@ -16,9 +16,6 @@ import kr.groupware.model.rank.position.PositionSv;
 import kr.groupware.model.rank.spot.SpotData;
 import kr.groupware.model.rank.spot.SpotSv;
 
-/**
- * Created by Lsh on 2017-05-23.
- */
 @Controller
 @RequestMapping(value = "/org/rank/")
 public class RankCt {

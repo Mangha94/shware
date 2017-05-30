@@ -286,26 +286,26 @@
                                 <a href="/org/rank/spotList.do">직위관리</a>
                             </li>
                             <li>
-                            <a href="/org/rank/positionList.do">직책관리</a>
+                                <a href="/org/rank/positionList.do">직책관리</a>
+                            </li>
+                            <li>
+                                <a href="#">회원관리<span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                            <li>
+                            <a href="/org/member/memberList.do">회원목록</a>
+                            </li>
+                            <li>
+                            <a href="/org/member/addMemberForm.do">회원등록</a>
                             </li>
                             <%--<li>--%>
-                            <%--<a href="#">Third Level <span class="fa arrow"></span></a>--%>
-                            <%--<ul class="nav nav-third-level">--%>
-                            <%--<li>--%>
                             <%--<a href="#">Third Level Item</a>--%>
                             <%--</li>--%>
                             <%--<li>--%>
                             <%--<a href="#">Third Level Item</a>--%>
                             <%--</li>--%>
-                            <%--<li>--%>
-                            <%--<a href="#">Third Level Item</a>--%>
-                            <%--</li>--%>
-                            <%--<li>--%>
-                            <%--<a href="#">Third Level Item</a>--%>
-                            <%--</li>--%>
-                            <%--</ul>--%>
-                            <%--<!-- /.nav-third-level -->--%>
-                            <%--</li>--%>
+                            </ul>
+                            <!-- /.nav-third-level -->
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

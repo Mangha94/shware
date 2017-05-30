@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberData">
+
+    <resultMap id="MemberRs" type="MemberData">
+        <result column="memberId " property="memberId " />
+        <result column="pw" property="pw" />
+        <result column="name" property="name" />
+        <result column="positionNo" property="positionNo" />
+        <result column="spotNo" property="spotNo" />
+        <result column="departmentNo" property="departmentNo" />
+        <result column="email" property="email" />
+        <result column="entryDate" property="entryDate" />
+        <result column="modifyDate" property="modifyDate" />
+        <result column="registrationDate" property="registrationDate" />
+        <result column="lastAccessTime" property="lastAccessTime" />
+        <result column="used" property="used" />
+        <result column="securityRating" property="securityRating" />
+        <result column="businessNo" property="businessNo" />
+    </resultMap>
+
+    <sql id = "fldMember">
+        memberId,
+        pw,
+        name,
+        positionNo,
+        spotNo,
+        departmentNo,
+        email,
+        entryDate,
+        modifyDate,
+        registrationDate,
+        lastAccessTime,
+        used,
+        securityRating,
+        businessNo
+    </sql>
+
+    <select id="getMembers" resultMap="MemberRs">
+
+        SELECT <include refid="fldMember"/> FROM memberData
+
+    </select>
+
+    <select id="getMember" resultMap="MemberRs">
+
+        SELECT <include refid="fldMember"/> FROM memberData WHERE memberId=#{memberId}
+
+    </select>
+
+    <insert id="addMember" parameterType="MemberData">
+
+        INSERT INTO memberData (memberId,pw,name,positionNo,spotNo,departmentNo,email,entryDate,used,securityRating,businessNo) VALUE (#{memberId},#{pw},#{name},#{positionNo},#{spotNo},#{departmentNo},#{email},#{entryDate},#{used},#{securityRating},#{businessNo})
+
+    </insert>
+
+    <update id="modifyMember" parameterType="MemberData">
+
+        UPDATE memberData SET pw=#{pw},name=#{name},positionNo=#{positionNo},spotNo=#{spotNo},departmentNo=#{departmentNo},email=#{email},entryDate=#{entryDate},modifyDate=#{modifyDate},used=#{used},securityRating=#{securityRating},businessNo=#{businessNo} WHERE memberId=#{memberId}
+
+    </update>
+
+    <delete id="deleteMember" parameterType="String">
+
+        DELETE FROM memberData WHERE memberId=#{memberId}
+
+    </delete>
+
+    <select id="getCount" resultType="int">
+
+        SELECT COUNT(memberId) FROM memberData
+
+    </select>
+
+    <select id="searchMember" parameterType="map" resultType="MemberData">
+
+        SELECT <include refid="fldMember" /> FROM memberData
+
+        <where>
+
+            <if test = "name != null">
+                AND name LIKE '%${name}%'
+            </if>
+
+            <if test = "memberId != null">
+                AND memberId = #{memberId}
+            </if>
+
+            <if test = "email != null">
+                AND email = #{email}
+            </if>
+
+        </where>
+
+    </select>
+</mapper>
