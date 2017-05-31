@@ -16,11 +16,12 @@
 </thead>
 <tbody>
 <c:forEach items="${memberList}" var="member">
+
     <tr>
-        <td>${member.memberId}</td>
+        <td><a href="/org/member/getMember.do?memberId=${member.memberId}">${member.memberId}</a></td>
         <td>${member.name}</td>
         <td>${member.positionNo}</td>
-        <td>${member.spotName}</td>
+        <td>${member.spotNo}</td>
         <td>${member.departmentNo}</td>
         <td>${member.email}</td>
         <td>${member.used}</td>
@@ -28,19 +29,4 @@
     </tr>
 </c:forEach>
 
-<tr id="searchForm">
-    <td>
-        <select name="searchFrom" class="form-control">
-            <option value="memberId">아이디</option>
-            <option value="name">이름</option>
-            <option value="email">이메일</option>
-        </select>
-    </td>
-    <td>
-        <input type="text" name="searchVal" class="form-control" value="" placeholder="Search for...">
-    </td>
-    <td>
-        <a href="javascript: searchMember()" class="btn btn-default">찾기</a>
-    </td>
-</tr>
 </tbody>

@@ -18,11 +18,9 @@ import kr.groupware.model.rank.spot.SpotSv;
 
 @Controller
 @RequestMapping(value = "/org/rank/")
-public class RankCt {
+public class PositionCt {
     @Autowired
     PositionSv positionSv;
-    @Autowired
-    SpotSv spotSv;
 
     @RequestMapping(value = "/positionList.do",method=RequestMethod.GET)
     public ModelAndView getPositions(
@@ -45,12 +43,8 @@ public class RankCt {
 
     @RequestMapping(value = "/addPosition.do",method = RequestMethod.POST)
     public ModelAndView addPosition(
-            @RequestParam(value = "positionName", required = false) String positionName,
-            @RequestParam(value = "ranking", required = false) int ranking
+            PositionData positionData
     ){
-        PositionData positionData=new PositionData();
-        positionData.setPositionName(positionName);
-        positionData.setRanking(ranking);
         positionSv.addPosition(positionData);
         return new ModelAndView("redirect:/org/rank/positionList.do");
     }
@@ -75,55 +69,5 @@ public class RankCt {
         positionSv.modifyPosition(positionData);
 
         return "redirect:/org/rank/positionList.do";
-    }
-
-    @RequestMapping(value = "/spotList.do",method = RequestMethod.GET)
-    public ModelAndView spotList(){
-        ModelAndView mv=new ModelAndView("org/rank/spotList");
-        List<SpotData> spotList=spotSv.getSpots();
-        mv.addObject("spotList",spotList);
-        return mv;
-    }
-
-    @RequestMapping(value = "/reloadSpot.do",method = RequestMethod.GET)
-    public ModelAndView reloadSpot(){
-        ModelAndView mv=new ModelAndView("org/rank/reloadSpot");
-        List<SpotData> spotList=spotSv.getSpots();
-        mv.addObject("spotList",spotList);
-        return mv;
-    }
-
-    @RequestMapping(value = "/addSpot.do",method = RequestMethod.POST)
-    public ModelAndView addSpot(
-            @RequestParam(value = "ranking",required = false)int ranking,
-            @RequestParam(value = "spotName",required = false)String spotName
-    ){
-        SpotData spotData=new SpotData();
-        spotData.setRanking(ranking);
-        spotData.setSpotName(spotName);
-        spotSv.addSpot(spotData);
-        return new ModelAndView("redirect:/org/rank/spotList.do");
-    }
-
-    @RequestMapping(value="/modifySpot.do",method = RequestMethod.POST)
-    public ModelAndView modifySpot(
-            @RequestParam(value = "spotNo",required = false)int spotNo,
-            @RequestParam(value = "ranking",required = false)int ranking,
-            @RequestParam(value = "spotName",required = false)String spotName
-    ){
-        SpotData spotData=spotSv.getSpot(spotNo);
-        spotData.setRanking(ranking);
-        spotData.setSpotName(spotName);
-        spotSv.modifySpot(spotData);
-        return new ModelAndView("redirect:/org/rank/spotList.do");
-    }
-
-    @RequestMapping(value = "/deleteSpot.do",method = RequestMethod.GET)
-    public ModelAndView deleteSpot(
-            @RequestParam(value = "spotNo",required = false)int spotNo
-    )
-    {
-        spotSv.deleteSpot(spotNo);
-        return new ModelAndView("redirect:/org/rank/spotList.do");
     }
 }

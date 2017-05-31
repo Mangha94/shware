@@ -6,20 +6,6 @@
 
 <script>
 
-    function searchMember() {
-        var formData = $("#searchForm").find(':input').serialize();
-        $.ajax({
-            type: "GET",
-            url: "/org/member/searchMember.do",
-            data: formData,
-            success: function (data, textStatus) {
-                result = data;
-                console.log(data);
-                reloadMember();
-            }
-        });
-    }
-
     function reloadMember() {
         $("#memberForm").load("/org/member/reloadMember.do");
     }
@@ -46,6 +32,20 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
+                    <form action="/org/member/searchMember.do" class="form-inline">
+                        <div class="form-group">
+                            <select name="searchFrom" class="form-control">
+                                <option value="memberId">아이디</option>
+                                <option value="name">이름</option>
+                                <option value="email">이메일</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="searchVal" class="form-control" value="" placeholder="Search for...">
+                        </div>
+                            <input type="submit" class="btn btn-default" value="찾기">
+                            <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
+                    </form>
                     <nav>
                         <ul class="pagination pagination-sm">
                             <li>

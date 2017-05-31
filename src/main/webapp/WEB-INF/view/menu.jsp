@@ -9,29 +9,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-<title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>SHware</title>
 
-<!-- Bootstrap Core CSS -->
-<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- MetisMenu CSS -->
-<link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-<!-- Custom CSS -->
-<link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
 
-<!-- Morris Charts CSS -->
-<link href="/vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
 
-<!-- Custom Fonts -->
-<link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 
@@ -117,7 +117,8 @@
                                     <span class="pull-right text-muted">40% Complete</span>
                                 </p>
                                 <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                                         <span class="sr-only">40% Complete (success)</span>
                                     </div>
                                 </div>
@@ -133,7 +134,8 @@
                                     <span class="pull-right text-muted">20% Complete</span>
                                 </p>
                                 <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 20%">
                                         <span class="sr-only">20% Complete</span>
                                     </div>
                                 </div>
@@ -149,7 +151,8 @@
                                     <span class="pull-right text-muted">60% Complete</span>
                                 </p>
                                 <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 60%">
                                         <span class="sr-only">60% Complete (warning)</span>
                                     </div>
                                 </div>
@@ -165,7 +168,8 @@
                                     <span class="pull-right text-muted">80% Complete</span>
                                 </p>
                                 <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 80%">
                                         <span class="sr-only">80% Complete (danger)</span>
                                     </div>
                                 </div>
@@ -283,6 +287,9 @@
                         <a href="#"><i class="fa fa-sitemap fa-fw"></i> 조직관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
+                                <a href="/org/rank/departmentList.do">부서관리</a>
+                            </li>
+                            <li>
                                 <a href="/org/rank/spotList.do">직위관리</a>
                             </li>
                             <li>
@@ -290,21 +297,21 @@
                             </li>
                             <li>
                                 <a href="#">회원관리<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                            <li>
-                            <a href="/org/member/memberList.do">회원목록</a>
-                            </li>
-                            <li>
-                            <a href="/org/member/addMemberForm.do">회원등록</a>
-                            </li>
-                            <%--<li>--%>
-                            <%--<a href="#">Third Level Item</a>--%>
-                            <%--</li>--%>
-                            <%--<li>--%>
-                            <%--<a href="#">Third Level Item</a>--%>
-                            <%--</li>--%>
-                            </ul>
-                            <!-- /.nav-third-level -->
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="/org/member/memberList.do">회원목록</a>
+                                    </li>
+                                    <li>
+                                        <a href="/org/member/addMemberForm.do">회원등록</a>
+                                    </li>
+                                    <%--<li>--%>
+                                    <%--<a href="#">Third Level Item</a>--%>
+                                    <%--</li>--%>
+                                    <%--<li>--%>
+                                    <%--<a href="#">Third Level Item</a>--%>
+                                    <%--</li>--%>
+                                </ul>
+                                <!-- /.nav-third-level -->
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -352,7 +359,8 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span
+                                class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">Second Level Item</a>

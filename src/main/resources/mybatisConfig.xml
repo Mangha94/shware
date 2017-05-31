@@ -12,6 +12,7 @@
 	 <typeAliases>
 		 <typeAlias alias="PositionData" type="kr.groupware.model.rank.position.PositionData"/>
 		 <typeAlias alias="SpotData" type="kr.groupware.model.rank.spot.SpotData"/>
+		 <typeAlias alias="DepartmentData" type="kr.groupware.model.rank.department.DepartmentData"/>
 		 <typeAlias alias="MemberData" type="kr.groupware.model.member.MemberData"/>
 	 </typeAliases>
 	 

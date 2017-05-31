@@ -25,6 +25,13 @@
             yearSuffix: '년'
         });
     });
+
+    function deleteMemberv(memberId) {
+        if (confirm("삭제하시겠습니까?")) {
+            location.href = "/org/member/deleteMember.do?memberId=" + memberId;
+        }
+    }
+
 </script>
 
 <div id="page-wrapper">
@@ -33,25 +40,25 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    회원등록
+                    회원수정
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form action="/org/member/addMember.do">
+                    <form action="/org/member/modifyMember.do">
 
                         <div class="form-group">
                             <label>아이디</label>
-                            <input name="memberId" class="form-control">
+                            <input name="memberId" value="${getMember.memberId}" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
                             <label>pw</label>
-                            <input name="pw" class="form-control">
+                            <input name="pw" value="${getMember.pw}" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
                             <label>이름</label>
-                            <input name="name" class="form-control">
+                            <input name="name" value="${getMember.name}" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
@@ -83,15 +90,15 @@
                         </div>
                         <div class="form-group">
                             <label>이메일</label>
-                            <input name="email" class="form-control">
+                            <input name="email" value="${getMember.email}" class="form-control">
                             <p class="help-block">id@email.com</p>
                         </div>
                         <div class="form-group">
                             <label>입사일</label>
                             <%--<button type="button" class="btn btn-default btn-sm">--%>
-                                <%--<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>날짜선택--%>
+                            <%--<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>날짜선택--%>
                             <%--</button>--%>
-                            <input name="entryDate" id="Datepicker" class="form-control">
+                            <input name="entryDate" value="${getMember.entryDate}" id="Datepicker" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
@@ -116,10 +123,11 @@
                         </div>
                         <div class="form-group">
                             <label>사번</label>
-                            <input name="businessNo" class="form-control">
+                            <input name="businessNo" value="${getMember.businessNo}" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="등록하기">
+                        <input type="submit" class="btn btn-primary" value="수정하기">
+                        <a href="javascript:deleteMemberv('${getMember.memberId}')" class="btn btn-danger">삭제하기</a>
                     </form>
                 </div>
                 <!-- /.table-responsive -->

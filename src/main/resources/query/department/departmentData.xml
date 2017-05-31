@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="department">
+
+    <resultMap id="DepartmentRs" type="DepartmentData">
+        <result column="departmentNo" property="departmentNo" />
+        <result column="departmentName" property="departmentName" />
+        <result column="belongNo" property="belongNo" />
+        <result column="departmentCode" property="departmentCode" />
+    </resultMap>
+
+    <sql id = "fldPosition">
+        departmentNo,
+        departmentName,
+        departmentCode,
+        belongNo
+    </sql>
+
+    <select id="getDepartments" resultMap="DepartmentRs">
+
+        SELECT <include refid="fldPosition"/> FROM departmentData
+
+    </select>
+
+    <select id="getDepartment" resultMap="DepartmentRs">
+
+        SELECT <include refid="fldPosition"/> FROM departmentData WHERE departmentNo=#{departmentNo}
+
+    </select>
+
+    <insert id="addDepartment" parameterType="DepartmentData">
+
+        INSERT INTO departmentData (departmentCode,departmentName) VALUE (#{departmentCode},#{departmentName})
+
+    </insert>
+
+    <update id="modifyDepartment" parameterType="DepartmentData">
+
+        UPDATE departmentData SET departmentCode=#{departmentCode},departmentName=#{departmentName} WHERE departmentNo=#{departmentNo}
+
+    </update>
+
+    <delete id="deleteDepartment" parameterType="int">
+
+        DELETE FROM departmentData WHERE departmentNo=#{departmentNo}
+
+    </delete>
+</mapper>

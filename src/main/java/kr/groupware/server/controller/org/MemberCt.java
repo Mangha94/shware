@@ -3,6 +3,8 @@ package kr.groupware.server.controller.org;
 import kr.groupware.model.member.MemberData;
 import kr.groupware.model.member.MemberSearchData;
 import kr.groupware.model.member.MemberSv;
+import kr.groupware.model.rank.department.DepartmentData;
+import kr.groupware.model.rank.department.DepartmentSv;
 import kr.groupware.model.rank.position.PositionData;
 import kr.groupware.model.rank.position.PositionSv;
 import kr.groupware.model.rank.spot.SpotData;
@@ -30,6 +32,8 @@ public class MemberCt {
     SpotSv spotSv;
     @Autowired
     PositionSv positionSv;
+    @Autowired
+    DepartmentSv departmentSv;
 
     @RequestMapping(value = "/memberList.do",method = RequestMethod.GET)
     public ModelAndView getMembers(){
@@ -52,12 +56,18 @@ public class MemberCt {
             @RequestParam(value = "memberId",required = false)String memberId
     ){
         MemberData memberData=memberSv.getMember(memberId);
-        ModelAndView mv=new ModelAndView("org/member/addMember");
+        ModelAndView mv=new ModelAndView("org/member/modifyMember");
+        List<SpotData> spots=spotSv.getSpots();
+        List<PositionData> positions=positionSv.getPositions();
+        List<DepartmentData> departments=departmentSv.getDepartments();
+        mv.addObject("getSpots",spots);
+        mv.addObject("getPositions",positions);
+        mv.addObject("getDepartments",departments);
         mv.addObject("getMember",memberData);
         return mv;
     }
 
-    @RequestMapping(value = "/addMember.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/addMember.do",method = {RequestMethod.GET, RequestMethod.POST})
     public String addMember(
             MemberData memberData
     ){
@@ -126,8 +136,10 @@ public class MemberCt {
         ModelAndView mv=new ModelAndView("/org/member/addMember");
         List<SpotData> spots=spotSv.getSpots();
         List<PositionData> positions=positionSv.getPositions();
+        List<DepartmentData> departments=departmentSv.getDepartments();
         mv.addObject("getSpots",spots);
         mv.addObject("getPositions",positions);
+        mv.addObject("getDepartments",departments);
         return mv;
     }
 
