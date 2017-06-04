@@ -19,11 +19,23 @@ public class MemberSvImp implements MemberSv {
     public MemberData getMember(String memberId){
         return memberRepository.getMember(memberId);
     }
+    @Override
+    public List<MemberData> setMemberPage(MemberPageData memberPageData){
+        return memberRepository.setMemberPage(memberPageData.makeMap());
+    }
     //등록하기
     @Override
     public void addMember(MemberData memberData){
-        memberData.setRegistrationDate(new Date());
-        memberRepository.addMember(memberData);
+        try {
+            MemberSearchData msd = new MemberSearchData();
+            msd.setMemberId(memberData.getMemberId());
+            if (searchMember(msd).size() == 0) {
+                memberData.setRegistrationDate(new Date());
+                memberRepository.addMember(memberData);
+            }
+        }catch (Exception E){
+            System.out.println("중복된 아이디입니다");
+        }
     }
     //삭제하기
     @Override

@@ -4,14 +4,10 @@
 
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
 
-<link href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" rel="stylesheet">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-
 <script>
     $(document).ready(function() {
         $( "#Datepicker" ).datepicker({
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'yy/mm/dd',
             prevText: '이전 달',
             nextText: '다음 달',
             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
@@ -48,12 +44,13 @@
 
                         <div class="form-group">
                             <label>아이디</label>
-                            <input name="memberId" value="${getMember.memberId}" class="form-control">
-                            <p class="help-block">Example block-level help text here.</p>
+                            <input name="memberId" value="${getMember.memberId}" class="form-control" disabled>
+                            <p class="help-block">아이디 수정 불가/p>
                         </div>
                         <div class="form-group">
                             <label>pw</label>
-                            <input name="pw" value="${getMember.pw}" class="form-control">
+                            <input name="pw" class="form-control">
+                            <input name="co" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
@@ -65,7 +62,8 @@
                             <label>직위</label>
                             <select name="spotNo" class="form-control">
                                 <c:forEach items="${getSpots}" var="spot">
-                                    <option value="${spot.spotNo}">${spot.spotName}</option>
+                                    <option value="${spot.spotNo}"<c:if test="${spot.spotNo eq getMember.spotNo}">selected</c:if>>${spot.spotName}</option>
+
                                 </c:forEach>
                             </select>
                             <p class="help-block">Example block-level help text here.</p>
@@ -74,7 +72,7 @@
                             <label>직책</label>
                             <select name="positionNo" class="form-control">
                                 <c:forEach items="${getPositions}" var="position">
-                                    <option value="${position.positionNo}">${position.positionName}</option>
+                                    <option value="${position.positionNo}"<c:if test="${position.positionNo eq getMember.positionNo}">selected</c:if>>${position.positionName}</option>
                                 </c:forEach>
                             </select>
                             <p class="help-block">Example block-level help text here.</p>
@@ -83,7 +81,7 @@
                             <label>부서</label>
                             <select name="departmentNo" class="form-control">
                                 <c:forEach items="${getDepartments}" var="department">
-                                    <option value="${department.departmentNo}">${department.departmentName}</option>
+                                    <option value="${department.departmentNo}"<c:if test="${department.departmentNo eq getMember.departmentNo}">selected</c:if>>${department.departmentName}</option>
                                 </c:forEach>
                             </select>
                             <p class="help-block">Example block-level help text here.</p>
@@ -95,10 +93,9 @@
                         </div>
                         <div class="form-group">
                             <label>입사일</label>
-                            <%--<button type="button" class="btn btn-default btn-sm">--%>
-                            <%--<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>날짜선택--%>
-                            <%--</button>--%>
-                            <input name="entryDate" value="${getMember.entryDate}" id="Datepicker" class="form-control">
+                            <%--<fmt:parseDate value="${getMember.entryDate}" var="dateFmt" pattern="EEE MMM dd HH:mm:ss zzz yyyy"/>--%>
+                            <fmt:formatDate value="${getMember.entryDate}" var="dateFmt" pattern="yyyy/MM/dd"/>
+                            <input name="entryDate" value="${dateFmt}" id="Datepicker" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
@@ -114,10 +111,11 @@
                             <label>사용여부</label>
                             <div class="checkbox">
                                 <label class="radio-inline">
-                                    <input type="radio" name="used" value="true"> 사용
+                                    <%--체크되있는것 checked--%>
+                                    <input type="radio" name="used" value="true" <c:if test="${getMember.used eq true}">checked</c:if>> 사용
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="used" value="false"> 사용안함
+                                    <input type="radio" name="used" value="false"<c:if test="${getMember.used eq false}">checked</c:if>> 사용안함
                                 </label>
                             </div>
                         </div>

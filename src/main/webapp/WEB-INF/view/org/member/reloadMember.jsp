@@ -20,9 +20,9 @@
     <tr>
         <td><a href="/org/member/getMember.do?memberId=${member.memberId}">${member.memberId}</a></td>
         <td>${member.name}</td>
-        <td>${member.positionNo}</td>
-        <td>${member.spotNo}</td>
-        <td>${member.departmentNo}</td>
+        <td>${member.positionName}</td>
+        <td>${member.spotName}</td>
+        <td>${member.departmentName}</td>
         <td>${member.email}</td>
         <td>${member.used}</td>
         <td>${member.securityRating}등급</td>

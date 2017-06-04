@@ -11,14 +11,16 @@ public class MemberData {
     private String name;
     private int positionNo;
 
-    //private String positionName;
+    private String positionName;
 
 
     private int spotNo;
 
-    //private String spotName;
+    private String spotName;
 
     private int departmentNo;
+
+    private String departmentName;
 
     private String email;
     private Date entryDate;

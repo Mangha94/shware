@@ -1,6 +1,7 @@
 package kr.groupware.server.controller.org;
 
 import kr.groupware.model.member.MemberData;
+import kr.groupware.model.member.MemberPageData;
 import kr.groupware.model.member.MemberSearchData;
 import kr.groupware.model.member.MemberSv;
 import kr.groupware.model.rank.department.DepartmentData;
@@ -20,9 +21,6 @@ import java.lang.reflect.Member;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Lsh on 2017-05-29.
- */
 @Controller
 @RequestMapping(value = "/org/member")
 public class MemberCt {
@@ -36,7 +34,9 @@ public class MemberCt {
     DepartmentSv departmentSv;
 
     @RequestMapping(value = "/memberList.do",method = RequestMethod.GET)
-    public ModelAndView getMembers(){
+    public ModelAndView getMembers(
+    ){
+
         List<MemberData> memberList=memberSv.getMembers();
         ModelAndView mv=new ModelAndView("org/member/memberList");
         mv.addObject("memberList",memberList);
@@ -49,6 +49,70 @@ public class MemberCt {
         ModelAndView mv=new ModelAndView("org/member/reloadMember");
         mv.addObject("memberList",reloadMember);
         return mv;
+    }
+
+    @RequestMapping(value = "/memberList.do",method = RequestMethod.GET)
+    public ModelAndView setMemberPage(
+            @RequestParam(value = "page",required = false)int page,
+            @RequestParam(value = "countList",required = false)int countList
+    ){
+        //한페이지에 출력될 페이지수
+        int countPage = 5;
+
+        int totalCount = memberSv.getCount();
+
+        int totalPage = totalCount / countList;
+
+        if (totalCount % countList > 0) {
+            totalPage++;
+        }
+
+        if (totalPage < page) {
+            page = totalPage;
+        }
+
+        int startPage = ((page - 1) / 10) * 10 + 1;
+
+        int endPage = startPage + countPage - 1;
+
+        if (endPage > totalPage) {
+            endPage = totalPage;
+        }
+
+        if (startPage > 1) {
+            page=1;
+        }
+
+        if (page > 1) {
+            page=page - 1;
+        }
+
+        ModelAndView mv=new ModelAndView("org/member/reloadMember");
+        MemberPageData memberPageData=new MemberPageData();
+        memberPageData.setPage(page);
+        memberPageData.setCountList(countList);
+        List<MemberData> setMemberPage=memberSv.setMemberPage(memberPageData);
+        mv.addObject("setMemberList",setMemberPage);
+        mv.addObject("totalPage",totalPage);
+        mv.addObject("startPage",startPage);
+        mv.addObject("endPage",endPage);
+        return mv;
+    }
+
+    @RequestMapping(value = "/idCheckForm.do",method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView idCheckForm(
+            @RequestParam(value = "memberId",required = false)String memberId
+    ){
+        System.out.println(memberId);
+        MemberSearchData msd=new MemberSearchData();
+        msd.setMemberId(memberId);
+      if(memberSv.searchMember(msd).size()==0){
+          ModelAndView mv=new ModelAndView("/org/member/addMember");
+          mv.addObject("newMemberId",memberId);
+          return mv;
+      }
+      else
+          return new ModelAndView("redirect:/org/member/addMember.do");
     }
 
     @RequestMapping(value = "/getMember.do",method = RequestMethod.GET)
@@ -75,7 +139,7 @@ public class MemberCt {
         return "redirect:/org/member/memberList.do";
     }
 
-    @RequestMapping(value = "/modifyMember.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/modifyMember.do",method = {RequestMethod.GET, RequestMethod.POST})
     public String modifyMember(
             @RequestParam(value = "memberId",required = false)String memberId,
             @RequestParam(value = "pw",required = false)String pw,
@@ -126,6 +190,7 @@ public class MemberCt {
             msd.setEmail(searchVal);
         }
         List<MemberData> searchList=memberSv.searchMember(msd);
+        System.out.println(searchList);
         ModelAndView mv=new ModelAndView("/org/member/memberList");
         mv.addObject("memberList",searchList);
         return mv;

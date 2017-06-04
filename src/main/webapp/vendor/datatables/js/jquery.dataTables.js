@@ -672,7 +672,7 @@
 		 * Change the pagination - provides the internal logic for pagination in a simple API
 		 * function. With this function you can have a DataTables table go to the next,
 		 * previous, first or last pages.
-		 *  @param {string|int} mAction Paging action to take: "first", "previous", "next" or "last"
+		 *  @param {string|int} mAction paging action to take: "first", "previous", "next" or "last"
 		 *    or page number to jump to (integer), note that page 0 is the first page.
 		 *  @param {bool} [bRedraw=true] Redraw the table or not
 		 *  @dtopt API
@@ -4895,7 +4895,7 @@
 	/**
 	 * Alter the display settings to change the page
 	 *  @param {object} settings DataTables settings object
-	 *  @param {string|int} action Paging action to take: "first", "previous",
+	 *  @param {string|int} action paging action to take: "first", "previous",
 	 *    "next" or "last" or page number to jump to (integer)
 	 *  @param [bool] redraw Automatically draw the update or not
 	 *  @returns {bool} true page has changed, false - no change
@@ -7429,7 +7429,7 @@
 	
 	
 	/**
-	 * Paging information for the first table in the current context.
+	 * paging information for the first table in the current context.
 	 *
 	 * If you require paging information for another table, use the `table()` method
 	 * with a suitable selector.
@@ -13566,14 +13566,14 @@
 		"iDrawError": -1,
 	
 		/**
-		 * Paging display length
+		 * paging display length
 		 *  @type int
 		 *  @default 10
 		 */
 		"_iDisplayLength": 10,
 	
 		/**
-		 * Paging start point - aiDisplay index
+		 * paging start point - aiDisplay index
 		 *  @type int
 		 *  @default 0
 		 */
@@ -14326,7 +14326,7 @@
 		"sTable": "dataTable",
 		"sNoFooter": "no-footer",
 	
-		/* Paging buttons */
+		/* paging buttons */
 		"sPageButton": "paginate_button",
 		"sPageButtonActive": "current",
 		"sPageButtonDisabled": "disabled",

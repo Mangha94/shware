@@ -48,18 +48,18 @@
                     </form>
                     <nav>
                         <ul class="pagination pagination-sm">
+                            <input type="hidden" name="page" id="page" value="1">
+                            <input type="hidden" name="countList" id="countList" value="10">
                             <li>
-                                <a href="#" aria-label="Previous">
+                                <a href="javascript:getPreciousPage()" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
+                            <c:forEach begin="${startPage}" end="${endPage}" items="idx">
+                            <li><a href="javascript:getList('${idx}')">${idx}</a></li>
+                            </c:forEach>
                             <li>
-                                <a href="#" aria-label="Next">
+                                <a href="javascript:getNextPage()" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

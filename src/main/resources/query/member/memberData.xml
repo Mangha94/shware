@@ -40,13 +40,23 @@
 
     <select id="getMembers" resultMap="MemberRs">
 
-        SELECT <include refid="fldMember"/> FROM memberData
+        SELECT <include refid="fldMember"/>,
+        (select spotName from spotdata WHERE spotNo=memberData.spotNo) AS spotName,
+        (select positionName from positiondata where positionNo=memberData.positionNo) as positionName,
+        (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
+        FROM memberData
 
     </select>
 
     <select id="getMember" resultMap="MemberRs">
 
         SELECT <include refid="fldMember"/> FROM memberData WHERE memberId=#{memberId}
+
+    </select>
+
+    <select id="setMemberPage" parameterType="Map" resultMap="MemberRs">
+
+        SELECT <include refid="fldMember"/> FROM memberData LIMIT page=#{page},countList=#{countList}
 
     </select>
 
@@ -76,7 +86,11 @@
 
     <select id="searchMember" parameterType="map" resultType="MemberData">
 
-        SELECT <include refid="fldMember" /> FROM memberData
+        SELECT <include refid="fldMember" />,
+        (select spotName from spotdata WHERE spotNo=memberData.spotNo) AS spotName,
+        (select positionName from positiondata where positionNo=memberData.positionNo) as positionName,
+        (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
+        FROM memberData
 
         <where>
 
@@ -89,7 +103,7 @@
             </if>
 
             <if test = "email != null">
-                AND email = #{email}
+                AND email LIKE '%${email}%'
             </if>
 
         </where>
