@@ -1,5 +1,6 @@
 package kr.groupware.model.member;
 
+import kr.groupware.model.SetPagingData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,20 @@ public class MemberSvImp implements MemberSv {
     public MemberData getMember(String memberId){
         return memberRepository.getMember(memberId);
     }
+
     @Override
-    public List<MemberData> setMemberPage(MemberPageData memberPageData){
-        return memberRepository.setMemberPage(memberPageData.makeMap());
+    public boolean existMemberId(String memberId) {
+        return memberRepository.getCountMemberId(memberId);
+    }
+
+    @Override
+    public List<MemberData> setMemberPage(int pageNo,int pageSize){
+        Integer firstNo=(pageSize *pageNo)- pageSize;
+        Integer lastNo=(pageSize *pageNo);
+        SetPagingData setPagingData=new SetPagingData();
+        setPagingData.setFirstNo(firstNo);
+        setPagingData.setLastNo(lastNo);
+        return memberRepository.setMemberPage(setPagingData.makeMap());
     }
     //등록하기
     @Override

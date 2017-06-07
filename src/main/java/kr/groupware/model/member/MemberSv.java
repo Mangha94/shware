@@ -8,8 +8,9 @@ public interface MemberSv {
     List<MemberData> getMembers();
     //하나 가져오기
     MemberData getMember(String memberId);
+    boolean existMemberId(String memberId);
     //페이지 셋팅
-    List<MemberData> setMemberPage(MemberPageData memberPageData);
+    List<MemberData> setMemberPage(int pageNo,int pageSize);
     //등록하기
     void addMember(MemberData memberData);
     //삭제하기

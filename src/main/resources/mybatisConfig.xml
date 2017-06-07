@@ -14,6 +14,7 @@
 		 <typeAlias alias="SpotData" type="kr.groupware.model.rank.spot.SpotData"/>
 		 <typeAlias alias="DepartmentData" type="kr.groupware.model.rank.department.DepartmentData"/>
 		 <typeAlias alias="MemberData" type="kr.groupware.model.member.MemberData"/>
+		 <typeAlias alias="SetPagingData" type="kr.groupware.model.SetPagingData"/>
 	 </typeAliases>
 	 
 	 <mappers>

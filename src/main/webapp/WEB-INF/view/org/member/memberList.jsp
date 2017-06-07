@@ -10,6 +10,21 @@
         $("#memberForm").load("/org/member/reloadMember.do");
     }
 
+    function goPage(pageNo,pageSize) {
+
+        $.ajax({
+            type: "GET",
+            url: "/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize"+pageSize,
+            dataType: "html",
+            success: function (data, textStatus){
+
+                reloadMember();
+            }
+
+        });
+    }
+
+
 </script>
 <div id="page-wrapper">
     <div class="row">
@@ -22,6 +37,16 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                10개씩보기 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="javascript:goPage('${pageNo}','')">20개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${pageNo}','')">50개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${pageNo}','')">100개씩 보기</a></li>
+                            </ul>
+                        </div>
                         <table id="memberForm" class="table">
                             <jsp:include page="reloadMember.jsp"></jsp:include>
                         </table>
@@ -41,30 +66,48 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="searchVal" class="form-control" value="" placeholder="Search for...">
+                            <input type="text" name="searchVal" class="form-control" value=""
+                                   placeholder="Search for...">
                         </div>
-                            <input type="submit" class="btn btn-default" value="찾기">
-                            <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
+                        <input type="submit" class="btn btn-default" value="찾기">
+                        <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
                     </form>
-                    <nav>
-                        <ul class="pagination pagination-sm">
-                            <input type="hidden" name="page" id="page" value="1">
-                            <input type="hidden" name="countList" id="countList" value="10">
-                            <li>
-                                <a href="javascript:getPreciousPage()" aria-label="Previous">
+                    ${startPageNo} ${endPageNo}
+
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="javascript:goPage('${prevPageNo}')" class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <c:forEach begin="${startPage}" end="${endPage}" items="idx">
-                            <li><a href="javascript:getList('${idx}')">${idx}</a></li>
+
+                            <c:forEach begin="${startPageNo}" end="${endPageNo}" var="pageNo">
+                                <c:choose>
+                                    <c:when test="${pageNo eq currentPageNo}">
+                                        <li class="page-item active">
+                                              <span class="page-link">
+                                                      ${pageNo}
+                                                <span class="sr-only">(current)</span>
+                                              </span>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a href="javascript:goPage('${pageNo}')" class="page-link">${pageNo}</a></li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
-                            <li>
-                                <a href="javascript:getNextPage()" aria-label="Next">
+                            <li class="page-item">
+                                <a href="javascript:goPage('${nextPageNo}')" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
+
                 </div><!-- /.col-lg-6 -->
             </div><!-- /row-->
             <!-- /.panel -->

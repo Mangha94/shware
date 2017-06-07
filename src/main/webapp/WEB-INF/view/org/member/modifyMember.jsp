@@ -40,22 +40,22 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form action="/org/member/modifyMember.do">
+                    <form method="post" action="/org/member/modifyMember.do">
 
                         <div class="form-group">
                             <label>아이디</label>
-                            <input name="memberId" value="${getMember.memberId}" class="form-control" disabled>
-                            <p class="help-block">아이디 수정 불가/p>
+                            <input type="hidden" name="memberId" value="${getMember.memberId}">
+                            <input value="${getMember.memberId}" class="form-control" disabled>
+                            <p class="help-block">아이디 수정 불가</p>
                         </div>
                         <div class="form-group">
                             <label>pw</label>
-                            <input name="pw" class="form-control">
-                            <input name="co" class="form-control">
+                            <input type="text" name="pw" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
                             <label>이름</label>
-                            <input name="name" value="${getMember.name}" class="form-control">
+                            <input type="text" name="name" value="${getMember.name}" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <div class="form-group">
@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label>이메일</label>
-                            <input name="email" value="${getMember.email}" class="form-control">
+                            <input type="text" name="email" value="${getMember.email}" class="form-control">
                             <p class="help-block">id@email.com</p>
                         </div>
                         <div class="form-group">
@@ -121,7 +121,7 @@
                         </div>
                         <div class="form-group">
                             <label>사번</label>
-                            <input name="businessNo" value="${getMember.businessNo}" class="form-control">
+                            <input type="text" name="businessNo" value="${getMember.businessNo}" class="form-control">
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                         <input type="submit" class="btn btn-primary" value="수정하기">

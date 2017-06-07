@@ -1,54 +1,64 @@
 package kr.groupware.model;
 
-/**
- * Created by Lsh on 2017-06-01.
- */
+import lombok.Data;
+
+@Data
 public class Paging {
-    public void paing(){
-        int page = 22;
-        int countList = 10;
-        int countPage = 10;
+        private int pageSize; // 게시 글 수
+        private int firstPageNo; // 첫 번째 페이지 번호
+        private int prevPageNo; // 이전 페이지 번호
+        private int startPageNo; // 시작 페이지 (페이징 네비 기준)
+        private int pageNo; // 페이지 번호
+        private int endPageNo; // 끝 페이지 (페이징 네비 기준)
+        private int nextPageNo; // 다음 페이지 번호
+        private int finalPageNo; // 마지막 페이지 번호
+        private int totalCount; // 게시 글 전체 수
 
-        int totalCount = 255;
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+        this.makePaging();
+    }
 
-        int totalPage = totalCount / countList;
+    /**
+     * 페이징 생성
+     */
+    private void makePaging() {
+        if (this.totalCount == 0) return; // 게시 글 전체 수가 없는 경우
+        if (this.pageNo == 0) this.setPageNo(1); // 기본 값 설정
+        if (this.pageSize == 0) this.setPageSize(10); // 기본 값 설정
 
-        if (totalCount % countList > 0) {
-            totalPage++;
+        int finalPage = (totalCount + (pageSize - 1)) / pageSize; // 마지막 페이지
+        if (this.pageNo > finalPage) this.setPageNo(finalPage); // 기본 값 설정
+
+        if (this.pageNo < 0 || this.pageNo > finalPage) this.pageNo = 1; // 현재 페이지 유효성 체크
+
+        boolean isNowFirst = pageNo == 1; // 시작 페이지 (전체)
+        boolean isNowFinal = pageNo == finalPage; // 마지막 페이지 (전체)
+
+        int startPage = ((pageNo - 1) / 10) * 10 + 1; // 시작 페이지 (페이징 네비 기준)
+        int endPage = startPage + 10 - 1; // 끝 페이지 (페이징 네비 기준)
+
+        if (endPage > finalPage) { // [마지막 페이지 (페이징 네비 기준) > 마지막 페이지] 보다 큰 경우
+            endPage = finalPage;
         }
 
-        if (totalPage < page) {
-            page = totalPage;
+        this.setFirstPageNo(1); // 첫 번째 페이지 번호
+
+        if (isNowFirst) {
+            this.setPrevPageNo(1); // 이전 페이지 번호
+        } else {
+            this.setPrevPageNo(((pageNo - 1) < 1 ? 1 : (pageNo - 1))); // 이전 페이지 번호
         }
 
-        int startPage = ((page - 1) / 10) * 10 + 1;
+        this.setStartPageNo(startPage); // 시작 페이지 (페이징 네비 기준)
+        this.setEndPageNo(endPage); // 끝 페이지 (페이징 네비 기준)
 
-        int endPage = startPage + countPage - 1;
-
-        if (endPage > totalPage) {
-            endPage = totalPage;
-        }
-
-        if (startPage > 1) {
-            System.out.print("<a href=\"?page=1\">처음</a>");
+        if (isNowFinal) {
+            this.setNextPageNo(finalPage); // 다음 페이지 번호
+        } else {
+            this.setNextPageNo(((pageNo + 1) > finalPage ? finalPage : (pageNo + 1))); // 다음 페이지 번호
         }
 
-        if (page > 1) {
-            System.out.println("<a href=\"?page=" + (page - 1)  + "\">이전</a>");
-        }
-
-        for (int iCount = startPage; iCount <= endPage; iCount++) {
-            if (iCount == page) {
-                System.out.print(" <b>" + iCount + "</b>");
-            } else {
-                System.out.print(" " + iCount + " ");
-            }
-        }
-        if (page < totalPage) {
-            System.out.println("<a href=\"?page=" + (page + 1)  + "\">다음</a>");
-        }
-        if (endPage < totalPage) {
-            System.out.print("<a href=\"?page=" + totalPage + "\">끝</a>");
-        }
+        this.setFinalPageNo(finalPage); // 마지막 페이지 번호
     }
 }

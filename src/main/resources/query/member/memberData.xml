@@ -46,6 +46,8 @@
         (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
         FROM memberData
 
+        limit 0,10
+
     </select>
 
     <select id="getMember" resultMap="MemberRs">
@@ -54,9 +56,15 @@
 
     </select>
 
-    <select id="setMemberPage" parameterType="Map" resultMap="MemberRs">
+    <select id="setMemberPage" parameterType="map" resultMap="MemberRs">
 
-        SELECT <include refid="fldMember"/> FROM memberData LIMIT page=#{page},countList=#{countList}
+        SELECT <include refid="fldMember"/>,
+        (select spotName from spotdata WHERE spotNo=memberData.spotNo) AS spotName,
+        (select positionName from positiondata where positionNo=memberData.positionNo) as positionName,
+        (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
+        FROM memberData
+
+        limit firstNo=#{firstNo},lastNo=#{lastNo}
 
     </select>
 
@@ -81,6 +89,12 @@
     <select id="getCount" resultType="int">
 
         SELECT COUNT(memberId) FROM memberData
+
+    </select>
+
+    <select id="getCountMemberId" parameterType="String" resultType="int">
+
+        SELECT COUNT(memberId) FROM memberData WHERE memberId=#{memberId}
 
     </select>
 

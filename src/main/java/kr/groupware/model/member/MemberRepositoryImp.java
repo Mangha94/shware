@@ -19,8 +19,13 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     }
 
     @Override
-    public List<MemberData> setMemberPage(Map<Integer,Integer> pageMap){
-        return getSqlSession().selectList("memberData.setMemberPage",pageMap);
+    public boolean getCountMemberId(String memberId){
+        return getSqlSession().selectOne("memberData.getCountMemberId",memberId);
+    }
+
+    @Override
+    public List<MemberData> setMemberPage(Map<Integer,Integer>setMemberPageData){
+        return getSqlSession().selectList("memberData.setMemberPage",setMemberPageData);
     }
     @Override
     public void addMember(MemberData memberData){

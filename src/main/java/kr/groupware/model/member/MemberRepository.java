@@ -8,8 +8,10 @@ public interface MemberRepository {
     List<MemberData> getMembers();
     //하나 가져오기
     MemberData getMember(String memberId);
+    //중복체크
+    boolean getCountMemberId(String memberId);
     //페이지 셋팅
-    List<MemberData> setMemberPage(Map<Integer,Integer> pageMap);
+    List<MemberData> setMemberPage(Map<Integer,Integer>setMemberPageData);
     //등록하기
     void addMember(MemberData memberData);
     //삭제하기

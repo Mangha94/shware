@@ -107,21 +107,24 @@
     function idChk() {
         var newMemberId=document.userInfo.memberId.value;
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/org/member/idCheckForm.do?memberId="+newMemberId,
-            dataType: "html",
+            dataType: "json",
             data: newMemberId,
-            success: function (data, textStatus) {
-                if('${newMemberId}' != ""){
+            success: function (data, textStatus){
+
+                if(data.success){
                     alert("등록가능한 아이디 입니다");
                     document.userInfo.idDuplication.value ="idCheck";
-                    document.userInfo.memberId.value = newMemberId;
                 }
-               else
-                   alert("이미 존재하는 아이디 입니다");
+                else
+                    alert("이미 존재하는 아이디 입니다");
             }
 
         });
+    }
+    function returnMemberList() {
+        location.href="/org/member/memberList.do";
     }
 
 
