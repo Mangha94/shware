@@ -38,9 +38,10 @@
                     <div class="table-responsive">
                         <div class="btn-group">
                             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                10개씩보기 <span class="caret"></span>
+                                limit pageSize <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="javascript:goPage('${1}','${10}')">10개씩 보기</a></li>
                                 <li><a href="javascript:goPage('${1}','${20}')">20개씩 보기</a></li>
                                 <li><a href="javascript:goPage('${1}','${50}')">50개씩 보기</a></li>
                                 <li><a href="javascript:goPage('${1}','${100}')">100개씩 보기</a></li>
