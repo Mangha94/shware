@@ -13,25 +13,8 @@ public class SetPagingData {
     public Map<Integer, Integer> makeMap ()
     {
         Map<Integer, Integer> mapData = new HashMap<>();
-
-        if (firstNo != null) {
-            firstNo = lastNo * firstNo - lastNo;
-            mapData.put(firstNo, firstNo);
-        }
-        else {
-            firstNo = 1;
-            mapData.put(firstNo, firstNo);
-        }
-
-        if (lastNo != null) {
-            lastNo = firstNo * lastNo;
-            mapData.put(lastNo, lastNo);
-        }
-        else {
-            lastNo=10;
-            mapData.put(firstNo, firstNo);
-        }
-
+            mapData.put (firstNo, firstNo);
+            mapData.put (lastNo, lastNo);
         return mapData;
     }
 }

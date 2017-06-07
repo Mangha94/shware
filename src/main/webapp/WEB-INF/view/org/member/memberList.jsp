@@ -14,11 +14,10 @@
 
         $.ajax({
             type: "GET",
-            url: "/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize"+pageSize,
+            url: "/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize,
             dataType: "html",
             success: function (data, textStatus){
 
-                reloadMember();
             }
 
         });
@@ -42,9 +41,9 @@
                                 10개씩보기 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:goPage('${pageNo}','')">20개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${pageNo}','')">50개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${pageNo}','')">100개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${1}','${20}')">20개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${1}','${50}')">50개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${1}','${100}')">100개씩 보기</a></li>
                             </ul>
                         </div>
                         <table id="memberForm" class="table">
