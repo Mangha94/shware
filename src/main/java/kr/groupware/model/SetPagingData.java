@@ -10,11 +10,11 @@ public class SetPagingData {
     private Integer firstNo;
     private Integer lastNo;
 
-    public Map<Integer, Integer> makeMap ()
+    public Map<String, Integer> makeMap ()
     {
-        Map<Integer, Integer> mapData = new HashMap<>();
-            mapData.put (firstNo, firstNo);
-            mapData.put (lastNo, lastNo);
+        Map<String, Integer> mapData = new HashMap<>();
+            mapData.put ("firstNo", firstNo);
+            mapData.put ("lastNo", lastNo);
         return mapData;
     }
 }

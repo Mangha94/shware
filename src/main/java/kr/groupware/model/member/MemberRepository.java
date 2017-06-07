@@ -11,7 +11,7 @@ public interface MemberRepository {
     //중복체크
     boolean getCountMemberId(String memberId);
     //페이지 셋팅
-    List<MemberData> setMemberPage(Map<Integer,Integer>setMemberPageData);
+    List<MemberData> setMemberPage(Map<String,Integer>setMemberPageData);
     //등록하기
     void addMember(MemberData memberData);
     //삭제하기

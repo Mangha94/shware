@@ -55,6 +55,7 @@ public class MemberCt {
         mv.addObject("endPageNo", paging.getEndPageNo());
         mv.addObject("nextPageNo", paging.getNextPageNo());
         mv.addObject("finalPageNo", paging.getFinalPageNo());
+        mv.addObject("pageNo",pageNo);
         return mv;
     }
 
@@ -67,6 +68,7 @@ public class MemberCt {
 
         List<MemberData> reloadMember = memberSv.setMemberPage(pageNo, pageSize);
 
+        mv.addObject("pageNo",pageNo);
         mv.addObject("memberList", reloadMember);
         return mv;
     }
@@ -131,7 +133,6 @@ public class MemberCt {
         memberData.setUsed(used);
         memberData.setSecurityRating(securityRating);
         memberData.setBusinessNo(businessNo);
-        System.out.println(memberData);
         memberSv.modifyMember(memberData);
         return "redirect:/org/member/memberList.do";
     }
@@ -158,7 +159,6 @@ public class MemberCt {
             msd.setEmail(searchVal);
         }
         List<MemberData> searchList = memberSv.searchMember(msd);
-        System.out.println(searchList);
         ModelAndView mv = new ModelAndView("/org/member/memberList");
         mv.addObject("memberList", searchList);
         return mv;

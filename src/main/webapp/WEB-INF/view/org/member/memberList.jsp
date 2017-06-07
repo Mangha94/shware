@@ -6,18 +6,25 @@
 
 <script>
 
-    function reloadMember() {
-        $("#memberForm").load("/org/member/reloadMember.do");
+    function reloadMember(pageNo,pageSize) {
+        $("#memberForm").load("/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize);
     }
 
     function goPage(pageNo,pageSize) {
+        if(pageNo==null){
+            pageNo=1;
+        }
+        if(pageSize==null) {
+            pageSize = 10;
+        }
 
         $.ajax({
             type: "GET",
             url: "/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize,
             dataType: "html",
             success: function (data, textStatus){
-
+                console.log(data);
+                reloadMember(pageNo,pageSize);
             }
 
         });
@@ -72,8 +79,6 @@
                         <input type="submit" class="btn btn-default" value="찾기">
                         <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
                     </form>
-                    ${startPageNo} ${endPageNo}
-
 
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -95,7 +100,9 @@
                                         </li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a href="javascript:goPage('${pageNo}')" class="page-link">${pageNo}</a></li>
+                                        <li class="page-item">
+                                            <a href="javascript:goPage('${pageNo}')" class="page-link">${pageNo}</a>
+                                        </li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>

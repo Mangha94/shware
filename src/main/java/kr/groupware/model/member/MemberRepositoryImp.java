@@ -24,7 +24,7 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     }
 
     @Override
-    public List<MemberData> setMemberPage(Map<Integer,Integer>setMemberPageData){
+    public List<MemberData> setMemberPage(Map<String,Integer>setMemberPageData){
         return getSqlSession().selectList("memberData.setMemberPage",setMemberPageData);
     }
     @Override

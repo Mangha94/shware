@@ -64,7 +64,7 @@
         (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
         FROM memberData
 
-        limit firstNo=#{firstNo},lastNo=#{lastNo}
+        limit ${firstNo},${lastNo}
 
     </select>
 
