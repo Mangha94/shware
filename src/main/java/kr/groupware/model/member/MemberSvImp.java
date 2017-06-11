@@ -8,7 +8,6 @@ import java.util.List;
 
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
-import kr.groupware.model.SetPagingData;
 
 @Service
 public class MemberSvImp implements MemberSv {
@@ -34,15 +33,6 @@ public class MemberSvImp implements MemberSv {
         return memberRepository.getCountMemberId(memberId) > 0;
     }
 
-    @Override
-    public List<MemberData> setMemberPage(int pageNo,int pageSize){
-        Integer firstNo=(pageSize *pageNo)- pageSize;
-        Integer lastNo=(pageSize *pageNo);
-        SetPagingData setPagingData=new SetPagingData();
-        setPagingData.setFirstNo(firstNo);
-        setPagingData.setLastNo(lastNo);
-        return memberRepository.setMemberPage(setPagingData.makeMap());
-    }
     //등록하기
     @Override
     public void addMember(MemberData memberData) throws Exception
@@ -78,9 +68,8 @@ public class MemberSvImp implements MemberSv {
 	{
 		paging.setSearchData (searchData.makeMap ());
 
-		int totalArticles = memberRepository.searchMemberCnt (paging.makeCntMap ());
-
-		paging.setTotalArticles (totalArticles);
+		// 검색된 데이터의 총 데이터수
+		paging.setTotalArticles (memberRepository.searchMemberCnt (paging.makeCntMap ()));
 
         return new PagingList<> (memberRepository.searchMember (paging.makeMap ()), paging);
     }

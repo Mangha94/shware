@@ -69,20 +69,6 @@ public class MemberCt {
 		return mv;
 	}
 
-    @RequestMapping(value = "/reloadMember.do", method = RequestMethod.GET)
-    public ModelAndView reloadMember(
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
-    ) {
-        ModelAndView mv = new ModelAndView("org/member/memberList");
-
-        List<MemberData> reloadMember = memberSv.setMemberPage(pageNo, pageSize);
-
-        mv.addObject("pageNo",pageNo);
-        mv.addObject("memberList", reloadMember);
-        return mv;
-    }
-
     @RequestMapping(value = "/idCheckForm.do", method = {RequestMethod.GET})
     public ModelAndView idCheckForm(
             @RequestParam(value = "memberId", required = false) String memberId

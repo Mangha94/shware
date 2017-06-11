@@ -13,8 +13,7 @@ public interface MemberSv {
     MemberData getMember(String memberId);
 
     boolean existMemberId(String memberId);
-    //페이지 셋팅
-    List<MemberData> setMemberPage(int pageNo,int pageSize);
+
     //등록하기
     void addMember(MemberData memberData) throws Exception;
     //삭제하기

@@ -141,9 +141,6 @@ public class Paging
 	 */
 	public Map<String, Object> makeCntMap ()
 	{
-		if (searchData != null)
-			return searchData;
-		else
-			return new HashMap<> ();
+		return (searchData != null) ? searchData : new HashMap<> ();
 	}
 }
