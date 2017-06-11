@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sh" uri="/WEB-INF/tlds/shUtil.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
@@ -91,6 +92,8 @@
                         <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
                     </form>
 
+	                <sh:paging currentPage="${paging.currentPage}" totalArticles="${paging.totalArticles}" showPages="${paging.showPages}" articlesPerPage="${paging.articlesPerPage}" />
+
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
@@ -134,5 +137,6 @@
         <!-- /.col-lg-6 -->
     </div>
 </div>
+
 
 <jsp:include page="/WEB-INF/view/bottom.jsp"></jsp:include>
