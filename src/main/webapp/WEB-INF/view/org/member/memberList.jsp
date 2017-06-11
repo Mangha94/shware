@@ -7,27 +7,11 @@
 
 <script>
 
-    function reloadMember(pageNo,pageSize) {
-        $("#memberForm").load("/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize);
-    }
+    function onPage(pageNo)
+    {
+        location.href="/org/member/memberList.do?pageNo=" + pageNo;
 
-    function goPage(pageNo,pageSize,searchForm,searchVal) {
-        if(pageNo==null){
-            pageNo=1;
-        }
-        if(pageSize==null) {
-            pageSize = 10;
-        }
-
-	    if(searchForm==null) {
-		    searchForm = "";
-	    }
-
-	    if(searchVal==null) {
-		    searchVal = "";
-	    }
-
-        location.href="/org/member/memberList.do?pageNo=" + pageNo + "&pageSize=" + pageSize+"&searchForm="+searchForm+"&searchVal="+searchVal;
+        // + "&searchForm="+searchForm+"&searchVal="+searchVal;
 
 //        $.ajax({
 //            type: "GET",
@@ -59,9 +43,9 @@
                                 limit pageSize <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:goPage('${1}','${20}','${searchForm}','${searchVal}')">20개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${1}','${50}','${searchForm}','${searchVal}')">50개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${1}','${100}','${searchForm}','${searchVal}')">100개씩 보기</a></li>
+                                <li><a href="javascript:onPage('${1}','${20}','${searchForm}','${searchVal}')">20개씩 보기</a></li>
+                                <li><a href="javascript:onPage('${1}','${50}','${searchForm}','${searchVal}')">50개씩 보기</a></li>
+                                <li><a href="javascript:onPage('${1}','${100}','${searchForm}','${searchVal}')">100개씩 보기</a></li>
                             </ul>
                         </div>
                         <table id="memberForm" class="table">
@@ -97,7 +81,7 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
-                                <a href="javascript:goPage('${paging.prevBlock}','${paging.articlesPerPage}','${searchForm}','${searchVal}')" class="page-link" aria-label="Previous">
+                                <a href="javascript:onPage('${paging.prevBlock}')" class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -115,14 +99,14 @@
 			                        </c:when>
 			                        <c:otherwise>
 				                        <li class="page-item">
-					                        <a href="javascript:goPage('${pageNo}','${paging.articlesPerPage}','${searchForm}','${searchVal}')" class="page-link">${pageNo}</a>
+					                        <a href="javascript:onPage('${pageNo}')" class="page-link">${pageNo}</a>
 				                        </li>
 			                        </c:otherwise>
 		                        </c:choose>
 	                        </c:forEach>
 
                             <li class="page-item">
-                                <a href="javascript:goPage('${paging.nextPage}','${paging.articlesPerPage}','${searchForm}','${searchVal}')" class="page-link" aria-label="Next">
+                                <a href="javascript:onPage('${paging.nextPage}')" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
