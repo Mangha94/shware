@@ -1,10 +1,9 @@
 package kr.groupware.model.member;
 
 
-import kr.groupware.model.Paging;
-import kr.groupware.model.SetPagingData;
-
 import java.util.List;
+
+import kr.groupware.model.SetPagingData;
 
 public interface MemberSv {
     //리스트 가져오기
@@ -16,7 +15,7 @@ public interface MemberSv {
     //페이지 셋팅
     List<MemberData> setMemberPage(int pageNo,int pageSize);
     //등록하기
-    boolean addMember(MemberData memberData) throws Exception;
+    void addMember(MemberData memberData) throws Exception;
     //삭제하기
     void deleteMember(String memberId);
     //수정하기

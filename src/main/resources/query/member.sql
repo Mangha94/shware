@@ -8,7 +8,7 @@ CREATE TABLE memberData(
   email VARCHAR (50) DEFAULT NULL,
   entryDate DATETIME DEFAULT NULL,
   modifyDate DATETIME DEFAULT NULL,
-  regustrationDate DATETIME DEFAULT NULL,
+  registrationDate DATETIME DEFAULT NULL,
   lastAccessTime DATETIME DEFAULT NULL,
   used tinyint(1) DEFAULT NULL,
   securityRating INT(11) DEFAULT NULL,

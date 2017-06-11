@@ -1,5 +1,15 @@
 package kr.groupware.server.controller.org;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
+import java.util.List;
+
 import kr.groupware.model.Paging;
 import kr.groupware.model.SetPagingData;
 import kr.groupware.model.member.MemberData;
@@ -11,15 +21,6 @@ import kr.groupware.model.rank.position.PositionData;
 import kr.groupware.model.rank.position.PositionSv;
 import kr.groupware.model.rank.spot.SpotData;
 import kr.groupware.model.rank.spot.SpotSv;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/org/member")
@@ -59,6 +60,7 @@ public class MemberCt {
         mv.addObject("endPageNo", paging.getEndPageNo());
         mv.addObject("nextPageNo", paging.getNextPageNo());
         mv.addObject("finalPageNo", paging.getFinalPageNo());
+
         mv.addObject("pageNo",pageNo);
         mv.addObject("currentPageSize",pageSize);
         mv.addObject("memberList", setMemberList);
@@ -109,14 +111,23 @@ public class MemberCt {
     @RequestMapping(value = "/addMember.do", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView addMember(
             MemberData memberData
-    )throws Exception {
-        ModelAndView mv=new ModelAndView("pageJsonReport");
-        try {
+    )
+	{
+        ModelAndView mv = new ModelAndView("pageJsonReport");
+
+        try
+		{
             memberSv.addMember(memberData);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+			mv.addObject("success", true);
         }
-        mv.addObject("success", memberSv.addMember(memberData));
+        catch (Exception e)
+		{
+            e.printStackTrace();
+
+			mv.addObject("success", false);
+        }
+
         return mv;
     }
 

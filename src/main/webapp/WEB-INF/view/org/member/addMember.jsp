@@ -90,16 +90,17 @@
                 data: $(myForm).serialize(),
                 success: function (data, textStatus) {
                     alert("등록되었습니다");
+
+	                location.href="/org/member/memberList.do";
                 }
 
             });
         }
 
 //sumit을 안시킨다
-        if (event.preventDefault)
-            event.preventDefault();
-        else
-            event.returnValue = false;
+
+        event.preventDefault();
+        event.returnValue = false;
 
         return false;
     }

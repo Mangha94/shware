@@ -1,7 +1,5 @@
 package kr.groupware.model.member;
 
-import kr.groupware.model.Paging;
-import kr.groupware.model.SetPagingData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import kr.groupware.model.SetPagingData;
 
 @Service
 public class MemberSvImp implements MemberSv {
@@ -45,16 +45,15 @@ public class MemberSvImp implements MemberSv {
     }
     //등록하기
     @Override
-    public boolean addMember(MemberData memberData) throws Exception {
-
-            if (!existMemberId(memberData.getMemberId()))
-            {
-                memberData.setRegistrationDate(new Date());
-                memberRepository.addMember(memberData);
-                return true;
-            }
-            else
-                throw new Exception("중복된 아이디입니다");
+    public void addMember(MemberData memberData) throws Exception
+    {
+		if (!existMemberId(memberData.getMemberId()))
+		{
+			memberData.setRegistrationDate(new Date());
+			memberRepository.addMember(memberData);
+		}
+		else
+			throw new Exception("중복된 아이디입니다");
 
     }
     //삭제하기
