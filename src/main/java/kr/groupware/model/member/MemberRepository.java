@@ -20,8 +20,10 @@ public interface MemberRepository {
     void modifyMember(MemberData memberData);
     //전체 갯수 구하기
     int getCount();
+
     //멤버찾기
     List<MemberData> searchMember(Map<String,Object> searchMap);
+
     //검색 된 회원 갯수 구하기
-    int getSearchMemberResultCount(Map<String,String> searchMap);
+    int searchMemberCnt (Map<String,Object> searchMap);
 }

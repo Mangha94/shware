@@ -53,7 +53,7 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     }
 
     @Override
-    public int getSearchMemberResultCount(Map<String,String> searchMap){
-        return getSqlSession().selectOne("memberData.getSearchMemberResultCount",searchMap);
+    public int searchMemberCnt(Map<String,Object> searchMap){
+        return getSqlSession().selectOne("memberData.searchMemberCnt",searchMap);
     }
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import kr.groupware.model.Paging;
-import kr.groupware.model.SetPagingData;
+import kr.groupware.model.PagingList;
 import kr.groupware.model.member.MemberData;
 import kr.groupware.model.member.MemberSearchData;
 import kr.groupware.model.member.MemberSv;
@@ -47,35 +47,24 @@ public class MemberCt {
 	) {
 		ModelAndView mv = new ModelAndView("/org/member/memberList");
 
-		MemberSearchData msd = new MemberSearchData();
+		MemberSearchData searchData = new MemberSearchData();
 		if (searchFrom.equals("memberId")) {
-			msd.setMemberId(searchVal);
+			searchData.setMemberId(searchVal);
 		} else if (searchFrom.equals("name")) {
-			msd.setName(searchVal);
+			searchData.setName(searchVal);
 		} else if (searchFrom.equals("email")) {
-			msd.setEmail(searchVal);
+			searchData.setEmail(searchVal);
 		}
-		SetPagingData setPagingData=new SetPagingData();
-		Integer firstNo=(pageSize *pageNo)- pageSize;
-		Integer lastNo=(pageSize);
-		setPagingData.setFirstNo(firstNo);
-		setPagingData.setLastNo(lastNo);
-		List<MemberData> searchList = memberSv.searchMember(msd,setPagingData);
 
-		int totalCount = memberSv.getSearchMemberResultCount(msd);
-		Paging paging = new Paging();
-		paging.setPageNo(pageNo);
-		paging.setPageSize(pageSize);
-		paging.setTotalCount(totalCount);
+		Paging paging = new Paging (pageNo, 10, pageSize);
 
+		PagingList<MemberData> pagingList = memberSv.searchMember (paging, searchData);
 
-		mv.addObject("paging", paging);
-		mv.addObject("pageNo",pageNo);
-		mv.addObject("currentPageSize",pageSize);
+		mv.addObject ("paging", pagingList.getPaging ());
+		mv.addObject ("pagingList", pagingList);
 
 		mv.addObject("searchForm",searchFrom);
 		mv.addObject("searchVal",searchVal);
-		mv.addObject("memberList", searchList);
 
 		return mv;
 	}

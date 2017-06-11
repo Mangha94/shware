@@ -1,64 +1,149 @@
 package kr.groupware.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
-public class Paging {
-        private int pageSize; // 게시 글 수
-        private int firstPageNo; // 첫 번째 페이지 번호
-        private int prevPageNo; // 이전 페이지 번호
-        private int startPageNo; // 시작 페이지 (페이징 네비 기준)
-        private int pageNo; // 페이지 번호
-        private int endPageNo; // 끝 페이지 (페이징 네비 기준)
-        private int nextPageNo; // 다음 페이지 번호
-        private int finalPageNo; // 마지막 페이지 번호
-        private int totalCount; // 게시 글 전체 수
+public class Paging
+{
+	private int					totalArticles;
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-        this.makePaging();
-    }
+	private int					currentPage;
 
-    /**
-     * 페이징 생성
-     */
-    private void makePaging() {
-        if (this.totalCount == 0) return; // 게시 글 전체 수가 없는 경우
-        if (this.pageNo == 0) this.setPageNo(1); // 기본 값 설정
-        if (this.pageSize == 0) this.setPageSize(10); // 기본 값 설정
+	private int					showPages;
 
-        int finalPage = (totalCount + (pageSize - 1)) / pageSize; // 마지막 페이지
-        if (this.pageNo > finalPage) this.setPageNo(finalPage); // 기본 값 설정
+	private int					articlesPerPage;
 
-        if (this.pageNo < 0 || this.pageNo > finalPage) this.pageNo = 1; // 현재 페이지 유효성 체크
+	private int					limitStart;
 
-        boolean isNowFirst = pageNo == 1; // 시작 페이지 (전체)
-        boolean isNowFinal = pageNo == finalPage; // 마지막 페이지 (전체)
+	private int					startPage;
 
-        int startPage = ((pageNo - 1) / 10) * 10 + 1; // 시작 페이지 (페이징 네비 기준)
-        int endPage = startPage + 10 - 1; // 끝 페이지 (페이징 네비 기준)
+	private int					lastPage;
 
-        if (endPage > finalPage) { // [마지막 페이지 (페이징 네비 기준) > 마지막 페이지] 보다 큰 경우
-            endPage = finalPage;
-        }
+	private int					prevPage;
 
-        this.setFirstPageNo(1); // 첫 번째 페이지 번호
+	private int					nextPage;
 
-        if (isNowFirst) {
-            this.setPrevPageNo(1); // 이전 페이지 번호
-        } else {
-            this.setPrevPageNo(((pageNo - 1) < 1 ? 1 : (pageNo - 1))); // 이전 페이지 번호
-        }
+	private int					prevBlock;
 
-        this.setStartPageNo(startPage); // 시작 페이지 (페이징 네비 기준)
-        this.setEndPageNo(endPage); // 끝 페이지 (페이징 네비 기준)
+	private int					nextBlock;
 
-        if (isNowFinal) {
-            this.setNextPageNo(finalPage); // 다음 페이지 번호
-        } else {
-            this.setNextPageNo(((pageNo + 1) > finalPage ? finalPage : (pageNo + 1))); // 다음 페이지 번호
-        }
+	@JsonIgnore
+	private Map<String, Object> searchData	= null;
 
-        this.setFinalPageNo(finalPage); // 마지막 페이지 번호
-    }
+	public Paging ()
+	{
+	}
+
+	public Paging (int currentPage, int showPages, int articlesPerPage)
+	{
+		this.totalArticles = 0;
+
+		if (currentPage == 0)
+			currentPage = 1;
+
+		this.currentPage = currentPage;
+		this.showPages = showPages;
+		this.articlesPerPage = articlesPerPage;
+		this.limitStart = (currentPage - 1) * articlesPerPage;
+	}
+
+	public Paging (int currentPage, int showPages, int articlesPerPage,
+				   Map<String, Object> searchData)
+	{
+		this (currentPage, showPages, articlesPerPage);
+
+		this.searchData = searchData;
+	}
+
+	public Paging (int totalArticles, int currentPage, int showPages,
+				   int articlesPerPage)
+	{
+		this.totalArticles = totalArticles;
+		this.currentPage = currentPage;
+		this.showPages = showPages;
+		this.articlesPerPage = articlesPerPage;
+
+		settingPaginData ();
+	}
+
+	public void setTotalArticles (int val)
+	{
+		this.totalArticles = val;
+
+		settingPaginData ();
+	}
+
+	protected void settingPaginData ()
+	{
+		// startPage
+		this.startPage = this.currentPage - (this.currentPage - 1)
+			% this.showPages;
+
+		// lastPage
+		this.lastPage = (int) Math.ceil ((double) this.totalArticles
+			/ this.articlesPerPage);
+		if (this.lastPage <= 0)
+			this.lastPage = 1;
+
+		// prevPage
+		if (this.currentPage == 1)
+			this.prevPage = 1;
+		else
+			this.prevPage = this.currentPage - 1;
+
+		// nextPage
+		if (this.currentPage == this.lastPage)
+			this.nextPage = this.lastPage;
+		else
+			this.nextPage = this.currentPage + 1;
+
+		// prevBlock
+		this.prevBlock = this.currentPage - (this.currentPage - 1)
+			% this.showPages - this.showPages;
+
+		// nextBlock
+		this.nextBlock = this.currentPage - (this.currentPage - 1)
+			% this.showPages + this.showPages;
+	}
+
+	/**
+	 * iBatis 에 넘기기 위한 map 객체로 만든다.
+	 *
+	 * @return : 검색 데이터가 포함된 map
+	 */
+	public Map<String, Object> makeMap ()
+	{
+		Map<String, Object> mapData = new HashMap<> ();
+
+		mapData.put ("limitStart", limitStart);
+		mapData.put ("articlesPerPage", articlesPerPage);
+		mapData.put ("showPages", showPages);
+		mapData.put ("currentPage", currentPage);
+		mapData.put ("totalArticles", totalArticles);
+		mapData.put ("isList", "T");
+
+		// 검색 조건이 NULL 이 아니면 검색조건을 추가한다.
+		if (searchData != null)
+			mapData.putAll (searchData);
+
+		return mapData;
+	}
+
+	/**
+	 * iBatis 에 넘기기 위한 map 객체로 만든다. (Count 용)
+	 *
+	 * @return 맵객체
+	 */
+	public Map<String, Object> makeCntMap ()
+	{
+		if (searchData != null)
+			return searchData;
+		else
+			return new HashMap<> ();
+	}
 }

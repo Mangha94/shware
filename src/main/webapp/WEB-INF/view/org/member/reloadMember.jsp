@@ -15,7 +15,7 @@
 </tr>
 </thead>
 <tbody>
-<c:forEach items="${memberList}" var="member">
+<c:forEach items="${pagingList.listData}" var="member">
 
     <tr>
         <td><a href="/org/member/getMember.do?memberId=${member.memberId}">${member.memberId}</a></td>

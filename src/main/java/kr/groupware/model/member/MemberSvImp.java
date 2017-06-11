@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import kr.groupware.model.Paging;
+import kr.groupware.model.PagingList;
 import kr.groupware.model.SetPagingData;
 
 @Service
@@ -73,25 +73,20 @@ public class MemberSvImp implements MemberSv {
         return memberRepository.getCount();
     }
 
-    @Override
-    public List<MemberData> searchMember(MemberSearchData msd, SetPagingData setPagingData){
-        Map<String,Object>mapData=new HashMap<>();
-        if (msd.getName() != null && msd.getName().trim ().length () > 0)
-            mapData.put ("name", msd.getName());
+	@Override
+    public PagingList<MemberData> searchMember (Paging paging, MemberSearchData searchData)
+	{
+		paging.setSearchData (searchData.makeMap ());
 
-        if (msd.getMemberId() != null && msd.getMemberId().trim ().length () > 0)
-            mapData.put ("memberId", msd.getMemberId());
+		int totalArticles = memberRepository.searchMemberCnt (paging.makeCntMap ());
 
-        if (msd.getEmail() != null && msd.getEmail().trim ().length () > 0)
-            mapData.put ("email", msd.getEmail());
-        mapData.put ("firstNo", setPagingData.getFirstNo());
-        mapData.put ("lastNo", setPagingData.getLastNo());
+		paging.setTotalArticles (totalArticles);
 
-        return memberRepository.searchMember(mapData);
+        return new PagingList<> (memberRepository.searchMember (paging.makeMap ()), paging);
     }
 
     @Override
     public int getSearchMemberResultCount(MemberSearchData msd){
-        return memberRepository.getSearchMemberResultCount(msd.makeMap());
+        return memberRepository.searchMemberCnt (msd.makeMap());
     }
 }

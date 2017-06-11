@@ -3,7 +3,8 @@ package kr.groupware.model.member;
 
 import java.util.List;
 
-import kr.groupware.model.SetPagingData;
+import kr.groupware.model.Paging;
+import kr.groupware.model.PagingList;
 
 public interface MemberSv {
     //리스트 가져오기
@@ -24,6 +25,12 @@ public interface MemberSv {
     int getCount();
     //검색된 회원 갯수 구하기
     int getSearchMemberResultCount(MemberSearchData msd);
-    //회원 검색
-    List<MemberData> searchMember(MemberSearchData msd,SetPagingData setPagingData);
+
+	/**
+	 * 회원 검색
+ 	 * @param paging 페이징 객체
+	 * @param searchData 검색 데이터
+	 * @return 페이징 리스트
+	 */
+    PagingList<MemberData> searchMember (Paging paging, MemberSearchData searchData);
 }

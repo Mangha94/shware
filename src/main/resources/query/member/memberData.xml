@@ -98,6 +98,26 @@
 
     </select>
 
+    <sql id = "memberWhere">
+
+        <where>
+
+            <if test = "name != null">
+                AND name LIKE '%${name}%'
+            </if>
+
+            <if test = "memberId != null">
+                AND memberId = #{memberId}
+            </if>
+
+            <if test = "email != null">
+                AND email LIKE '%${email}%'
+            </if>
+
+        </where>
+
+    </sql>
+
     <select id="searchMember" parameterType="map" resultType="MemberData">
 
         SELECT <include refid="fldMember" />,
@@ -106,45 +126,17 @@
         (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
         FROM memberData
 
-        <where>
+        <include refid="memberWhere" />
 
-            <if test = "name != null">
-                AND name LIKE '%${name}%'
-            </if>
-
-            <if test = "memberId != null">
-                AND memberId = #{memberId}
-            </if>
-
-            <if test = "email != null">
-                AND email LIKE '%${email}%'
-            </if>
-
-        </where>
-
-        limit ${firstNo},${lastNo}
+        limit ${limitStart},${articlesPerPage}
 
     </select>
 
-    <select id="getSearchMemberResultCount" parameterType="map" resultType="int">
+    <select id="searchMemberCnt" parameterType="map" resultType="int">
 
         SELECT COUNT(memberId) FROM memberData
 
-        <where>
-
-            <if test = "name != null">
-                AND name LIKE '%${name}%'
-            </if>
-
-            <if test = "memberId != null">
-                AND memberId = #{memberId}
-            </if>
-
-            <if test = "email != null">
-                AND email LIKE '%${email}%'
-            </if>
-
-        </where>
+        <include refid="memberWhere" />
 
     </select>
 </mapper>
