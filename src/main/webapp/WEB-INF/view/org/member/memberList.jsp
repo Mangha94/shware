@@ -89,15 +89,15 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
-                                <a href="javascript:goPage('${prevPageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link" aria-label="Previous">
+                                <a href="javascript:goPage('${paging.prevPageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
 
-                            <c:forEach begin="${startPageNo}" end="${endPageNo}" var="pageNo">
+                            <c:forEach begin="${paging.startPageNo}" end="${paging.endPageNo}" var="pageNo">
                                 <c:choose>
-                                    <c:when test="${pageNo eq currentPageNo}">
+                                    <c:when test="${pageNo eq paging.pageNo}">
                                         <li class="page-item active">
                                               <span class="page-link">
                                                       ${pageNo}
@@ -113,7 +113,7 @@
                                 </c:choose>
                             </c:forEach>
                             <li class="page-item">
-                                <a href="javascript:goPage('${nextPageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link" aria-label="Next">
+                                <a href="javascript:goPage('${paging.nextPageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>

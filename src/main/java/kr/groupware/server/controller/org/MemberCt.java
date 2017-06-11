@@ -53,14 +53,7 @@ public class MemberCt {
         paging.setTotalCount(totalCount);
 
 
-        mv.addObject("paging", paging.getFirstPageNo());
-        mv.addObject("prevPageNo", paging.getPrevPageNo());
-        mv.addObject("startPageNo", paging.getStartPageNo());
-        mv.addObject("currentPageNo", paging.getPageNo());
-        mv.addObject("endPageNo", paging.getEndPageNo());
-        mv.addObject("nextPageNo", paging.getNextPageNo());
-        mv.addObject("finalPageNo", paging.getFinalPageNo());
-
+        mv.addObject("paging", paging);
         mv.addObject("pageNo",pageNo);
         mv.addObject("currentPageSize",pageSize);
         mv.addObject("memberList", setMemberList);
@@ -177,7 +170,7 @@ public class MemberCt {
         }
         SetPagingData setPagingData=new SetPagingData();
         Integer firstNo=(pageSize *pageNo)- pageSize;
-        Integer lastNo=(pageSize *pageNo);
+        Integer lastNo=(pageSize);
         setPagingData.setFirstNo(firstNo);
         setPagingData.setLastNo(lastNo);
         List<MemberData> searchList = memberSv.searchMember(msd,setPagingData);
@@ -189,13 +182,7 @@ public class MemberCt {
         paging.setTotalCount(totalCount);
 
 
-        mv.addObject("paging", paging.getFirstPageNo());
-        mv.addObject("prevPageNo", paging.getPrevPageNo());
-        mv.addObject("startPageNo", paging.getStartPageNo());
-        mv.addObject("currentPageNo", paging.getPageNo());
-        mv.addObject("endPageNo", paging.getEndPageNo());
-        mv.addObject("nextPageNo", paging.getNextPageNo());
-        mv.addObject("finalPageNo", paging.getFinalPageNo());
+        mv.addObject("paging", paging);
         mv.addObject("pageNo",pageNo);
         mv.addObject("currentPageSize",pageSize);
 
