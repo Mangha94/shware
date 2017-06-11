@@ -17,11 +17,16 @@
         if(pageSize==null) {
             pageSize = 10;
         }
-        if(searchForm==null&&searchVal==null) {
-            location.href = "/org/member/memberList.do?pageNo=" + pageNo + "&pageSize=" + pageSize;
-        }
-        else
-            location.href="/org/member/searchMember.do?pageNo=" + pageNo + "&pageSize=" + pageSize+"&searchForm="+searchForm+"&searchVal="+searchVal;
+
+	    if(searchForm==null) {
+		    searchForm = "";
+	    }
+
+	    if(searchVal==null) {
+		    searchVal = "";
+	    }
+
+        location.href="/org/member/memberList.do?pageNo=" + pageNo + "&pageSize=" + pageSize+"&searchForm="+searchForm+"&searchVal="+searchVal;
 
 //        $.ajax({
 //            type: "GET",
@@ -68,7 +73,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <form action="/org/member/searchMember.do" class="form-inline">
+                    <form action="/org/member/memberList.do" class="form-inline">
                         <input type="hidden" name="pageNo" value="1">
                         <input type="hidden" name="pageSize" value="10">
                         <div class="form-group">

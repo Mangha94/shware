@@ -38,27 +38,47 @@ public class MemberCt {
     private
     DepartmentSv departmentSv;
 
-    @RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
-    public ModelAndView getMembers(
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
-    ) {
-        ModelAndView mv = new ModelAndView("org/member/memberList");
-        List<MemberData> setMemberList = memberSv.setMemberPage(pageNo, pageSize);
+	@RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
+	public ModelAndView searchMember(
+		@RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
+		@RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
+		@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+		@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
+	) {
+		ModelAndView mv = new ModelAndView("/org/member/memberList");
 
-        int totalCount = memberSv.getCount();
-        Paging paging = new Paging();
-        paging.setPageNo(pageNo);
-        paging.setPageSize(pageSize);
-        paging.setTotalCount(totalCount);
+		MemberSearchData msd = new MemberSearchData();
+		if (searchFrom.equals("memberId")) {
+			msd.setMemberId(searchVal);
+		} else if (searchFrom.equals("name")) {
+			msd.setName(searchVal);
+		} else if (searchFrom.equals("email")) {
+			msd.setEmail(searchVal);
+		}
+		SetPagingData setPagingData=new SetPagingData();
+		Integer firstNo=(pageSize *pageNo)- pageSize;
+		Integer lastNo=(pageSize);
+		setPagingData.setFirstNo(firstNo);
+		setPagingData.setLastNo(lastNo);
+		List<MemberData> searchList = memberSv.searchMember(msd,setPagingData);
+
+		int totalCount = memberSv.getSearchMemberResultCount(msd);
+		Paging paging = new Paging();
+		paging.setPageNo(pageNo);
+		paging.setPageSize(pageSize);
+		paging.setTotalCount(totalCount);
 
 
-        mv.addObject("paging", paging);
-        mv.addObject("pageNo",pageNo);
-        mv.addObject("currentPageSize",pageSize);
-        mv.addObject("memberList", setMemberList);
-        return mv;
-    }
+		mv.addObject("paging", paging);
+		mv.addObject("pageNo",pageNo);
+		mv.addObject("currentPageSize",pageSize);
+
+		mv.addObject("searchForm",searchFrom);
+		mv.addObject("searchVal",searchVal);
+		mv.addObject("memberList", searchList);
+
+		return mv;
+	}
 
     @RequestMapping(value = "/reloadMember.do", method = RequestMethod.GET)
     public ModelAndView reloadMember(
@@ -151,47 +171,7 @@ public class MemberCt {
         return "redirect:/org/member/memberList.do";
     }
 
-    @RequestMapping(value = "/searchMember.do", method = RequestMethod.GET)
-    public ModelAndView searchMember(
-            @RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
-            @RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
-    ) {
-        ModelAndView mv = new ModelAndView("/org/member/memberList");
 
-        MemberSearchData msd = new MemberSearchData();
-        if (searchFrom.equals("memberId")) {
-            msd.setMemberId(searchVal);
-        } else if (searchFrom.equals("name")) {
-            msd.setName(searchVal);
-        } else if (searchFrom.equals("email")) {
-            msd.setEmail(searchVal);
-        }
-        SetPagingData setPagingData=new SetPagingData();
-        Integer firstNo=(pageSize *pageNo)- pageSize;
-        Integer lastNo=(pageSize);
-        setPagingData.setFirstNo(firstNo);
-        setPagingData.setLastNo(lastNo);
-        List<MemberData> searchList = memberSv.searchMember(msd,setPagingData);
-
-        int totalCount = memberSv.getSearchMemberResultCount(msd);
-        Paging paging = new Paging();
-        paging.setPageNo(pageNo);
-        paging.setPageSize(pageSize);
-        paging.setTotalCount(totalCount);
-
-
-        mv.addObject("paging", paging);
-        mv.addObject("pageNo",pageNo);
-        mv.addObject("currentPageSize",pageSize);
-
-        mv.addObject("searchForm",searchFrom);
-        mv.addObject("searchVal",searchVal);
-        mv.addObject("memberList", searchList);
-
-        return mv;
-    }
 
     @RequestMapping(value = "/addMemberForm.do", method = RequestMethod.GET)
     public ModelAndView addMemberForm() {
