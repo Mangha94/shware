@@ -1,11 +1,14 @@
 package kr.groupware.model.member;
 
+import kr.groupware.model.Paging;
 import kr.groupware.model.SetPagingData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MemberSvImp implements MemberSv {
@@ -21,9 +24,14 @@ public class MemberSvImp implements MemberSv {
         return memberRepository.getMember(memberId);
     }
 
+    /**
+     *
+     * @param memberId 회원아이디
+     * @return
+     */
     @Override
     public boolean existMemberId(String memberId) {
-        return memberRepository.getCountMemberId(memberId);
+        return memberRepository.getCountMemberId(memberId) > 0;
     }
 
     @Override
@@ -37,17 +45,17 @@ public class MemberSvImp implements MemberSv {
     }
     //등록하기
     @Override
-    public void addMember(MemberData memberData){
-        try {
-            MemberSearchData msd = new MemberSearchData();
-            msd.setMemberId(memberData.getMemberId());
-            if (searchMember(msd).size() == 0) {
+    public boolean addMember(MemberData memberData) throws Exception {
+
+            if (!existMemberId(memberData.getMemberId()))
+            {
                 memberData.setRegistrationDate(new Date());
                 memberRepository.addMember(memberData);
+                return true;
             }
-        }catch (Exception E){
-            System.out.println("중복된 아이디입니다");
-        }
+            else
+                throw new Exception("중복된 아이디입니다");
+
     }
     //삭제하기
     @Override
@@ -67,7 +75,24 @@ public class MemberSvImp implements MemberSv {
     }
 
     @Override
-    public List<MemberData> searchMember(MemberSearchData msd){
-        return memberRepository.searchMember(msd.makeMap());
+    public List<MemberData> searchMember(MemberSearchData msd, SetPagingData setPagingData){
+        Map<String,Object>mapData=new HashMap<>();
+        if (msd.getName() != null && msd.getName().trim ().length () > 0)
+            mapData.put ("name", msd.getName());
+
+        if (msd.getMemberId() != null && msd.getMemberId().trim ().length () > 0)
+            mapData.put ("memberId", msd.getMemberId());
+
+        if (msd.getEmail() != null && msd.getEmail().trim ().length () > 0)
+            mapData.put ("email", msd.getEmail());
+        mapData.put ("firstNo", setPagingData.getFirstNo());
+        mapData.put ("lastNo", setPagingData.getLastNo());
+
+        return memberRepository.searchMember(mapData);
+    }
+
+    @Override
+    public int getSearchMemberResultCount(MemberSearchData msd){
+        return memberRepository.getSearchMemberResultCount(msd.makeMap());
     }
 }

@@ -10,24 +10,29 @@
         $("#memberForm").load("/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize);
     }
 
-    function goPage(pageNo,pageSize) {
+    function goPage(pageNo,pageSize,searchForm,searchVal) {
         if(pageNo==null){
             pageNo=1;
         }
         if(pageSize==null) {
             pageSize = 10;
         }
+        if(searchForm==null&&searchVal==null) {
+            location.href = "/org/member/memberList.do?pageNo=" + pageNo + "&pageSize=" + pageSize;
+        }
+        else
+            location.href="/org/member/searchMember.do?pageNo=" + pageNo + "&pageSize=" + pageSize+"&searchForm="+searchForm+"&searchVal="+searchVal;
 
-        $.ajax({
-            type: "GET",
-            url: "/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize,
-            dataType: "html",
-            success: function (data, textStatus){
-                console.log(data);
-                reloadMember(pageNo,pageSize);
-            }
-
-        });
+//        $.ajax({
+//            type: "GET",
+//            url: "/org/member/reloadMember.do?pageNo="+pageNo+"&pageSize="+pageSize,
+//            dataType: "html",
+//            success: function (data, textStatus){
+//                console.log(data);
+//                reloadMember(pageNo,pageSize);
+//            }
+//
+//        });
     }
 
 
@@ -48,10 +53,9 @@
                                 limit pageSize <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:goPage('${1}','${10}')">10개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${1}','${20}')">20개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${1}','${50}')">50개씩 보기</a></li>
-                                <li><a href="javascript:goPage('${1}','${100}')">100개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${1}','${20}','${searchForm}','${searchVal}')">20개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${1}','${50}','${searchForm}','${searchVal}')">50개씩 보기</a></li>
+                                <li><a href="javascript:goPage('${1}','${100}','${searchForm}','${searchVal}')">100개씩 보기</a></li>
                             </ul>
                         </div>
                         <table id="memberForm" class="table">
@@ -65,6 +69,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <form action="/org/member/searchMember.do" class="form-inline">
+                        <input type="hidden" name="pageNo" value="1">
+                        <input type="hidden" name="pageSize" value="10">
                         <div class="form-group">
                             <select name="searchFrom" class="form-control">
                                 <option value="memberId">아이디</option>
@@ -83,7 +89,7 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
-                                <a href="javascript:goPage('${prevPageNo}')" class="page-link" aria-label="Previous">
+                                <a href="javascript:goPage('${prevPageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
@@ -101,13 +107,13 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li class="page-item">
-                                            <a href="javascript:goPage('${pageNo}')" class="page-link">${pageNo}</a>
+                                            <a href="javascript:goPage('${pageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link">${pageNo}</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                             <li class="page-item">
-                                <a href="javascript:goPage('${nextPageNo}')" class="page-link" aria-label="Next">
+                                <a href="javascript:goPage('${nextPageNo}','${currentPageSize}','${searchForm}','${searchVal}')" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>

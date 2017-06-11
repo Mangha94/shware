@@ -25,12 +25,16 @@ import java.util.List;
 @RequestMapping(value = "/org/member")
 public class MemberCt {
     @Autowired
+    private
     MemberSv memberSv;
     @Autowired
+    private
     SpotSv spotSv;
     @Autowired
+    private
     PositionSv positionSv;
     @Autowired
+    private
     DepartmentSv departmentSv;
 
     @RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
@@ -39,7 +43,7 @@ public class MemberCt {
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
     ) {
         ModelAndView mv = new ModelAndView("org/member/memberList");
-        List<MemberData> memberList = memberSv.getMembers();
+        List<MemberData> setMemberList = memberSv.setMemberPage(pageNo, pageSize);
 
         int totalCount = memberSv.getCount();
         Paging paging = new Paging();
@@ -47,8 +51,8 @@ public class MemberCt {
         paging.setPageSize(pageSize);
         paging.setTotalCount(totalCount);
 
-        mv.addObject("memberList", memberList);
-        mv.addObject("firstPageNo", paging.getFirstPageNo());
+
+        mv.addObject("paging", paging.getFirstPageNo());
         mv.addObject("prevPageNo", paging.getPrevPageNo());
         mv.addObject("startPageNo", paging.getStartPageNo());
         mv.addObject("currentPageNo", paging.getPageNo());
@@ -56,6 +60,8 @@ public class MemberCt {
         mv.addObject("nextPageNo", paging.getNextPageNo());
         mv.addObject("finalPageNo", paging.getFinalPageNo());
         mv.addObject("pageNo",pageNo);
+        mv.addObject("currentPageSize",pageSize);
+        mv.addObject("memberList", setMemberList);
         return mv;
     }
 
@@ -64,7 +70,7 @@ public class MemberCt {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
     ) {
-        ModelAndView mv = new ModelAndView("org/member/reloadMember");
+        ModelAndView mv = new ModelAndView("org/member/memberList");
 
         List<MemberData> reloadMember = memberSv.setMemberPage(pageNo, pageSize);
 
@@ -101,11 +107,17 @@ public class MemberCt {
     }
 
     @RequestMapping(value = "/addMember.do", method = {RequestMethod.GET, RequestMethod.POST})
-    public String addMember(
+    public ModelAndView addMember(
             MemberData memberData
-    ) {
-        memberSv.addMember(memberData);
-        return "redirect:/org/member/memberList.do";
+    )throws Exception {
+        ModelAndView mv=new ModelAndView("pageJsonReport");
+        try {
+            memberSv.addMember(memberData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mv.addObject("success", memberSv.addMember(memberData));
+        return mv;
     }
 
     @RequestMapping(value = "/modifyMember.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -123,16 +135,6 @@ public class MemberCt {
             @RequestParam(value = "businessNo", required = false) String businessNo
     ) {
         MemberData memberData = memberSv.getMember(memberId);
-        memberData.setPw(pw);
-        memberData.setName(name);
-        memberData.setPositionNo(positionNo);
-        memberData.setSpotNo(spotNo);
-        memberData.setDepartmentNo(departmentNo);
-        memberData.setEmail(email);
-        memberData.setEntryDate(entryDate);
-        memberData.setUsed(used);
-        memberData.setSecurityRating(securityRating);
-        memberData.setBusinessNo(businessNo);
         memberSv.modifyMember(memberData);
         return "redirect:/org/member/memberList.do";
     }
@@ -148,8 +150,12 @@ public class MemberCt {
     @RequestMapping(value = "/searchMember.do", method = RequestMethod.GET)
     public ModelAndView searchMember(
             @RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
-            @RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal
+            @RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
     ) {
+        ModelAndView mv = new ModelAndView("/org/member/memberList");
+
         MemberSearchData msd = new MemberSearchData();
         if (searchFrom.equals("memberId")) {
             msd.setMemberId(searchVal);
@@ -158,9 +164,34 @@ public class MemberCt {
         } else if (searchFrom.equals("email")) {
             msd.setEmail(searchVal);
         }
-        List<MemberData> searchList = memberSv.searchMember(msd);
-        ModelAndView mv = new ModelAndView("/org/member/memberList");
+        SetPagingData setPagingData=new SetPagingData();
+        Integer firstNo=(pageSize *pageNo)- pageSize;
+        Integer lastNo=(pageSize *pageNo);
+        setPagingData.setFirstNo(firstNo);
+        setPagingData.setLastNo(lastNo);
+        List<MemberData> searchList = memberSv.searchMember(msd,setPagingData);
+
+        int totalCount = memberSv.getSearchMemberResultCount(msd);
+        Paging paging = new Paging();
+        paging.setPageNo(pageNo);
+        paging.setPageSize(pageSize);
+        paging.setTotalCount(totalCount);
+
+
+        mv.addObject("paging", paging.getFirstPageNo());
+        mv.addObject("prevPageNo", paging.getPrevPageNo());
+        mv.addObject("startPageNo", paging.getStartPageNo());
+        mv.addObject("currentPageNo", paging.getPageNo());
+        mv.addObject("endPageNo", paging.getEndPageNo());
+        mv.addObject("nextPageNo", paging.getNextPageNo());
+        mv.addObject("finalPageNo", paging.getFinalPageNo());
+        mv.addObject("pageNo",pageNo);
+        mv.addObject("currentPageSize",pageSize);
+
+        mv.addObject("searchForm",searchFrom);
+        mv.addObject("searchVal",searchVal);
         mv.addObject("memberList", searchList);
+
         return mv;
     }
 
@@ -176,5 +207,8 @@ public class MemberCt {
         return mv;
     }
 
+    public void setPaging(int pageNo,int pageSize){
+
+    }
 
 }

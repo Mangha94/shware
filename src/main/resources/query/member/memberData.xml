@@ -122,5 +122,29 @@
 
         </where>
 
+        limit ${firstNo},${lastNo}
+
+    </select>
+
+    <select id="getSearchMemberResultCount" parameterType="map" resultType="int">
+
+        SELECT COUNT(memberId) FROM memberData
+
+        <where>
+
+            <if test = "name != null">
+                AND name LIKE '%${name}%'
+            </if>
+
+            <if test = "memberId != null">
+                AND memberId = #{memberId}
+            </if>
+
+            <if test = "email != null">
+                AND email LIKE '%${email}%'
+            </if>
+
+        </where>
+
     </select>
 </mapper>

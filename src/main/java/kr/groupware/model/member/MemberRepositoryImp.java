@@ -19,7 +19,7 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     }
 
     @Override
-    public boolean getCountMemberId(String memberId){
+    public int getCountMemberId(String memberId){
         return getSqlSession().selectOne("memberData.getCountMemberId",memberId);
     }
 
@@ -48,7 +48,12 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     }
 
     @Override
-    public List<MemberData> searchMember(Map<String,String> searchMap){
+    public List<MemberData> searchMember(Map<String,Object> searchMap){
         return getSqlSession().selectList("memberData.searchMember",searchMap);
+    }
+
+    @Override
+    public int getSearchMemberResultCount(Map<String,String> searchMap){
+        return getSqlSession().selectOne("memberData.getSearchMemberResultCount",searchMap);
     }
 }
