@@ -8,10 +8,6 @@ import java.util.Map;
 
 @Repository
 public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberRepository {
-    @Override
-    public List<MemberData> getMembers(){
-        return getSqlSession().selectList("memberData.getMembers");
-    }
 
     @Override
     public MemberData getMember(String memberId){
@@ -21,11 +17,6 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     @Override
     public int getCountMemberId(String memberId){
         return getSqlSession().selectOne("memberData.getCountMemberId",memberId);
-    }
-
-    @Override
-    public List<MemberData> setMemberPage(Map<String,Integer>setMemberPageData){
-        return getSqlSession().selectList("memberData.setMemberPage",setMemberPageData);
     }
     @Override
     public void addMember(MemberData memberData){
@@ -48,12 +39,14 @@ public class MemberRepositoryImp extends SqlSessionDaoSupport implements MemberR
     }
 
     @Override
+    public int searchMemberCnt(Map<String,Object> searchMap){
+        return getSqlSession().selectOne("memberData.searchMemberCnt",searchMap);
+    }
+
+    @Override
     public List<MemberData> searchMember(Map<String,Object> searchMap){
         return getSqlSession().selectList("memberData.searchMember",searchMap);
     }
 
-    @Override
-    public int searchMemberCnt(Map<String,Object> searchMap){
-        return getSqlSession().selectOne("memberData.searchMemberCnt",searchMap);
-    }
+
 }

@@ -1,0 +1,51 @@
+package kr.groupware.server.controller.system;
+
+import kr.groupware.model.system.bord.BordSettingData;
+import kr.groupware.model.system.bord.BordSettingSv;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+
+@Controller
+@RequestMapping(value = "/system")
+public class bordSettingCt {
+    @Autowired
+    BordSettingSv bordSettingSv;
+
+    @RequestMapping(value = "/bordSetting.do",method = RequestMethod.GET)
+    public ModelAndView getBordSetting(){
+        ModelAndView mv=new ModelAndView("/system/bordSetting");
+        List<BordSettingData>getBordSettingList=bordSettingSv.getBordSettings();
+        mv.addObject("bordSettingList",getBordSettingList);
+        return mv;
+    }
+
+    @RequestMapping(value = "/addBordSetting.do",method = RequestMethod.POST)
+    public String addBordSetting(
+            BordSettingData bordSettingData
+    ){
+        bordSettingSv.addBordSetting(bordSettingData);
+        return "redirect:/system/bordSetting.do";
+    }
+
+    @RequestMapping(value = "modifyBordSetting.do",method = RequestMethod.POST)
+    public String modifyBordSetting(
+            BordSettingData bordSettingData
+    ){
+                bordSettingSv.modifyBordSetting(bordSettingData);
+                return "redirect:/system/bordSetting.do";
+    }
+
+    @RequestMapping(value = "deleteBordSetting.do",method = RequestMethod.GET)
+    public String deleteBordSetting(
+            @RequestParam(value = "bordNo", required = false)int bordNo
+    ){
+                bordSettingSv.deleteBordSetting(bordNo);
+                return "redirect:/system/bordSetting.do";
+    }
+}

@@ -68,17 +68,17 @@ public class Paging
 		this.showPages = showPages;
 		this.articlesPerPage = articlesPerPage;
 
-		settingPaginData ();
+		settingPagingData();
 	}
 
 	public void setTotalArticles (int val)
 	{
 		this.totalArticles = val;
 
-		settingPaginData ();
+		settingPagingData();
 	}
 
-	protected void settingPaginData ()
+	protected void settingPagingData()
 	{
 		// startPage
 		this.startPage = this.currentPage - (this.currentPage - 1)
@@ -128,9 +128,12 @@ public class Paging
 		mapData.put ("isList", "T");
 
 		// 검색 조건이 NULL 이 아니면 검색조건을 추가한다.
-		if (searchData != null)
-			mapData.putAll (searchData);
-
+		if (searchData != null) {
+			mapData.putAll(searchData);
+		}
+//		if(sortData != null){
+//			mapData.putAll(sortData);
+//		}
 		return mapData;
 	}
 

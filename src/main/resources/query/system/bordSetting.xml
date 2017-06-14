@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bordSetting">
+
+    <resultMap id="BordSettingRs" type="BordSettingData">
+        <result column="bordNo" property="bordNo" />
+        <result column="sequence" property="sequence" />
+        <result column="bordName" property="bordName" />
+        <result column="used" property="used" />
+    </resultMap>
+
+    <sql id = "fldBordSetting">
+        bordNo,
+        sequence,
+        bordName,
+        used
+    </sql>
+
+    <select id="getBordSettings" resultMap="BordSettingRs">
+
+        SELECT <include refid="fldBordSetting"/> FROM bordSetting ORDER BY sequence ASC
+
+    </select>
+
+    <select id="getBordSetting" parameterType="int" resultMap="BordSettingRs">
+
+        SELECT <include refid="fldBordSetting"/> FROM bordSetting WHERE bordNo=#{bordNo}
+
+    </select>
+
+    <insert id="addBordSetting" parameterType="BordSettingData">
+
+        INSERT INTO bordSetting (sequence,bordName,used) VALUE (#{sequence},#{bordName},#{used})
+
+    </insert>
+
+    <update id="modifyBordSetting" parameterType="BordSettingData">
+
+        UPDATE bordSetting SET sequence=#{sequence},bordName=#{bordName},used=#{used} WHERE bordNo=#{bordNo}
+
+    </update>
+
+    <delete id="deleteBordSetting" parameterType="int">
+
+        DELETE FROM bordSetting WHERE bordNo=#{bordNo}
+
+    </delete>
+</mapper>

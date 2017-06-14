@@ -25,13 +25,13 @@ public class MemberSearchData extends SearchData
     {
 		Map<String, Object> mapData = super.makeMap ();
 
-		if (StrLib.isEmptyStr (name))
+		if (StrLib.isExistStr (name))
             mapData.put ("name", name);
 
-        if (StrLib.isEmptyStr (memberId))
+        if (StrLib.isExistStr (memberId))
             mapData.put ("memberId", memberId);
 
-		if (StrLib.isEmptyStr (email))
+		if (StrLib.isExistStr (email))
             mapData.put ("email", email);
 
         return mapData;

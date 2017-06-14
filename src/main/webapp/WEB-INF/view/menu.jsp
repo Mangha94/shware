@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SHware</title>
+    <c:forEach items="${browserTitle}" var="browserTitle">
+    <title>${browserTitle.browserTitle}</title>
+    </c:forEach>
 
     <!-- Bootstrap Core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -337,13 +340,13 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> 시스템관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/pages/flot.html">Flot Charts</a>
+                                <a href="/system/defaultSystemSetting.do">기본시스템설정</a>
                             </li>
                             <li>
-                                <a href="/pages/morris.html">Morris.js Charts</a>
+                                <a href="/system/bordSetting.do">게시판설정</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -352,29 +355,15 @@
                         <a href="/pages/tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i>게시판<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/pages/panels-wells.html">Panels and Wells</a>
-                            </li>
-                            <li>
-                                <a href="/pages/buttons.html">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="/pages/notifications.html">Notifications</a>
-                            </li>
-                            <li>
-                                <a href="/pages/typography.html">Typography</a>
-                            </li>
-                            <li>
-                                <a href="/pages/icons.html"> Icons</a>
-                            </li>
-                            <li>
-                                <a href="/pages/grid.html">Grid</a>
-                            </li>
+                            <c:forEach items="${BordName}" var="bord">
+                                <c:if test="${bord.used eq true}">
+                                <li>
+                                    <a href="/pages/panels-wells.html">${bord.bordName}</a>
+                                </li>
+                                </c:if>
+                            </c:forEach>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

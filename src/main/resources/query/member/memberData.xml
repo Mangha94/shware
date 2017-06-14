@@ -38,33 +38,10 @@
         businessNo
     </sql>
 
-    <select id="getMembers" resultMap="MemberRs">
-
-        SELECT <include refid="fldMember"/>,
-        (select spotName from spotdata WHERE spotNo=memberData.spotNo) AS spotName,
-        (select positionName from positiondata where positionNo=memberData.positionNo) as positionName,
-        (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
-        FROM memberData
-
-        limit 0,10
-
-    </select>
 
     <select id="getMember" resultMap="MemberRs">
 
         SELECT <include refid="fldMember"/> FROM memberData WHERE memberId=#{memberId}
-
-    </select>
-
-    <select id="setMemberPage" parameterType="map" resultMap="MemberRs">
-
-        SELECT <include refid="fldMember"/>,
-        (select spotName from spotdata WHERE spotNo=memberData.spotNo) AS spotName,
-        (select positionName from positiondata where positionNo=memberData.positionNo) as positionName,
-        (select departmentName from departmentdata where departmentNo=memberData.departmentNo) as departmentName
-        FROM memberData
-
-        limit ${firstNo},${lastNo}
 
     </select>
 
@@ -127,6 +104,8 @@
         FROM memberData
 
         <include refid="memberWhere" />
+
+--         ORDER BY ${sortBy} ${sortMode}
 
         limit ${limitStart},${articlesPerPage}
 

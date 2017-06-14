@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="defaultSystemSetting">
+
+    <resultMap id="DefaultSystemSettingRs" type="DefaultSystemSettingData">
+        <result column="systemSettingNo" property="systemSettingNo" />
+        <result column="browserTitle" property="browserTitle" />
+    </resultMap>
+
+    <sql id = "fldSystem">
+        systemSettingNo,
+        browserTitle
+    </sql>
+
+    <select id="getDefaultSystemSettings" resultMap="DefaultSystemSettingRs">
+
+        SELECT <include refid="fldSystem"/> FROM defaultSystemSetting
+
+    </select>
+
+    <select id="getDefaultSystemSetting" resultMap="DefaultSystemSettingRs">
+
+        SELECT <include refid="fldSystem"/> FROM defaultSystemSetting WHERE systemSettingNo=#{systemSettingNo}
+
+    </select>
+
+    <update id="modifyBrowserTitle" parameterType="DefaultSystemSettingData">
+
+        UPDATE defaultSystemSetting SET browserTitle=#{browserTitle} WHERE systemSettingNo=#{systemSettingNo}
+
+    </update>
+</mapper>

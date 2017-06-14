@@ -7,9 +7,9 @@
 
 <script>
 
-    function onPage(pageNo)
+    function onPage(pageNo,pageSize)
     {
-        location.href="/org/member/memberList.do?pageNo=" + pageNo;
+        location.href="/org/member/memberList.do?pageNo=" + pageNo+"&pageSize="+pageSize;
 
         // + "&searchForm="+searchForm+"&searchVal="+searchVal;
 
@@ -43,9 +43,9 @@
                                 limit pageSize <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:onPage('${1}','${20}','${searchForm}','${searchVal}')">20개씩 보기</a></li>
-                                <li><a href="javascript:onPage('${1}','${50}','${searchForm}','${searchVal}')">50개씩 보기</a></li>
-                                <li><a href="javascript:onPage('${1}','${100}','${searchForm}','${searchVal}')">100개씩 보기</a></li>
+                                <li><a href="javascript:onPage('${1}','${20}')">20개씩 보기</a></li>
+                                <li><a href="javascript:onPage('${1}','${50}')">50개씩 보기</a></li>
+                                <li><a href="javascript:onPage('${1}','${100}')">100개씩 보기</a></li>
                             </ul>
                         </div>
                         <table id="memberForm" class="table">
@@ -78,41 +78,41 @@
 
 	                <sh:paging currentPage="${paging.currentPage}" totalArticles="${paging.totalArticles}" showPages="${paging.showPages}" articlesPerPage="${paging.articlesPerPage}" />
 
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="javascript:onPage('${paging.prevBlock}')" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
+                    <%--<nav aria-label="Page navigation example">--%>
+                        <%--<ul class="pagination">--%>
+                            <%--<li class="page-item">--%>
+                                <%--<a href="javascript:onPage('${paging.prevBlock}')" class="page-link" aria-label="Previous">--%>
+                                    <%--<span aria-hidden="true">&laquo;</span>--%>
+                                    <%--<span class="sr-only">Previous</span>--%>
+                                <%--</a>--%>
+                            <%--</li>--%>
 
-	                        <c:forEach begin="${paging.startPage}" end="${paging.startPage + paging.showPages}" var="pageNo">
-		                        <c:choose>
-			                        <c:when test="${pageNo eq paging.currentPage}">
-				                        <li class="page-item active">
-                                              <span class="page-link">
-                                                      ${pageNo}
-                                                <span class="sr-only">(current)</span>
-                                              </span>
-				                        </li>
-			                        </c:when>
-			                        <c:otherwise>
-				                        <li class="page-item">
-					                        <a href="javascript:onPage('${pageNo}')" class="page-link">${pageNo}</a>
-				                        </li>
-			                        </c:otherwise>
-		                        </c:choose>
-	                        </c:forEach>
+	                        <%--<c:forEach begin="${paging.startPage}" end="${paging.startPage + paging.showPages}" var="pageNo">--%>
+		                        <%--<c:choose>--%>
+			                        <%--<c:when test="${pageNo eq paging.currentPage}">--%>
+				                        <%--<li class="page-item active">--%>
+                                              <%--<span class="page-link">--%>
+                                                      <%--${pageNo}--%>
+                                                <%--<span class="sr-only">(current)</span>--%>
+                                              <%--</span>--%>
+				                        <%--</li>--%>
+			                        <%--</c:when>--%>
+			                        <%--<c:otherwise>--%>
+				                        <%--<li class="page-item">--%>
+					                        <%--<a href="javascript:onPage('${pageNo}')" class="page-link">${pageNo}</a>--%>
+				                        <%--</li>--%>
+			                        <%--</c:otherwise>--%>
+		                        <%--</c:choose>--%>
+	                        <%--</c:forEach>--%>
 
-                            <li class="page-item">
-                                <a href="javascript:onPage('${paging.nextPage}')" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                            <%--<li class="page-item">--%>
+                                <%--<a href="javascript:onPage('${paging.nextPage}')" class="page-link" aria-label="Next">--%>
+                                    <%--<span aria-hidden="true">&raquo;</span>--%>
+                                    <%--<span class="sr-only">Next</span>--%>
+                                <%--</a>--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
+                    <%--</nav>--%>
 
                 </div><!-- /.col-lg-6 -->
             </div><!-- /row-->

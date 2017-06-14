@@ -9,7 +9,6 @@ import lombok.Data;
 /**
  * 각 Sv 의 검색 객체의 상위 객체
  *
- * Created by purre on 2017-06-11.
  */
 @Data
 public class SearchData

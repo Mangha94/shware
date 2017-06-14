@@ -134,6 +134,16 @@ public class MemberCt {
             @RequestParam(value = "businessNo", required = false) String businessNo
     ) {
         MemberData memberData = memberSv.getMember(memberId);
+        memberData.setPw(pw);
+        memberData.setName(name);
+        memberData.setPositionNo(positionNo);
+        memberData.setSpotNo(spotNo);
+        memberData.setDepartmentNo(departmentNo);
+        memberData.setEmail(email);
+        memberData.setEntryDate(entryDate);
+        memberData.setUsed(used);
+        memberData.setSecurityRating(securityRating);
+        memberData.setBusinessNo(businessNo);
         memberSv.modifyMember(memberData);
         return "redirect:/org/member/memberList.do";
     }
