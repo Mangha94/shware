@@ -20,6 +20,8 @@ public class MemberSearchData extends SearchData
 
     private String email;
 
+
+
     @Override
     public Map<String, Object> makeMap ()
     {

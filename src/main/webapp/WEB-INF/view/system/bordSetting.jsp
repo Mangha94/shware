@@ -88,6 +88,7 @@
                                                value="${bord.bordName}">
                                     </td>
                                     <td>
+                                        <%--셀렉트로--%>
                                         <input type="radio" name="used" value="true"
                                                <c:if test="${bord.used eq true}">checked</c:if>> 사용
                                         <input type="radio" name="used" value="false"
