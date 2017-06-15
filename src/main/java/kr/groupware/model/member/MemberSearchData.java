@@ -14,6 +14,9 @@ import lombok.EqualsAndHashCode;
 @Data
 public class MemberSearchData extends SearchData
 {
+    /**
+     * Name
+     */
     private String name;
 
     /**
