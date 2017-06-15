@@ -19,10 +19,13 @@ public class MemberSearchData extends SearchData
      */
     private String name;
 
+    /**
+     * 회원 아이디
+     */
     private String memberId;
 
     /**
-     * 이메일
+     * E-mail
      */
     private String email;
 
