@@ -24,6 +24,9 @@ public class MemberSearchData extends SearchData
      */
     private String memberId;
 
+    /**
+     * E-mail
+     */
     private String email;
 
 
