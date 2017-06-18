@@ -71,4 +71,10 @@
         DELETE FROM bordSetting WHERE bordNo=#{bordNo}
 
     </delete>
+
+    <select id="getMostSeqBordNo" resultType="int">
+
+        SELECT MAX(sequence) FROM bordSetting
+
+    </select>
 </mapper>

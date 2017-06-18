@@ -19,6 +19,11 @@ public class BordSettingSvImp implements BordSettingSv {
     }
     @Override
     public void addBordSetting(BordSettingData bordSettingData){
+        Integer mostSeq=bordSettingRepository.getMostSeqBordNo();
+        if(mostSeq==null) {
+            mostSeq=0;
+        }
+        bordSettingData.setSequence(mostSeq+1);
         bordSettingRepository.addBordSetting(bordSettingData);
     }
     @Override

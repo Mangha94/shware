@@ -50,11 +50,6 @@
 <tr id="addTr">
 
     <td>
-        <select name="sequence" class="form-control">
-            <c:forEach begin="1" end="5" var="idx">
-                <option value="${idx}">${idx}번째</option>
-            </c:forEach>
-        </select>
     </td>
     <td>
         <input type="text" name="bordName" class="form-control" value="">

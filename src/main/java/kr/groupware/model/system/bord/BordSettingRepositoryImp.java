@@ -28,6 +28,10 @@ public class BordSettingRepositoryImp extends SqlSessionDaoSupport implements Bo
         getSqlSession().delete("bordSetting.deleteBordSetting",bordNo);
     }
 
+    @Override
+    public Integer getMostSeqBordNo(){
+        return getSqlSession().selectOne("bordSetting.getMostSeqBordNo");
+    }
     //내릴 게시판의 bordNo를 리턴
     @Override
     public Integer getDownBordNo(int bordNo){

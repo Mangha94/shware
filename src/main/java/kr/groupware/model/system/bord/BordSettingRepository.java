@@ -15,6 +15,8 @@ public interface BordSettingRepository {
 
     void deleteBordSetting(int bordNo);
 
+    Integer getMostSeqBordNo();
+
     /**
      * 게시판 순서 올릴때
      * @param bordNo
