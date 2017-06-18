@@ -34,30 +34,31 @@ public class BordSettingSvImp implements BordSettingSv {
     public void upBordSeq(int bordNo){
         BordSettingData upBord=getBordSetting(bordNo);
         Integer downBordNo=bordSettingRepository.getDownBordNo(bordNo);
-        if(downBordNo!=null) {
-            BordSettingData downBord = getBordSetting(downBordNo);
-            int upBordSeq = upBord.getSequence();
-            upBord.setSequence(downBord.getSequence());
-            downBord.setSequence(upBordSeq);
-
-            bordSettingRepository.modifyBordSetting(upBord);
-            bordSettingRepository.modifyBordSetting(downBord);
-        }
+        modifySeq(downBordNo,upBord);
     }
 
     @Override
     public void downBordSeq(int bordNo){
         BordSettingData downBord=getBordSetting(bordNo);
         Integer upBordNo=bordSettingRepository.getUpBordNo(bordNo);
-        if(upBordNo!=null) {
-            BordSettingData upBord = getBordSetting(upBordNo);
-            int downBordSeq = downBord.getSequence();
-            downBord.setSequence(upBord.getSequence());
+        modifySeq(upBordNo,downBord);
+
+    }
+
+    /**
+     *
+     * @param bordNo 내려지거나 올려질 bordSettingData 의 bordNo
+     * @param bordSettingData 올리거나 내릴 bordSetting
+     */
+    private void modifySeq(Integer bordNo,BordSettingData bordSettingData){
+        if(bordNo!=null) {
+            BordSettingData upBord = getBordSetting(bordNo);
+            int downBordSeq = bordSettingData.getSequence();
+            bordSettingData.setSequence(upBord.getSequence());
             upBord.setSequence(downBordSeq);
 
-            bordSettingRepository.modifyBordSetting(downBord);
+            bordSettingRepository.modifyBordSetting(bordSettingData);
             bordSettingRepository.modifyBordSetting(upBord);
         }
-
     }
 }
