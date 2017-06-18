@@ -31,17 +31,17 @@ public class BordSettingSvImp implements BordSettingSv {
     }
 
     @Override
-    public void upBordSeq(int bordNo){
+    public boolean upBordSeq(int bordNo){
         BordSettingData upBord=getBordSetting(bordNo);
         Integer downBordNo=bordSettingRepository.getDownBordNo(bordNo);
-        modifySeq(downBordNo,upBord);
+        return modifySeq(downBordNo,upBord);
     }
 
     @Override
-    public void downBordSeq(int bordNo){
+    public boolean downBordSeq(int bordNo){
         BordSettingData downBord=getBordSetting(bordNo);
         Integer upBordNo=bordSettingRepository.getUpBordNo(bordNo);
-        modifySeq(upBordNo,downBord);
+        return modifySeq(upBordNo,downBord);
 
     }
 
@@ -50,7 +50,7 @@ public class BordSettingSvImp implements BordSettingSv {
      * @param bordNo 내려지거나 올려질 bordSettingData 의 bordNo
      * @param bordSettingData 올리거나 내릴 bordSetting
      */
-    private void modifySeq(Integer bordNo,BordSettingData bordSettingData){
+    private boolean modifySeq(Integer bordNo,BordSettingData bordSettingData){
         if(bordNo!=null) {
             BordSettingData upBord = getBordSetting(bordNo);
             int downBordSeq = bordSettingData.getSequence();
@@ -59,6 +59,10 @@ public class BordSettingSvImp implements BordSettingSv {
 
             bordSettingRepository.modifyBordSetting(bordSettingData);
             bordSettingRepository.modifyBordSetting(upBord);
+
+            return true;
         }
+        else
+            return false;
     }
 }

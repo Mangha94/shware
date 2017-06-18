@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <c:forEach items="${browserTitle}" var="browserTitle">
+    <c:forEach items="${defaultSystemSetting}" var="browserTitle">
     <title>${browserTitle.browserTitle}</title>
     </c:forEach>
 
@@ -357,7 +357,7 @@
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>게시판<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <c:forEach items="${BordName}" var="bord">
+                            <c:forEach items="${BordSettings}" var="bord">
                                 <c:if test="${bord.used eq true}">
                                 <li>
                                     <a href="/pages/panels-wells.html">${bord.bordName}</a>

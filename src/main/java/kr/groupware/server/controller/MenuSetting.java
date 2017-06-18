@@ -20,10 +20,10 @@ public class MenuSetting {
     DefaultSystemSettingSv defaultSystemSettingSv;
 
     public void menuSetting(ModelAndView mv){
-        List<BordSettingData> getBordNames=bordSettingSv.getBordSettings();
-        mv.addObject("BordName",getBordNames);
+        List<BordSettingData> BordSettings=bordSettingSv.getBordSettings();
+        mv.addObject("BordSettings",BordSettings);
 
-        List<DefaultSystemSettingData>getBrowserName=defaultSystemSettingSv.getDefaultSystemSettings();
-        mv.addObject("browserTitle",getBrowserName);
+        List<DefaultSystemSettingData>defaultSystemSetting=defaultSystemSettingSv.getDefaultSystemSettings();
+        mv.addObject("defaultSystemSetting",defaultSystemSetting);
     }
 }

@@ -17,7 +17,7 @@ public interface BordSettingSv {
     //    게시판삭제
     void deleteBordSetting(int bordNo);
     //
-    void upBordSeq(int bordNo);
+    boolean upBordSeq(int bordNo);
 
-    void downBordSeq(int bordNo);
+    boolean downBordSeq(int bordNo);
 }

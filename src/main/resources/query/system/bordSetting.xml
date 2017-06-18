@@ -34,7 +34,7 @@
     <!--해당 게시판 보다 seq가 더 작은 놈들중에 제일 큰놈의 bordNo를 찾는다-->
     <select id="findMaxBordNo" parameterType="int" resultType="int">
 
-        SELECT MAX(bordNo) from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
+        SELECT bordNo from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
 
         ORDER BY sequence DESC
 
@@ -46,7 +46,7 @@
     <!--해당 게시판 보다 seq가 더 큰 놈들중에 제일 작은놈의 bordNo를 찾는다-->
     <select id="findMinBordNo" parameterType="int" resultType="int">
 
-        SELECT MIN(bordNo) from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
+        SELECT bordNo from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
 
         ORDER BY sequence ASC
 

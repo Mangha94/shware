@@ -20,39 +20,69 @@ public class bordSettingCt {
     @Autowired
     private MenuSetting menuSetting;
 
-    @RequestMapping(value = "/bordSetting.do",method = RequestMethod.GET)
-    public ModelAndView getBordSetting(){
-        ModelAndView mv=new ModelAndView("/system/bordSetting");
+    @RequestMapping(value = "/bordSetting.do", method = RequestMethod.GET)
+    public ModelAndView getBordSetting() {
+        ModelAndView mv = new ModelAndView("/system/bordSetting");
 
         //메뉴셋팅
         menuSetting.menuSetting(mv);
 
-        List<BordSettingData>getBordSettingList=bordSettingSv.getBordSettings();
-        mv.addObject("bordSettingList",getBordSettingList);
+        List<BordSettingData> getBordSettingList = bordSettingSv.getBordSettings();
+        mv.addObject("bordSettingList", getBordSettingList);
         return mv;
     }
 
-    @RequestMapping(value = "/addBordSetting.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/addBordSetting.do", method = RequestMethod.POST)
     public String addBordSetting(
             BordSettingData bordSettingData
-    ){
+    ) {
         bordSettingSv.addBordSetting(bordSettingData);
         return "redirect:/system/bordSetting.do";
     }
 
-    @RequestMapping(value = "modifyBordSetting.do",method = RequestMethod.POST)
+    @RequestMapping(value = "modifyBordSetting.do", method = RequestMethod.POST)
     public String modifyBordSetting(
             BordSettingData bordSettingData
-    ){
-                bordSettingSv.modifyBordSetting(bordSettingData);
-                return "redirect:/system/bordSetting.do";
+    ) {
+        bordSettingSv.modifyBordSetting(bordSettingData);
+        return "redirect:/system/bordSetting.do";
     }
 
-    @RequestMapping(value = "deleteBordSetting.do",method = RequestMethod.GET)
+    @RequestMapping(value = "deleteBordSetting.do", method = RequestMethod.GET)
     public String deleteBordSetting(
-            @RequestParam(value = "bordNo", required = false)int bordNo
-    ){
-                bordSettingSv.deleteBordSetting(bordNo);
-                return "redirect:/system/bordSetting.do";
+            @RequestParam(value = "bordNo", required = false) int bordNo
+    ) {
+        bordSettingSv.deleteBordSetting(bordNo);
+        return "redirect:/system/bordSetting.do";
+    }
+
+    @RequestMapping(value = "upBordSeq.do", method = RequestMethod.POST)
+    public ModelAndView upBordSeq(
+            @RequestParam(value = "bordNo", required = false) int bordNo
+    ) {
+        ModelAndView mv = new ModelAndView("pageJsonReport");
+
+        mv.addObject("success", bordSettingSv.upBordSeq(bordNo));
+        return mv;
+    }
+
+    @RequestMapping(value = "downBordSeq.do", method = RequestMethod.POST)
+    public ModelAndView downBordSeq(
+            @RequestParam(value = "bordNo", required = false) int bordNo
+    ) {
+        ModelAndView mv = new ModelAndView("pageJsonReport");
+
+
+        mv.addObject("success", bordSettingSv.downBordSeq(bordNo));
+        return mv;
+    }
+
+    @RequestMapping(value = "reloadBordSetting.do", method = RequestMethod.GET)
+    public ModelAndView reloadBordSetting() {
+        ModelAndView mv = new ModelAndView("/system/reloadBordSetting");
+
+        List<BordSettingData>BordSettingList=bordSettingSv.getBordSettings();
+        mv.addObject("bordSettingList",BordSettingList);
+        return mv;
     }
 }
