@@ -8,29 +8,31 @@
         #
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','memberId','${orderAsc}')">MemberId</a>
-        <span class="glyphicon glyphicon-up" aria-hidden="true"></span>
+        <a href="javascript:orderList('memberId','${orderVal eq 'memberId' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">MemberId</a>
+	    <c:if test = "${orderVal eq 'memberId'}">
+        <span class="glyphicon glyphicon-triangle-${orderAsc eq 'DESC' ? 'top' : 'bottom'}" aria-hidden="true"></span>
+	    </c:if>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','name','${orderAsc}')">Name</a>
+        <a href="javascript:orderList('name','${orderVal eq 'name' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">Name</a>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','position','${orderAsc}')">Position</a>
+        <a href="javascript:orderList('positionNo','${orderVal eq 'positionNo' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">Position</a>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','spot','${orderAsc}')">Spot</a>
+        <a href="javascript:orderList('spotNo','${orderVal eq 'spotNo' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">Spot</a>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','department','${orderAsc}')">Department</a>
+        <a href="javascript:orderList('departmentNo','${orderVal eq 'departmentNo' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">Department</a>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','email','${orderAsc}')">Email</a>
+        <a href="javascript:orderList('email','${orderVal eq 'email' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">Email</a>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','used','${orderAsc}')">Used</a>
+        <a href="javascript:orderList('used','${orderVal eq 'used' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">Used</a>
     </th>
     <th>
-        <a href="javascript:orderList('${pageNo}','${pageSize}','${searchVal}','${searchFrom}','securityRating','${orderAsc}')">SecurityRating</a>
+        <a href="javascript:orderList('securityRating','${orderVal eq 'securityRating' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">SecurityRating</a>
     </th>
 </tr>
 </thead>

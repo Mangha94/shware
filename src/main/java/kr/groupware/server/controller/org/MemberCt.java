@@ -1,11 +1,5 @@
 package kr.groupware.server.controller.org;
 
-import kr.groupware.model.SearchData;
-import kr.groupware.model.system.bord.BordSettingData;
-import kr.groupware.model.system.bord.BordSettingSv;
-import kr.groupware.model.system.defaultSystem.DefaultSystemSettingData;
-import kr.groupware.model.system.defaultSystem.DefaultSystemSettingSv;
-import kr.groupware.server.controller.MenuSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
@@ -28,6 +21,7 @@ import kr.groupware.model.rank.position.PositionData;
 import kr.groupware.model.rank.position.PositionSv;
 import kr.groupware.model.rank.spot.SpotData;
 import kr.groupware.model.rank.spot.SpotSv;
+import kr.groupware.server.controller.MenuSetting;
 
 @Controller
 @RequestMapping(value = "/org/member")
@@ -84,7 +78,7 @@ public class MemberCt {
 		mv.addObject("searchFrom",searchFrom);
 		mv.addObject("searchVal",searchVal);
 		mv.addObject("orderVal",orderVal);
-		mv.addObject("orderASC",orderAsc);
+		mv.addObject("orderAsc",orderAsc);
 
 		return mv;
 	}
