@@ -36,7 +36,7 @@
 
         SELECT MAX(bordNo) from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
 
-        ORDER BY DESC
+        ORDER BY sequence DESC
 
         LIMIT 1
 
@@ -48,7 +48,7 @@
 
         SELECT MIN(bordNo) from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
 
-        ORDER BY ASC
+        ORDER BY sequence ASC
 
         LIMIT 1
 

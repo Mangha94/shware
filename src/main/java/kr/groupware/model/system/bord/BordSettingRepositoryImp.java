@@ -13,7 +13,7 @@ public class BordSettingRepositoryImp extends SqlSessionDaoSupport implements Bo
     }
     @Override
     public BordSettingData getBordSetting(int bordNo){
-        return getSqlSession().selectOne("bordSetting.getBoredSetting",bordNo);
+        return getSqlSession().selectOne("bordSetting.getBordSetting",bordNo);
     }
     @Override
     public void addBordSetting(BordSettingData bordSettingData){

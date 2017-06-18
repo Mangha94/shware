@@ -33,8 +33,9 @@ public class BordSettingSvImp implements BordSettingSv {
     @Override
     public void upBordSeq(int bordNo){
         BordSettingData upBord=getBordSetting(bordNo);
-        if(bordSettingRepository.getDownBordNo(bordNo)!=null) {
-            BordSettingData downBord = getBordSetting(bordSettingRepository.getDownBordNo(bordNo));
+        Integer downBordNo=bordSettingRepository.getDownBordNo(bordNo);
+        if(downBordNo!=null) {
+            BordSettingData downBord = getBordSetting(downBordNo);
             int upBordSeq = upBord.getSequence();
             upBord.setSequence(downBord.getSequence());
             downBord.setSequence(upBordSeq);
@@ -47,13 +48,16 @@ public class BordSettingSvImp implements BordSettingSv {
     @Override
     public void downBordSeq(int bordNo){
         BordSettingData downBord=getBordSetting(bordNo);
-        BordSettingData upBord=getBordSetting(bordSettingRepository.getUpBordNo(bordNo));
-        int downBordSeq=downBord.getSequence();
-        downBord.setSequence(upBord.getSequence());
-        upBord.setSequence(downBordSeq);
+        Integer upBordNo=bordSettingRepository.getUpBordNo(bordNo);
+        if(upBordNo!=null) {
+            BordSettingData upBord = getBordSetting(upBordNo);
+            int downBordSeq = downBord.getSequence();
+            downBord.setSequence(upBord.getSequence());
+            upBord.setSequence(downBordSeq);
 
-        bordSettingRepository.modifyBordSetting(downBord);
-        bordSettingRepository.modifyBordSetting(upBord);
+            bordSettingRepository.modifyBordSetting(downBord);
+            bordSettingRepository.modifyBordSetting(upBord);
+        }
 
     }
 }

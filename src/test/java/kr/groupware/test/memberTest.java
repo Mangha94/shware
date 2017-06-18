@@ -39,7 +39,7 @@ public class memberTest {
 //        memberData.setBusinessNo("2017-0529");
 //        memberSv.addMember(memberData);
 
-        System.out.println(memberSv.getMembers());
+        //System.out.println(memberSv.getMembers());
 
         MemberData memberData=memberSv.getMember("test");
         memberData.setPw("123456");
