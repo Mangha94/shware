@@ -31,28 +31,26 @@
     </select>
 
     <!--게시판을 위로 올릴때-->
-    <select id="findMaxBordSeq" parameterType="int" resultType="int">
-
-        SELECT MAX(sequence) from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
-
-    </select>
-
+    <!--해당 게시판 보다 seq가 더 작은 놈들중에 제일 큰놈의 bordNo를 찾는다-->
     <select id="findMaxBordNo" parameterType="int" resultType="int">
 
         SELECT MAX(bordNo) from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
 
+        ORDER BY DESC
+
+        LIMIT 1
+
     </select>
 
     <!--게시판을 밑으로 내릴때-->
-    <select id="findMinBordSeq" parameterType="int" resultType="int">
-
-        SELECT MIN(sequence) from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
-
-    </select>
-
+    <!--해당 게시판 보다 seq가 더 큰 놈들중에 제일 작은놈의 bordNo를 찾는다-->
     <select id="findMinBordNo" parameterType="int" resultType="int">
 
         SELECT MIN(bordNo) from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
+
+        ORDER BY ASC
+
+        LIMIT 1
 
     </select>
 

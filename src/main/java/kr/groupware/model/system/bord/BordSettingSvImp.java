@@ -33,15 +33,27 @@ public class BordSettingSvImp implements BordSettingSv {
     @Override
     public void upBordSeq(int bordNo){
         BordSettingData upBord=getBordSetting(bordNo);
-        BordSettingData downBord=getBordSetting(bordSettingRepository.upBordNo(bordNo));
-        upBord.setSequence(bordSettingRepository.upBordSeq(bordNo));
-        downBord.setSequence(upBord.getSequence());
+        if(bordSettingRepository.getDownBordNo(bordNo)!=null) {
+            BordSettingData downBord = getBordSetting(bordSettingRepository.getDownBordNo(bordNo));
+            int upBordSeq = upBord.getSequence();
+            upBord.setSequence(downBord.getSequence());
+            downBord.setSequence(upBordSeq);
 
-        bordSettingRepository.modifyBordSetting(upBord);
+            bordSettingRepository.modifyBordSetting(upBord);
+            bordSettingRepository.modifyBordSetting(downBord);
+        }
     }
 
     @Override
     public void downBordSeq(int bordNo){
-        bordSettingRepository.downBordSeq(bordNo);
+        BordSettingData downBord=getBordSetting(bordNo);
+        BordSettingData upBord=getBordSetting(bordSettingRepository.getUpBordNo(bordNo));
+        int downBordSeq=downBord.getSequence();
+        downBord.setSequence(upBord.getSequence());
+        upBord.setSequence(downBordSeq);
+
+        bordSettingRepository.modifyBordSetting(downBord);
+        bordSettingRepository.modifyBordSetting(upBord);
+
     }
 }

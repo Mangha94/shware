@@ -28,23 +28,19 @@ public class BordSettingRepositoryImp extends SqlSessionDaoSupport implements Bo
         getSqlSession().delete("bordSetting.deleteBordSetting",bordNo);
     }
 
+    //내릴 게시판의 bordNo를 리턴
     @Override
-    public int upBordSeq(int bordNo){
-        return getSqlSession().selectOne("bordSetting.findMaxBordSeq",bordNo);
-    }
-
-    @Override
-    public int downBordNo(int bordNo){
+    public Integer getDownBordNo(int bordNo){
         return getSqlSession().selectOne("bordSetting.findMaxBordNo",bordNo);
     }
 
+    /**
+     * 올릴 게시판의 bordNo를 리턴
+     * @param bordNo
+     * @return
+     */
     @Override
-    public int downBordSeq(int bordNo){
-        return getSqlSession().selectOne("bordSetting.findMinBordSeq",bordNo);
-    }
-
-    @Override
-    public int upBordNo(int bordNo){
+    public Integer getUpBordNo(int bordNo){
         return getSqlSession().selectOne("bordSetting.findMinBordNo",bordNo);
     }
 }

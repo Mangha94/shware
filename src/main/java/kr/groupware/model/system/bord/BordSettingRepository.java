@@ -19,17 +19,15 @@ public interface BordSettingRepository {
      * 게시판 순서 올릴때
      * @param bordNo
      * @return
+     *
      */
-    int upBordSeq(int bordNo);
 
-    int upBordNo(int bordNo);
+    Integer getDownBordNo(int bordNo);
 
     /**
      * 게시판 순서 내릴때
      * @param bordNo
      * @return
      */
-    int downBordSeq(int bordNo);
-
-    int downBordNo(int bordNo);
+    Integer getUpBordNo(int bordNo);
 }
