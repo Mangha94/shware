@@ -30,6 +30,32 @@
 
     </select>
 
+    <!--게시판을 위로 올릴때-->
+    <select id="findMaxBordSeq" parameterType="int" resultType="int">
+
+        SELECT MAX(sequence) from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
+
+    </select>
+
+    <select id="findMaxBordNo" parameterType="int" resultType="int">
+
+        SELECT MAX(bordNo) from bordSetting WHERE sequence <![CDATA[ < ]]> (select sequence from bordSetting WHERE bordNo=#{bordNo})
+
+    </select>
+
+    <!--게시판을 밑으로 내릴때-->
+    <select id="findMinBordSeq" parameterType="int" resultType="int">
+
+        SELECT MIN(sequence) from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
+
+    </select>
+
+    <select id="findMinBordNo" parameterType="int" resultType="int">
+
+        SELECT MIN(bordNo) from bordSetting WHERE sequence > (select sequence from bordSetting WHERE bordNo=#{bordNo})
+
+    </select>
+
     <insert id="addBordSetting" parameterType="BordSettingData">
 
         INSERT INTO bordSetting (sequence,bordName,used) VALUE (#{sequence},#{bordName},#{used})

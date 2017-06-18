@@ -2,6 +2,7 @@ package kr.groupware.server.controller.org;
 
 import kr.groupware.model.rank.department.DepartmentData;
 import kr.groupware.model.rank.department.DepartmentSv;
+import kr.groupware.server.controller.MenuSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,18 @@ import java.util.List;
 @RequestMapping(value = "/org/rank/")
 public class DepartmentCt {
     @Autowired
+    private
     DepartmentSv departmentSv;
 
+    @Autowired
+    private MenuSetting menuSetting;
     @RequestMapping(value = "/departmentList.do",method = RequestMethod.GET)
     public ModelAndView departmentList(){
         ModelAndView mv=new ModelAndView("org/rank/departmentList");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<DepartmentData> departmentList=departmentSv.getDepartments();
         mv.addObject("departmentList",departmentList);
         return mv;
@@ -28,6 +36,10 @@ public class DepartmentCt {
     @RequestMapping(value = "/reloadDepartment.do",method = RequestMethod.GET)
     public ModelAndView reloadDepartment(){
         ModelAndView mv=new ModelAndView("org/rank/reloadDepartment");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<DepartmentData> departmentList=departmentSv.getDepartments();
         mv.addObject("departmentList",departmentList);
         return mv;

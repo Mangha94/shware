@@ -105,7 +105,7 @@
 
         <include refid="memberWhere" />
 
---         ORDER BY ${sortBy} ${sortMode}
+        ORDER BY ${orderVal} ${orderAsc}
 
         limit ${limitStart},${articlesPerPage}
 

@@ -2,6 +2,7 @@ package kr.groupware.server.controller.system;
 
 import kr.groupware.model.system.bord.BordSettingData;
 import kr.groupware.model.system.bord.BordSettingSv;
+import kr.groupware.server.controller.MenuSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,17 @@ import java.util.List;
 @RequestMapping(value = "/system")
 public class bordSettingCt {
     @Autowired
-    BordSettingSv bordSettingSv;
+    private BordSettingSv bordSettingSv;
+    @Autowired
+    private MenuSetting menuSetting;
 
     @RequestMapping(value = "/bordSetting.do",method = RequestMethod.GET)
     public ModelAndView getBordSetting(){
         ModelAndView mv=new ModelAndView("/system/bordSetting");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<BordSettingData>getBordSettingList=bordSettingSv.getBordSettings();
         mv.addObject("bordSettingList",getBordSettingList);
         return mv;

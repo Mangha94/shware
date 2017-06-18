@@ -1,6 +1,8 @@
 package kr.groupware.server.module;
 
 import kr.groupware.model.Paging;
+import kr.groupware.model.SearchData;
+import kr.groupware.model.member.MemberSearchData;
 
 /**
  * Created by purre on 2017-06-11.
@@ -17,6 +19,9 @@ public class PagingUI {
     private int nextPage = 0;
     private int prevBlock = 0;
     private int nextBlock = 0;
+
+    protected String searchVal;
+    protected String searchFrom;
 
     private String funcName = "onPage";
 
@@ -107,7 +112,7 @@ public class PagingUI {
 
             if (nextPage == lastPage) {
                 str.append("<li class=\"page-item\">" +
-                        "                                <a href=\"javascript:onPage(" + lastPage + "," + articlesPerPage + ")\" class=\"page-link\" aria-label=\"Next\">\n" +
+                        "                                <a href=\"javascript:onPage(" + lastPage + "," + articlesPerPage +")\" class=\"page-link\" aria-label=\"Next\">\n" +
                         "                                    <span aria-hidden=\"true\">&raquo;</span>\n" +
                         "                                    <span class=\"sr-only\">Next</span>\n" +
                         "                                </a>\n</li>");

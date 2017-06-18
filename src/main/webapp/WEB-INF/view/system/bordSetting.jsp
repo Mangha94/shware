@@ -27,6 +27,15 @@
         });
 
     }
+
+    function upBordSeq() {
+
+    }
+
+    function downBordSeq() {
+
+    }
+
     function addBordSettingv() {
         var formData = $("#addTr").find(":input").serialize();
 
@@ -63,7 +72,7 @@
                         <table id="bordSettingForm" class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>게시판 순서</th>
+                                <th>게시판 조정</th>
                                 <th>게시판 이름</th>
                                 <th>사용 여부</th>
                                 <th>관리</th>
@@ -75,13 +84,13 @@
                                 <tr id="bordSettingTr_${bord.bordNo}">
                                     <td>
                                         <input type="hidden" name="bordNo" value="${bord.bordNo}"/>
-                                        <select name="sequence" class="form-control">
-                                            <c:forEach begin="1" end="5" var="idx">
-                                                <option value="${idx}"
-                                                        <c:if test="${bord.sequence eq idx}">selected</c:if>>${idx}번째
-                                                </option>
-                                            </c:forEach>
-                                        </select>
+                                        <input type="hidden" name="sequence" value="${bord.sequence}"/>
+                                        <button href="javascript:upBordSqe()" type="button" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                        </button>
+                                        <button href="javascript:downBordSqe()" type="button" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                        </button>
                                     </td>
                                     <td>
                                         <input type="text" name="bordName" class="form-control"
@@ -89,10 +98,14 @@
                                     </td>
                                     <td>
                                         <%--셀렉트로--%>
-                                        <input type="radio" name="used" value="true"
-                                               <c:if test="${bord.used eq true}">checked</c:if>> 사용
-                                        <input type="radio" name="used" value="false"
-                                               <c:if test="${bord.used eq false}">checked</c:if>> 사용안함
+                                            <select name="used" class="form-control">
+                                                <option value="true"
+                                                        <c:if test="${bord.used eq true}">selected</c:if>>사용
+                                                </option>
+                                                <option value="false"
+                                                        <c:if test="${bord.used eq false}">selected</c:if>>사용안함
+                                                </option>
+                                            </select>
                                     </td>
                                     <td>
                                         <a href="javascript: modifyBordSettingv('${bord.bordNo}')"
@@ -117,12 +130,10 @@
                                     <input type="text" name="bordName" class="form-control" value="">
                                 </td>
                                 <td>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="used" value="true"> 사용
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="used" value="false"> 사용안함
-                                    </label>
+                                    <select name="used" class="form-control">
+                                        <option value="true">사용</option>
+                                        <option value="false">사용안함</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <a href="javascript:addBordSettingv()" class="btn btn-primary">등록하기</a>

@@ -2,6 +2,7 @@ package kr.groupware.server.controller.org;
 
 import kr.groupware.model.rank.spot.SpotData;
 import kr.groupware.model.rank.spot.SpotSv;
+import kr.groupware.server.controller.MenuSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,16 @@ import java.util.List;
 @RequestMapping(value = "/org/rank/")
 public class SpotCt {
     @Autowired
-    SpotSv spotSv;
+    private SpotSv spotSv;
+    @Autowired
+    private MenuSetting menuSetting;
     @RequestMapping(value = "/spotList.do",method = RequestMethod.GET)
     public ModelAndView spotList(){
         ModelAndView mv=new ModelAndView("org/rank/spotList");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<SpotData> spotList=spotSv.getSpots();
         mv.addObject("spotList",spotList);
         return mv;
@@ -27,6 +34,10 @@ public class SpotCt {
     @RequestMapping(value = "/reloadSpot.do",method = RequestMethod.GET)
     public ModelAndView reloadSpot(){
         ModelAndView mv=new ModelAndView("org/rank/reloadSpot");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<SpotData> spotList=spotSv.getSpots();
         mv.addObject("spotList",spotList);
         return mv;

@@ -1,5 +1,11 @@
 package kr.groupware.server.controller.org;
 
+import kr.groupware.model.SearchData;
+import kr.groupware.model.system.bord.BordSettingData;
+import kr.groupware.model.system.bord.BordSettingSv;
+import kr.groupware.model.system.defaultSystem.DefaultSystemSettingData;
+import kr.groupware.model.system.defaultSystem.DefaultSystemSettingSv;
+import kr.groupware.server.controller.MenuSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
@@ -37,15 +44,22 @@ public class MemberCt {
     @Autowired
     private
     DepartmentSv departmentSv;
+    @Autowired
+    private MenuSetting menuSetting;
 
 	@RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
 	public ModelAndView searchMember(
 		@RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
 		@RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
+		@RequestParam(value = "orderAsc", required = false, defaultValue = "ASC") String orderAsc,
+		@RequestParam(value = "orderVal", required = false, defaultValue = "memberId") String orderVal,
 		@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
 		@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
 	) {
 		ModelAndView mv = new ModelAndView("/org/member/memberList");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
 
 		MemberSearchData searchData = new MemberSearchData();
 		if (searchFrom.equals("memberId")) {
@@ -55,6 +69,10 @@ public class MemberCt {
 		} else if (searchFrom.equals("email")) {
 			searchData.setEmail(searchVal);
 		}
+        if(orderVal!=null && orderAsc!=null){
+            searchData.setOrderVal(orderVal);
+            searchData.setOrderAsc(orderAsc);
+        }
 
 		Paging paging = new Paging (pageNo, 10, pageSize);
 
@@ -63,8 +81,10 @@ public class MemberCt {
 		mv.addObject ("paging", pagingList.getPaging ());
 		mv.addObject ("pagingList", pagingList);
 
-		mv.addObject("searchForm",searchFrom);
+		mv.addObject("searchFrom",searchFrom);
 		mv.addObject("searchVal",searchVal);
+		mv.addObject("orderVal",orderVal);
+		mv.addObject("orderASC",orderAsc);
 
 		return mv;
 	}
@@ -86,6 +106,10 @@ public class MemberCt {
     ) {
         MemberData memberData = memberSv.getMember(memberId);
         ModelAndView mv = new ModelAndView("org/member/modifyMember");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<SpotData> spots = spotSv.getSpots();
         List<PositionData> positions = positionSv.getPositions();
         List<DepartmentData> departments = departmentSv.getDepartments();
@@ -102,7 +126,6 @@ public class MemberCt {
     )
 	{
         ModelAndView mv = new ModelAndView("pageJsonReport");
-
         try
 		{
             memberSv.addMember(memberData);
@@ -133,10 +156,9 @@ public class MemberCt {
             @RequestParam(value = "securityRating", required = false) int securityRating,
             @RequestParam(value = "businessNo", required = false) String businessNo
     ) {
+
         MemberData memberData = memberSv.getMember(memberId);
-        memberData.setPw(pw);
-        memberData.setName(name);
-        memberData.setPositionNo(positionNo);
+        memberData.setPw(pw).setName(name).setPositionNo(positionNo);
         memberData.setSpotNo(spotNo);
         memberData.setDepartmentNo(departmentNo);
         memberData.setEmail(email);
@@ -161,6 +183,10 @@ public class MemberCt {
     @RequestMapping(value = "/addMemberForm.do", method = RequestMethod.GET)
     public ModelAndView addMemberForm() {
         ModelAndView mv = new ModelAndView("/org/member/addMember");
+
+        //메뉴셋팅
+        menuSetting.menuSetting(mv);
+
         List<SpotData> spots = spotSv.getSpots();
         List<PositionData> positions = positionSv.getPositions();
         List<DepartmentData> departments = departmentSv.getDepartments();
@@ -168,10 +194,6 @@ public class MemberCt {
         mv.addObject("getPositions", positions);
         mv.addObject("getDepartments", departments);
         return mv;
-    }
-
-    public void setPaging(int pageNo,int pageSize){
-
     }
 
 }

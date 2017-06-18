@@ -27,4 +27,24 @@ public class BordSettingRepositoryImp extends SqlSessionDaoSupport implements Bo
     public void deleteBordSetting(int bordNo){
         getSqlSession().delete("bordSetting.deleteBordSetting",bordNo);
     }
+
+    @Override
+    public int upBordSeq(int bordNo){
+        return getSqlSession().selectOne("bordSetting.findMaxBordSeq",bordNo);
+    }
+
+    @Override
+    public int downBordNo(int bordNo){
+        return getSqlSession().selectOne("bordSetting.findMaxBordNo",bordNo);
+    }
+
+    @Override
+    public int downBordSeq(int bordNo){
+        return getSqlSession().selectOne("bordSetting.findMinBordSeq",bordNo);
+    }
+
+    @Override
+    public int upBordNo(int bordNo){
+        return getSqlSession().selectOne("bordSetting.findMinBordNo",bordNo);
+    }
 }

@@ -50,6 +50,7 @@ public class Paging
 		this.showPages = showPages;
 		this.articlesPerPage = articlesPerPage;
 		this.limitStart = (currentPage - 1) * articlesPerPage;
+
 	}
 
 	public Paging (int currentPage, int showPages, int articlesPerPage,
@@ -131,9 +132,6 @@ public class Paging
 		if (searchData != null) {
 			mapData.putAll(searchData);
 		}
-//		if(sortData != null){
-//			mapData.putAll(sortData);
-//		}
 		return mapData;
 	}
 
