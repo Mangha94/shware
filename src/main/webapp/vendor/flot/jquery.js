@@ -1189,16 +1189,16 @@ jQuery.extend({
 	},
 
 	// Deferred helper
-	when: function( subordinate /* , ..., subordinateN */ ) {
+	when: function( suboardinate /* , ..., suboardinateN */ ) {
 		var i = 0,
 			resolveValues = core_slice.call( arguments ),
 			length = resolveValues.length,
 
-			// the count of uncompleted subordinates
-			remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
+			// the count of uncompleted suboardinates
+			remaining = length !== 1 || ( suboardinate && jQuery.isFunction( suboardinate.promise ) ) ? length : 0,
 
 			// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-			deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
+			deferred = remaining === 1 ? suboardinate : jQuery.Deferred(),
 
 			// Update function for both resolve and progress values
 			updateFunc = function( i, contexts, values ) {
@@ -1215,7 +1215,7 @@ jQuery.extend({
 
 			progressValues, progressContexts, resolveContexts;
 
-		// add listeners to Deferred subordinates; treat others as resolved
+		// add listeners to Deferred suboardinates; treat others as resolved
 		if ( length > 1 ) {
 			progressValues = new Array( length );
 			progressContexts = new Array( length );
@@ -1414,7 +1414,7 @@ jQuery.support = (function() {
 	// Run tests that need a body at doc ready
 	jQuery(function() {
 		var container, div, tds, marginDiv,
-			divReset = "padding:0;margin:0;border:0;display:block;overflow:hidden;",
+			divReset = "padding:0;margin:0;boarder:0;display:block;overflow:hidden;",
 			body = document.getElementsByTagName("body")[0];
 
 		if ( !body ) {
@@ -1423,7 +1423,7 @@ jQuery.support = (function() {
 		}
 
 		container = document.createElement("div");
-		container.style.cssText = "visibility:hidden;border:0;width:0;height:0;position:static;top:0;margin-top:1px";
+		container.style.cssText = "visibility:hidden;boarder:0;width:0;height:0;position:static;top:0;margin-top:1px";
 		body.insertBefore( container, body.firstChild );
 
 		// Construct the test element
@@ -1439,7 +1439,7 @@ jQuery.support = (function() {
 		// (only IE 8 fails this test)
 		div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";
 		tds = div.getElementsByTagName("td");
-		tds[ 0 ].style.cssText = "padding:0;margin:0;border:0;display:none";
+		tds[ 0 ].style.cssText = "padding:0;margin:0;boarder:0;display:none";
 		isSupported = ( tds[ 0 ].offsetHeight === 0 );
 
 		tds[ 0 ].style.display = "";
@@ -1451,7 +1451,7 @@ jQuery.support = (function() {
 
 		// Check box-sizing and margin behavior
 		div.innerHTML = "";
-		div.style.cssText = "box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;padding:1px;border:1px;display:block;width:4px;margin-top:1%;position:absolute;top:1%;";
+		div.style.cssText = "box-sizing:boarder-box;-moz-box-sizing:boarder-box;-webkit-box-sizing:boarder-box;padding:1px;boarder:1px;display:block;width:4px;margin-top:1%;position:absolute;top:1%;";
 		support.boxSizing = ( div.offsetWidth === 4 );
 		support.doesNotIncludeMarginInBodyOffset = ( body.offsetTop !== 1 );
 
@@ -2409,7 +2409,7 @@ jQuery.extend({
 		rowspan: "rowSpan",
 		colspan: "colSpan",
 		usemap: "useMap",
-		frameborder: "frameBorder",
+		frameboarder: "frameboarder",
 		contenteditable: "contentEditable"
 	},
 
@@ -6904,8 +6904,8 @@ function setPositiveNumber( elem, value, subtract ) {
 			value;
 }
 
-function augmentWidthOrHeight( elem, name, extra, isBorderBox ) {
-	var i = extra === ( isBorderBox ? "border" : "content" ) ?
+function augmentWidthOrHeight( elem, name, extra, isboarderBox ) {
+	var i = extra === ( isboarderBox ? "boarder" : "content" ) ?
 		// If we already have the right measurement, avoid augmentation
 		4 :
 		// Otherwise initialize for horizontal or vertical properties
@@ -6922,23 +6922,23 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox ) {
 		}
 
 		// From this point on we use curCSS for maximum performance (relevant in animations)
-		if ( isBorderBox ) {
-			// border-box includes padding, so remove it if we want content
+		if ( isboarderBox ) {
+			// boarder-box includes padding, so remove it if we want content
 			if ( extra === "content" ) {
 				val -= parseFloat( curCSS( elem, "padding" + cssExpand[ i ] ) ) || 0;
 			}
 
-			// at this point, extra isn't border nor margin, so remove border
+			// at this point, extra isn't boarder nor margin, so remove boarder
 			if ( extra !== "margin" ) {
-				val -= parseFloat( curCSS( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
+				val -= parseFloat( curCSS( elem, "boarder" + cssExpand[ i ] + "Width" ) ) || 0;
 			}
 		} else {
 			// at this point, extra isn't content, so add padding
 			val += parseFloat( curCSS( elem, "padding" + cssExpand[ i ] ) ) || 0;
 
-			// at this point, extra isn't content nor padding, so add border
+			// at this point, extra isn't content nor padding, so add boarder
 			if ( extra !== "padding" ) {
-				val += parseFloat( curCSS( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
+				val += parseFloat( curCSS( elem, "boarder" + cssExpand[ i ] + "Width" ) ) || 0;
 			}
 		}
 	}
@@ -6948,10 +6948,10 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox ) {
 
 function getWidthOrHeight( elem, name, extra ) {
 
-	// Start with offset property, which is equivalent to the border-box value
+	// Start with offset property, which is equivalent to the boarder-box value
 	var val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
-		valueIsBorderBox = true,
-		isBorderBox = jQuery.support.boxSizing && jQuery.css( elem, "boxSizing" ) === "border-box";
+		valueIsboarderBox = true,
+		isboarderBox = jQuery.support.boxSizing && jQuery.css( elem, "boxSizing" ) === "boarder-box";
 
 	// some non-html elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -6970,7 +6970,7 @@ function getWidthOrHeight( elem, name, extra ) {
 
 		// we need the check for style in case a browser which returns unreliable values
 		// for getComputedStyle silently falls back to the reliable elem.style
-		valueIsBorderBox = isBorderBox && ( jQuery.support.boxSizingReliable || val === elem.style[ name ] );
+		valueIsboarderBox = isboarderBox && ( jQuery.support.boxSizingReliable || val === elem.style[ name ] );
 
 		// Normalize "", auto, and prepare for extra
 		val = parseFloat( val ) || 0;
@@ -6981,8 +6981,8 @@ function getWidthOrHeight( elem, name, extra ) {
 		augmentWidthOrHeight(
 			elem,
 			name,
-			extra || ( isBorderBox ? "border" : "content" ),
-			valueIsBorderBox
+			extra || ( isboarderBox ? "boarder" : "content" ),
+			valueIsboarderBox
 		)
 	) + "px";
 }
@@ -7004,7 +7004,7 @@ function css_defaultDisplay( nodeName ) {
 		// Use the already-created iframe if possible
 		iframe = document.body.appendChild(
 			iframe || jQuery.extend( document.createElement("iframe"), {
-				frameBorder: 0,
+				frameboarder: 0,
 				width: 0,
 				height: 0
 			})
@@ -7053,7 +7053,7 @@ jQuery.each([ "height", "width" ], function( i, name ) {
 					elem,
 					name,
 					extra,
-					jQuery.support.boxSizing && jQuery.css( elem, "boxSizing" ) === "border-box"
+					jQuery.support.boxSizing && jQuery.css( elem, "boxSizing" ) === "boarder-box"
 				) : 0
 			);
 		}
@@ -7152,7 +7152,7 @@ if ( jQuery.expr && jQuery.expr.filters ) {
 jQuery.each({
 	margin: "",
 	padding: "",
-	border: "Width"
+	boarder: "Width"
 }, function( prefix, suffix ) {
 	jQuery.cssHooks[ prefix + suffix ] = {
 		expand: function( value ) {
@@ -9352,9 +9352,9 @@ jQuery.fn.extend({
 		offset.top  -= parseFloat( jQuery.css(elem, "marginTop") ) || 0;
 		offset.left -= parseFloat( jQuery.css(elem, "marginLeft") ) || 0;
 
-		// Add offsetParent borders
-		parentOffset.top  += parseFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
-		parentOffset.left += parseFloat( jQuery.css(offsetParent[0], "borderLeftWidth") ) || 0;
+		// Add offsetParent boarders
+		parentOffset.top  += parseFloat( jQuery.css(offsetParent[0], "boarderTopWidth") ) || 0;
+		parentOffset.left += parseFloat( jQuery.css(offsetParent[0], "boarderLeftWidth") ) || 0;
 
 		// Subtract the two offsets
 		return {
@@ -9415,7 +9415,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 		// margin is only for outerHeight, outerWidth
 		jQuery.fn[ funcName ] = function( margin, value ) {
 			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
-				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
+				extra = defaultExtra || ( margin === true || value === true ? "margin" : "boarder" );
 
 			return jQuery.access( this, function( elem, type, value ) {
 				var doc;

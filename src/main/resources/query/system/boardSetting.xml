@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardSetting">
+
+    <resultMap id="BoardSettingRs" type="BoardSettingData">
+        <result column="boardNo" property="boardNo" />
+        <result column="sequence" property="sequence" />
+        <result column="boardName" property="boardName" />
+        <result column="used" property="used" />
+    </resultMap>
+
+    <sql id = "fldBoardSetting">
+        boardNo,
+        sequence,
+        boardName,
+        used
+    </sql>
+
+    <select id="getBoardSettings" resultMap="BoardSettingRs">
+
+        SELECT <include refid="fldBoardSetting"/> FROM boardSetting ORDER BY sequence ASC
+
+    </select>
+
+    <select id="getBoardSetting" parameterType="int" resultMap="BoardSettingRs">
+
+        SELECT <include refid="fldBoardSetting"/> FROM boardSetting WHERE boardNo=#{boardNo}
+
+    </select>
+
+    <!--게시판을 위로 올릴때-->
+    <!--해당 게시판 보다 seq가 더 작은 놈들중에 제일 큰놈의 boardNo를 찾는다-->
+    <select id="findMaxBoardNo" parameterType="int" resultType="int">
+
+        SELECT boardNo from boardSetting WHERE sequence <![CDATA[ < ]]> (select sequence from boardSetting WHERE boardNo=#{boardNo})
+
+        ORDER BY sequence DESC
+
+        LIMIT 1
+
+    </select>
+
+    <!--게시판을 밑으로 내릴때-->
+    <!--해당 게시판 보다 seq가 더 큰 놈들중에 제일 작은놈의 boardNo를 찾는다-->
+    <select id="findMinBoardNo" parameterType="int" resultType="int">
+
+        SELECT boardNo from boardSetting WHERE sequence > (select sequence from boardSetting WHERE boardNo=#{boardNo})
+
+        ORDER BY sequence ASC
+
+        LIMIT 1
+
+    </select>
+
+    <insert id="addBoardSetting" parameterType="BoardSettingData">
+
+        INSERT INTO boardSetting (sequence,boardName,used) VALUE (#{sequence},#{boardName},#{used})
+
+    </insert>
+
+    <update id="modifyBoardSetting" parameterType="BoardSettingData">
+
+        UPDATE boardSetting SET sequence=#{sequence},boardName=#{boardName},used=#{used} WHERE boardNo=#{boardNo}
+
+    </update>
+
+    <delete id="deleteBoardSetting" parameterType="int">
+
+        DELETE FROM boardSetting WHERE boardNo=#{boardNo}
+
+    </delete>
+
+    <select id="getMostSeqBoardNo" resultType="int">
+
+        SELECT MAX(sequence) FROM boardSetting
+
+    </select>
+</mapper>

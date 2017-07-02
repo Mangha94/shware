@@ -5,41 +5,41 @@
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
 
 <script>
-    function deleteBordSettingv(bordNo) {
+    function deleteBoardSettingv(boardNo) {
         if (confirm("삭제하시겠습니까?")) {
-            location.href="/system/deleteBordSetting.do?bordNo=" + bordNo
+            location.href="/system/deleteBoardSetting.do?boardNo=" + boardNo
         }
     }
 
-    function modifyBordSettingv(bordNo) {
-        var formData = $("#bordSettingTr_" + bordNo).find(':input').serialize();
+    function modifyBoardSettingv(boardNo) {
+        var formData = $("#boardSettingTr_" + boardNo).find(':input').serialize();
 
         $.ajax({
             type: "POST",
-            url: "/system/modifyBordSetting.do",
+            url: "/system/modifyBoardSetting.do",
             data: formData,
             success: function (data, textStatus) {
                 result = data;
                 alert("수정되었습니다");
 
-                location.href="/system/bordSetting.do";
+                location.href="/system/boardSetting.do";
             }
         });
 
     }
 
-    function upBordSeq(bordNo) {
+    function upBoardSeq(boardNo) {
 
             $.ajax({
                 type: "POST",
-                url: "/system/upBordSeq.do?bordNo="+bordNo,
+                url: "/system/upBoardSeq.do?boardNo="+boardNo,
                 dataType: "json",
-                data: bordNo,
+                data: boardNo,
                 success: function (data, textStatus){
 
                     if(data.success){
                         alert("수정되었습니다");
-                        reloadBordSetting();
+                        reloadBoardSetting();
                     }
                     else
                         alert("실패했습니다");
@@ -48,17 +48,17 @@
             });
     }
 
-    function downBordSeq(bordNo) {
+    function downBoardSeq(boardNo) {
         $.ajax({
             type: "POST",
-            url: "/system/downBordSeq.do?bordNo="+bordNo,
+            url: "/system/downBoardSeq.do?boardNo="+boardNo,
             dataType: "json",
-            data: bordNo,
+            data: boardNo,
             success: function (data, textStatus){
 
                 if(data.success){
                     alert("수정되었습니다");
-                    reloadBordSetting();
+                    reloadBoardSetting();
                 }
                 else
                     alert("실패했습니다");
@@ -67,23 +67,23 @@
         });
     }
 
-    function reloadBordSetting() {
-        $("#bordSettingForm").load("/system/reloadBordSetting.do");
+    function reloadBoardSetting() {
+        $("#boardSettingForm").load("/system/reloadBoardSetting.do");
     }
 
-    function addBordSettingv() {
+    function addBoardSettingv() {
         var formData = $("#addTr").find(":input").serialize();
 
         $.ajax({
             type: "POST",
-            url: "/system/addBordSetting.do",
+            url: "/system/addBoardSetting.do",
             data: formData,
             success: function (data, textStatus) {
                 result = data;
 
                 alert("등록되었습니다");
 
-                reloadBordSetting();
+                reloadBoardSetting();
             }
         });
     }
@@ -104,9 +104,9 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="bordSettingForm" class="table table-striped table-bordered table-hover">
+                        <table id="boardSettingForm" class="table table-striped table-boardered table-hover">
 
-                            <jsp:include page="/WEB-INF/view/system/reloadBordSetting.jsp"></jsp:include>
+                            <jsp:include page="/WEB-INF/view/system/reloadBoardSetting.jsp"></jsp:include>
 
                         </table>
                     </div>

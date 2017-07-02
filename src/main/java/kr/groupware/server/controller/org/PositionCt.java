@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,9 +64,12 @@ public class PositionCt {
 
     @RequestMapping(value = "/deletePosition.do", method = RequestMethod.GET)
     public ModelAndView deletePosition(
-            @RequestParam(value = "positionNo", required = false) int positionNo
+            @RequestParam(value = "positionNo", required = false) String positionNoData
     ) {
-        positionSv.deletePosition(positionNo);
+        String []positionNoDataArray=positionNoData.split(",");
+        for(String positionNo:positionNoDataArray){
+            positionSv.deletePosition(Integer.parseInt(positionNo));
+        }
         return new ModelAndView("redirect:/org/rank/positionList.do");
     }
 

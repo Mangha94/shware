@@ -23,7 +23,7 @@
 //   width and height style values which isn't correct.
 // * Painting mode isn't implemented.
 // * Canvas width/height should is using content-box by default. IE in
-//   Quirks mode will draw the canvas using border-box. Either change your
+//   Quirks mode will draw the canvas using boarder-box. Either change your
 //   doctype to HTML5
 //   (http://www.whatwg.org/specs/web-apps/current-work/#the-doctype)
 //   or use Box Sizing Behavior from WebFX
@@ -1314,7 +1314,7 @@ if (!document.createElement('canvas').getContext) {
   contextPrototype.measureText = function(text) {
     if (!this.textMeasureEl_) {
       var s = '<span style="position:absolute;' +
-          'top:-20000px;left:0;padding:0;margin:0;border:none;' +
+          'top:-20000px;left:0;padding:0;margin:0;boarder:none;' +
           'white-space:pre;"></span>';
       this.element_.insertAdjacentHTML('beforeEnd', s);
       this.textMeasureEl_ = this.element_.lastChild;

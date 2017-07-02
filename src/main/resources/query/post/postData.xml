@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="postData">
+
+    <resultMap id="PostDataRs" type="PostData">
+        <result column="postNo" property="postNo"/>
+        <result column="boardNo" property="boardNo"/>
+        <result column="postName" property="postName"/>
+        <result column="postContent" property="postContent"/>
+        <result column="postingDate" property="postingDate"/>
+        <result column="modifyDate" property="modifyDate"/>
+        <result column="postedId" property="postedId"/>
+        <result column="viewCnt" property="viewCnt"/>
+        <result column="commentCnt" property="commentCnt"/>
+    </resultMap>
+
+    <sql id = "fldPostData">
+        postNo,
+        boardNo,
+        postName,
+        postContent,
+        postingDate,
+        modifyDate,
+        postedId,
+        viewCnt,
+        commentCnt
+    </sql>
+
+    <select id="getPost" parameterType="int" resultType="PostData">
+
+        SELECT <include refid="fldPostData"/> FROM postData WHERE postNo=#{postNo}
+
+    </select>
+
+    <insert id="addPost" parameterType="PostData">
+
+        INSERT INTO postData (boardNo,postName,postingDate,postedId,postContent,viewCnt,commentCnt) VALUE (#{boardNo},#{postName},#{postingDate},#{postedId},#{postContent},#{viewCnt},#{commentCnt})
+
+    </insert>
+
+    <update id="modifyPost" parameterType="PostData">
+
+        UPDATE postData SET postName=#{postName},postContent=#{postContent},modifyDate=#{modifyDate} WHERE postNo=#{postNo}
+
+    </update>
+
+    <delete id="deletePost" parameterType="int" >
+
+        DELETE FROM postData WHERE postNo=#{postNo}
+
+    </delete>
+
+    <select id="getPostCnt" resultType="int">
+
+        SELECT count(postNo) FROM postData
+
+    </select>
+
+    <sql id = "postWhere">
+
+        <where>
+
+            <if test = "boardNo != null">
+                AND boardNo = #{boardNo}
+            </if>
+
+            <if test = "postName != null">
+                AND postName LIKE '%${postName}%'
+            </if>
+
+            <if test = "postedId != null">
+                AND postedId = #{postedId}
+            </if>
+
+        </where>
+
+    </sql>
+
+    <select id="searchPost" parameterType="map" resultType="PostData">
+
+        SELECT <include refid="fldPostData" />,
+        (SELECT boardName FROM boardSetting WHERE boardNo=postData.boardNo) AS boardName
+
+        FROM postData
+
+        <include refid="postWhere"/>
+
+        limit ${limitStart},${articlesPerPage}
+
+    </select>
+
+    <select id="searchPostCnt" parameterType="map" resultType="int">
+
+        SELECT COUNT(postNo) FROM postData
+
+        <include refid="postWhere"/>
+
+    </select>
+</mapper>

@@ -1,7 +1,7 @@
 package kr.groupware.server.controller;
 
-import kr.groupware.model.system.bord.BordSettingData;
-import kr.groupware.model.system.bord.BordSettingSv;
+import kr.groupware.model.system.board.BoardSettingData;
+import kr.groupware.model.system.board.BoardSettingSv;
 import kr.groupware.model.system.defaultSystem.DefaultSystemSettingData;
 import kr.groupware.model.system.defaultSystem.DefaultSystemSettingSv;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,14 @@ import java.util.List;
 public class MenuSetting {
     @Autowired
     private
-    BordSettingSv bordSettingSv;
+    BoardSettingSv boardSettingSv;
     @Autowired
     private
     DefaultSystemSettingSv defaultSystemSettingSv;
 
     public void menuSetting(ModelAndView mv){
-        List<BordSettingData> BordSettings=bordSettingSv.getBordSettings();
-        mv.addObject("BordSettings",BordSettings);
+        List<BoardSettingData> boardSettings= boardSettingSv.getBoardSettings();
+        mv.addObject("boardSettings",boardSettings);
 
         List<DefaultSystemSettingData>defaultSystemSetting=defaultSystemSettingSv.getDefaultSystemSettings();
         mv.addObject("defaultSystemSetting",defaultSystemSetting);

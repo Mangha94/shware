@@ -1149,8 +1149,8 @@ $(function() {
 
     var plot = $.plot(container, series, {
         grid: {
-            borderWidth: 1,
-            minBorderMargin: 20,
+            boarderWidth: 1,
+            minboarderMargin: 20,
             labelMargin: 10,
             backgroundColor: {
                 colors: ["#fff", "#e4f4f4"]

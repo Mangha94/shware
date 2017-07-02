@@ -59,10 +59,10 @@
 .fa-li.fa-lg {
   left: -1.85714286em;
 }
-.fa-border {
+.fa-boarder {
   padding: .2em .25em .15em;
-  border: solid 0.08em #eeeeee;
-  border-radius: .1em;
+  boarder: solid 0.08em #eeeeee;
+  boarder-radius: .1em;
 }
 .fa-pull-left {
   float: left;
@@ -2186,7 +2186,7 @@
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
-  border: 0;
+  boarder: 0;
 }
 .sr-only-focusable:active,
 .sr-only-focusable:focus {

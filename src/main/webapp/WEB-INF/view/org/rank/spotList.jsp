@@ -76,7 +76,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                            <table id="spotForm" class="table table-striped table-bordered table-hover">
+                            <table id="spotForm" class="table table-striped table-boardered table-hover">
                                 <jsp:include page="/WEB-INF/view/org/rank/reloadSpot.jsp"></jsp:include>
                             </table>
                     </div>

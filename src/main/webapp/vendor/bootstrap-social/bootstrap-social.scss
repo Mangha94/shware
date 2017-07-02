@@ -28,7 +28,7 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
     line-height: ($bs-height-base + 2);
     font-size: 1.6em;
     text-align: center;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    boarder-right: 1px solid rgba(0, 0, 0, 0.2);
   }
   &.btn-lg {
     padding-left: ($bs-height-lg + $padding-large-horizontal);
@@ -62,7 +62,7 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
   width: ($bs-height-base + 2);
   padding: 0;
   :first-child {
-    border: none;
+    boarder: none;
     text-align: center;
     width: 100%!important;
   }

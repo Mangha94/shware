@@ -101,16 +101,16 @@ div.dataTables_scrollHead table {
 }
 
 div.dataTables_scrollBody table {
-  border-top: none;
+  boarder-top: none;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 div.dataTables_scrollBody table tbody tr:first-child th,
 div.dataTables_scrollBody table tbody tr:first-child td {
-  border-top: none;
+  boarder-top: none;
 }
 
 div.dataTables_scrollFoot table {
   margin-top: 0 !important;
-  border-top: none;
+  boarder-top: none;
 }

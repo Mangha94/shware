@@ -29,14 +29,6 @@
 
         onPage(1);
     }
-
-    function changeOrderVal() {
-        if(document.memberForm.orderAsc.value =="ASC") {
-            document.memberForm.orderAsc.value = "DESC";
-        }
-        else
-            document.memberForm.orderAsc.value = "ASC";
-    }
 </script>
 
 <div id="page-wrapper">

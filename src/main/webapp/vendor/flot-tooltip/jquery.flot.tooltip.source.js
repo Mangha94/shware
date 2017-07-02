@@ -328,9 +328,9 @@
                         'background': '#fff',
                         'z-index': '1040',
                         'padding': '0.4em 0.6em',
-                        'border-radius': '0.5em',
+                        'boarder-radius': '0.5em',
                         'font-size': '0.8em',
-                        'border': '1px solid #111',
+                        'boarder': '1px solid #111',
                         'display': 'none',
                         'white-space': 'nowrap'
                     });

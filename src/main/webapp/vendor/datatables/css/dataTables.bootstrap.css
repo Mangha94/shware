@@ -3,7 +3,7 @@ table.dataTable {
   margin-top: 6px !important;
   margin-bottom: 6px !important;
   max-width: none !important;
-  border-collapse: separate !important;
+  boarder-collapse: separate !important;
 }
 table.dataTable td,
 table.dataTable th {
@@ -119,7 +119,7 @@ div.dataTables_scrollHead table.dataTable {
 }
 
 div.dataTables_scrollBody table {
-  border-top: none;
+  boarder-top: none;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
@@ -130,12 +130,12 @@ div.dataTables_scrollBody table thead .sorting_desc:after {
 }
 div.dataTables_scrollBody table tbody tr:first-child th,
 div.dataTables_scrollBody table tbody tr:first-child td {
-  border-top: none;
+  boarder-top: none;
 }
 
 div.dataTables_scrollFoot table {
   margin-top: 0 !important;
-  border-top: none;
+  boarder-top: none;
 }
 
 @media screen and (max-width: 767px) {
@@ -156,22 +156,22 @@ table.dataTable.table-condensed .sorting_desc:after {
   right: 6px;
 }
 
-table.table-bordered.dataTable th,
-table.table-bordered.dataTable td {
-  border-left-width: 0;
+table.table-boardered.dataTable th,
+table.table-boardered.dataTable td {
+  boarder-left-width: 0;
 }
-table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child,
-table.table-bordered.dataTable td:last-child,
-table.table-bordered.dataTable td:last-child {
-  border-right-width: 0;
+table.table-boardered.dataTable th:last-child, table.table-boardered.dataTable th:last-child,
+table.table-boardered.dataTable td:last-child,
+table.table-boardered.dataTable td:last-child {
+  boarder-right-width: 0;
 }
-table.table-bordered.dataTable tbody th,
-table.table-bordered.dataTable tbody td {
-  border-bottom-width: 0;
+table.table-boardered.dataTable tbody th,
+table.table-boardered.dataTable tbody td {
+  boarder-bottom-width: 0;
 }
 
-div.dataTables_scrollHead table.table-bordered {
-  border-bottom-width: 0;
+div.dataTables_scrollHead table.table-boardered {
+  boarder-bottom-width: 0;
 }
 
 div.table-responsive > div.dataTables_wrapper > div.row {

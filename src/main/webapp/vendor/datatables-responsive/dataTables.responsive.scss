@@ -6,8 +6,8 @@
 	display: block;
 	position: absolute;
 	color: white;
-	border: 2px solid white;
-	border-radius: 16px;
+	boarder: 2px solid white;
+	boarder-radius: 16px;
 	text-align: center;
 	line-height: 14px;
 	box-shadow: 0 0 3px #444;
@@ -74,7 +74,7 @@ table.dataTable {
 				left: 4px;
 				height: 14px;
 				width: 14px;
-				border-radius: 14px;
+				boarder-radius: 14px;
 				line-height: 12px;
 			}
 		}
@@ -124,7 +124,7 @@ table.dataTable {
 			padding: 0;
 
 			li {
-				border-bottom: 1px solid #efefef;
+				boarder-bottom: 1px solid #efefef;
 				padding: 0.5em 0;
 
 				&:first-child {
@@ -132,7 +132,7 @@ table.dataTable {
 				}
 
 				&:last-child {
-					border-bottom: none;
+					boarder-bottom: none;
 				}
 			}
 		}

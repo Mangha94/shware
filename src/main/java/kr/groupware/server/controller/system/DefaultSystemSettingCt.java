@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/system")
-public class defaultSystemSettingCt {
+public class DefaultSystemSettingCt {
     @Autowired
     private DefaultSystemSettingSv defaultSystemSettingSv;
     @Autowired

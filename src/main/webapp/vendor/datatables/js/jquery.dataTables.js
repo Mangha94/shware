@@ -5059,7 +5059,7 @@
 					.css( {
 						overflow: 'hidden',
 						position: 'relative',
-						border: 0,
+						boarder: 0,
 						width: scrollX ? size(scrollX) : '100%'
 					} )
 					.append(
@@ -5094,7 +5094,7 @@
 				$(_div, { 'class': classes.sScrollFoot } )
 					.css( {
 						overflow: 'hidden',
-						border: 0,
+						boarder: 0,
 						width: scrollX ? size(scrollX) : '100%'
 					} )
 					.append(
@@ -5203,8 +5203,8 @@
 				var style = nSizer.style;
 				style.paddingTop = "0";
 				style.paddingBottom = "0";
-				style.borderTopWidth = "0";
-				style.borderBottomWidth = "0";
+				style.boarderTopWidth = "0";
+				style.boarderBottomWidth = "0";
 				style.height = 0;
 			};
 	
@@ -5292,7 +5292,7 @@
 			sanityWidth = table.outerWidth();
 		}
 	
-		// Hidden header should have zero height, so remove padding and borders. Then
+		// Hidden header should have zero height, so remove padding and boarders. Then
 		// set the width based on the real headers
 	
 		// Apply all styles in one pass
@@ -5577,7 +5577,7 @@
 						width: column.sWidthOrig,
 						margin: 0,
 						padding: 0,
-						border: 0,
+						boarder: 0,
 						height: 1
 					} ) );
 				}
@@ -5651,7 +5651,7 @@
 			var total = 0;
 			for ( i=0 ; i<visibleColumns.length ; i++ ) {
 				var cell = $(headerCells[i]);
-				var border = cell.outerWidth() - cell.width();
+				var boarder = cell.outerWidth() - cell.width();
 	
 				// Use getBounding... where possible (not IE8-) because it can give
 				// sub-pixel accuracy, which we then want to round up!
@@ -5664,7 +5664,7 @@
 				total += bounding;
 	
 				// Width for each column to use
-				columns[ visibleColumns[i] ].sWidth = _fnStringToCss( bounding - border );
+				columns[ visibleColumns[i] ].sWidth = _fnStringToCss( bounding - boarder );
 			}
 	
 			table.style.width = _fnStringToCss( total );
@@ -5832,7 +5832,7 @@
 				}
 			};
 	
-		// Build the sort array, with pre-fix and post-fix options if they have been
+		// Build the sort array, with pre-fix and postData-fix options if they have been
 		// specified
 		if ( $.isArray( fixed ) ) {
 			add( fixed );
@@ -10788,7 +10788,7 @@
 	
 	
 		/**
-		 * This function allows you to 'post process' each row after it have been
+		 * This function allows you to 'postData process' each row after it have been
 		 * generated for each table draw, but before it is rendered on screen. This
 		 * function might be used for setting the row class name etc.
 		 *  @type function

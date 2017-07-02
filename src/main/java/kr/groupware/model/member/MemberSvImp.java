@@ -1,6 +1,8 @@
 package kr.groupware.model.member;
 
+import kr.groupware.model.rank.event.PositionEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -9,7 +11,7 @@ import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
 
 @Service
-public class MemberSvImp implements MemberSv {
+public class MemberSvImp implements MemberSv, ApplicationListener<PositionEvent> {
     @Autowired MemberRepository memberRepository;
     //하나 가져오기
     @Override
@@ -97,5 +99,10 @@ public class MemberSvImp implements MemberSv {
 		paging.setTotalArticles (memberRepository.searchMemberCnt (paging.makeCntMap ()));
 
         return new PagingList<> (memberRepository.searchMember (paging.makeMap ()), paging);
+    }
+
+    @Override
+    public void onApplicationEvent(PositionEvent event) {
+
     }
 }

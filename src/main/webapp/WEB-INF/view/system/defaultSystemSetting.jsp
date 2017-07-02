@@ -39,7 +39,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="defaultSystemSetting" class="table table-striped table-bordered table-hover">
+                        <table id="defaultSystemSetting" class="table table-striped table-boardered table-hover">
                             <thead>
                             <tr>
                                 <th>브라우져 이름</th>

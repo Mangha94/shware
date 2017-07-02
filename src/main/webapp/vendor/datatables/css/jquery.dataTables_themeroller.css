@@ -5,8 +5,8 @@ table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
-  border-collapse: separate;
-  border-spacing: 0;
+  boarder-collapse: separate;
+  boarder-spacing: 0;
   /*
    * Header and footer styles
    */
@@ -45,10 +45,10 @@ table.dataTable thead th div.DataTables_sort_wrapper span {
   right: -5px;
 }
 table.dataTable thead th.ui-state-default {
-  border-right-width: 0;
+  boarder-right-width: 0;
 }
 table.dataTable thead th.ui-state-default:last-child {
-  border-right-width: 1px;
+  boarder-right-width: 1px;
 }
 table.dataTable tbody tr {
   background-color: #ffffff;
@@ -69,25 +69,25 @@ table.dataTable th.right,
 table.dataTable td.right {
   text-align: right;
 }
-table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
-  border-top: 1px solid #ddd;
+table.dataTable.row-boarder tbody th, table.dataTable.row-boarder tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  boarder-top: 1px solid #ddd;
 }
-table.dataTable.row-border tbody tr:first-child th,
-table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th,
+table.dataTable.row-boarder tbody tr:first-child th,
+table.dataTable.row-boarder tbody tr:first-child td, table.dataTable.display tbody tr:first-child th,
 table.dataTable.display tbody tr:first-child td {
-  border-top: none;
+  boarder-top: none;
 }
-table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
-  border-top: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+table.dataTable.cell-boarder tbody th, table.dataTable.cell-boarder tbody td {
+  boarder-top: 1px solid #ddd;
+  boarder-right: 1px solid #ddd;
 }
-table.dataTable.cell-border tbody tr th:first-child,
-table.dataTable.cell-border tbody tr td:first-child {
-  border-left: 1px solid #ddd;
+table.dataTable.cell-boarder tbody tr th:first-child,
+table.dataTable.cell-boarder tbody tr td:first-child {
+  boarder-left: 1px solid #ddd;
 }
-table.dataTable.cell-border tbody tr:first-child th,
-table.dataTable.cell-border tbody tr:first-child td {
-  border-top: none;
+table.dataTable.cell-boarder tbody tr:first-child th,
+table.dataTable.cell-boarder tbody tr:first-child td {
+  boarder-top: none;
 }
 table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
   background-color: #f9f9f9;
@@ -325,7 +325,7 @@ table.dataTable td {
   text-align: right;
 }
 .dataTables_wrapper .dataTables_paginate .fg-button {
-  box-sizing: border-box;
+  box-sizing: boarder-box;
   display: inline-block;
   min-width: 1.5em;
   padding: 0.5em;
@@ -335,18 +335,18 @@ table.dataTable td {
   cursor: pointer;
   *cursor: hand;
   color: #333 !important;
-  border: 1px solid transparent;
+  boarder: 1px solid transparent;
 }
 .dataTables_wrapper .dataTables_paginate .fg-button:active {
   outline: none;
 }
 .dataTables_wrapper .dataTables_paginate .fg-button:first-child {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  boarder-top-left-radius: 3px;
+  boarder-bottom-left-radius: 3px;
 }
 .dataTables_wrapper .dataTables_paginate .fg-button:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  boarder-top-right-radius: 3px;
+  boarder-bottom-right-radius: 3px;
 }
 .dataTables_wrapper .dataTables_processing {
   position: absolute;

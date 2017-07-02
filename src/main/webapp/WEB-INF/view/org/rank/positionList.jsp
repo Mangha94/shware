@@ -82,7 +82,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                            <table id="positionForm" class="table table-striped table-bordered table-hover">
+                            <table id="positionForm" class="table table-striped table-boardered table-hover">
 								<jsp:include page="/WEB-INF/view/org/rank/reloadPosition.jsp" />
                             </table>
                     </div>

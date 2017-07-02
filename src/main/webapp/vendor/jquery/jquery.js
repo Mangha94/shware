@@ -1303,7 +1303,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
-			// Opera 10-11 does not throw on post-comma invalid pseudos
+			// Opera 10-11 does not throw on postData-comma invalid pseudos
 			el.querySelectorAll("*,:x");
 			rbuggyQSA.push(",.*:");
 		});
@@ -3583,7 +3583,7 @@ jQuery.extend( {
 
 											// Support: Promises/A+ section 2.3.3.3.4.1
 											// https://promisesaplus.com/#point-61
-											// Ignore post-resolution exceptions
+											// Ignore postData-resolution exceptions
 											if ( depth + 1 >= maxDepth ) {
 
 												// Only substitute handlers pass on context
@@ -3726,20 +3726,20 @@ jQuery.extend( {
 	when: function( singleValue ) {
 		var
 
-			// count of uncompleted subordinates
+			// count of uncompleted suboardinates
 			remaining = arguments.length,
 
 			// count of unprocessed arguments
 			i = remaining,
 
-			// subordinate fulfillment data
+			// suboardinate fulfillment data
 			resolveContexts = Array( i ),
 			resolveValues = slice.call( arguments ),
 
 			// the master Deferred
 			master = jQuery.Deferred(),
 
-			// subordinate callback factory
+			// suboardinate callback factory
 			updateFunc = function( i ) {
 				return function( value ) {
 					resolveContexts[ i ] = this;
@@ -5981,9 +5981,9 @@ var getStyles = function( elem ) {
 		}
 
 		div.style.cssText =
-			"box-sizing:border-box;" +
+			"box-sizing:boarder-box;" +
 			"position:relative;display:block;" +
-			"margin:auto;border:1px;padding:1px;" +
+			"margin:auto;boarder:1px;padding:1px;" +
 			"top:1%;width:50%";
 		div.innerHTML = "";
 		documentElement.appendChild( container );
@@ -6022,7 +6022,7 @@ var getStyles = function( elem ) {
 	div.cloneNode( true ).style.backgroundClip = "";
 	support.clearCloneStyle = div.style.backgroundClip === "content-box";
 
-	container.style.cssText = "border:0;width:8px;height:0;top:0;left:-9999px;" +
+	container.style.cssText = "boarder:0;width:8px;height:0;top:0;left:-9999px;" +
 		"padding:0;margin-top:1px;position:absolute";
 	container.appendChild( div );
 
@@ -6161,8 +6161,8 @@ function setPositiveNumber( elem, value, subtract ) {
 		value;
 }
 
-function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
-	var i = extra === ( isBorderBox ? "border" : "content" ) ?
+function augmentWidthOrHeight( elem, name, extra, isboarderBox, styles ) {
+	var i = extra === ( isboarderBox ? "boarder" : "content" ) ?
 
 		// If we already have the right measurement, avoid augmentation
 		4 :
@@ -6179,25 +6179,25 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 			val += jQuery.css( elem, extra + cssExpand[ i ], true, styles );
 		}
 
-		if ( isBorderBox ) {
+		if ( isboarderBox ) {
 
-			// border-box includes padding, so remove it if we want content
+			// boarder-box includes padding, so remove it if we want content
 			if ( extra === "content" ) {
 				val -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 			}
 
-			// At this point, extra isn't border nor margin, so remove border
+			// At this point, extra isn't boarder nor margin, so remove boarder
 			if ( extra !== "margin" ) {
-				val -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				val -= jQuery.css( elem, "boarder" + cssExpand[ i ] + "Width", true, styles );
 			}
 		} else {
 
 			// At this point, extra isn't content, so add padding
 			val += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 
-			// At this point, extra isn't content nor padding, so add border
+			// At this point, extra isn't content nor padding, so add boarder
 			if ( extra !== "padding" ) {
-				val += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+				val += jQuery.css( elem, "boarder" + cssExpand[ i ] + "Width", true, styles );
 			}
 		}
 	}
@@ -6207,11 +6207,11 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 
 function getWidthOrHeight( elem, name, extra ) {
 
-	// Start with offset property, which is equivalent to the border-box value
+	// Start with offset property, which is equivalent to the boarder-box value
 	var val,
-		valueIsBorderBox = true,
+		valueIsboarderBox = true,
 		styles = getStyles( elem ),
-		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+		isboarderBox = jQuery.css( elem, "boxSizing", false, styles ) === "boarder-box";
 
 	// Support: IE <=11 only
 	// Running getBoundingClientRect on a disconnected node
@@ -6238,7 +6238,7 @@ function getWidthOrHeight( elem, name, extra ) {
 
 		// Check for style in case a browser which returns unreliable values
 		// for getComputedStyle silently falls back to the reliable elem.style
-		valueIsBorderBox = isBorderBox &&
+		valueIsboarderBox = isboarderBox &&
 			( support.boxSizingReliable() || val === elem.style[ name ] );
 
 		// Normalize "", auto, and prepare for extra
@@ -6250,8 +6250,8 @@ function getWidthOrHeight( elem, name, extra ) {
 		augmentWidthOrHeight(
 			elem,
 			name,
-			extra || ( isBorderBox ? "border" : "content" ),
-			valueIsBorderBox,
+			extra || ( isboarderBox ? "boarder" : "content" ),
+			valueIsboarderBox,
 			styles
 		)
 	) + "px";
@@ -6429,7 +6429,7 @@ jQuery.each( [ "height", "width" ], function( i, name ) {
 					elem,
 					name,
 					extra,
-					jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+					jQuery.css( elem, "boxSizing", false, styles ) === "boarder-box",
 					styles
 				);
 
@@ -6463,7 +6463,7 @@ jQuery.cssHooks.marginLeft = addGetHookIf( support.reliableMarginLeft,
 jQuery.each( {
 	margin: "",
 	padding: "",
-	border: "Width"
+	boarder: "Width"
 }, function( prefix, suffix ) {
 	jQuery.cssHooks[ prefix + suffix ] = {
 		expand: function( value ) {
@@ -7574,7 +7574,7 @@ jQuery.each( [
 	"rowSpan",
 	"colSpan",
 	"useMap",
-	"frameBorder",
+	"frameboarder",
 	"contentEditable"
 ], function() {
 	jQuery.propFix[ this.toLowerCase() ] = this;
@@ -8999,7 +8999,7 @@ jQuery.extend( {
 				transport.send( requestHeaders, done );
 			} catch ( e ) {
 
-				// Rethrow post-completion exceptions
+				// Rethrow postData-completion exceptions
 				if ( completed ) {
 					throw e;
 				}
@@ -9862,10 +9862,10 @@ jQuery.fn.extend( {
 				parentOffset = offsetParent.offset();
 			}
 
-			// Add offsetParent borders
+			// Add offsetParent boarders
 			parentOffset = {
-				top: parentOffset.top + jQuery.css( offsetParent[ 0 ], "borderTopWidth", true ),
-				left: parentOffset.left + jQuery.css( offsetParent[ 0 ], "borderLeftWidth", true )
+				top: parentOffset.top + jQuery.css( offsetParent[ 0 ], "boarderTopWidth", true ),
+				left: parentOffset.left + jQuery.css( offsetParent[ 0 ], "boarderLeftWidth", true )
 			};
 		}
 
@@ -9954,7 +9954,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 		// Margin is only for outerHeight, outerWidth
 		jQuery.fn[ funcName ] = function( margin, value ) {
 			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
-				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
+				extra = defaultExtra || ( margin === true || value === true ? "margin" : "boarder" );
 
 			return access( this, function( elem, type, value ) {
 				var doc;

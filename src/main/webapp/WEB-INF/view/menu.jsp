@@ -10,12 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <%--TODO 단일로 처리--%>
     <c:forEach items="${defaultSystemSetting}" var="browserTitle">
     <title>${browserTitle.browserTitle}</title>
     </c:forEach>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- MetisMenu CSS -->
     <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -346,7 +348,7 @@
                                 <a href="/system/defaultSystemSetting.do">기본시스템설정</a>
                             </li>
                             <li>
-                                <a href="/system/bordSetting.do">게시판설정</a>
+                                <a href="/system/boardSetting.do">게시판설정</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -357,10 +359,10 @@
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>게시판<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <c:forEach items="${BordSettings}" var="bord">
-                                <c:if test="${bord.used eq true}">
+                            <c:forEach items="${boardSettings}" var="board">
+                                <c:if test="${board.used eq true}">
                                 <li>
-                                    <a href="/pages/panels-wells.html">${bord.bordName}</a>
+                                    <a href="/post/postList.do?boardNo=${board.boardNo}">${board.boardName}</a>
                                 </li>
                                 </c:if>
                             </c:forEach>

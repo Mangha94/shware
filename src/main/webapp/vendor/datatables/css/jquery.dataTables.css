@@ -5,8 +5,8 @@ table.dataTable {
   width: 100%;
   margin: 0 auto;
   clear: both;
-  border-collapse: separate;
-  border-spacing: 0;
+  boarder-collapse: separate;
+  boarder-spacing: 0;
   /*
    * Header and footer styles
    */
@@ -21,7 +21,7 @@ table.dataTable tfoot th {
 table.dataTable thead th,
 table.dataTable thead td {
   padding: 10px 18px;
-  border-bottom: 1px solid #111;
+  boarder-bottom: 1px solid #111;
 }
 table.dataTable thead th:active,
 table.dataTable thead td:active {
@@ -30,7 +30,7 @@ table.dataTable thead td:active {
 table.dataTable tfoot th,
 table.dataTable tfoot td {
   padding: 10px 18px 6px 18px;
-  border-top: 1px solid #111;
+  boarder-top: 1px solid #111;
 }
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
@@ -71,25 +71,25 @@ table.dataTable tbody th,
 table.dataTable tbody td {
   padding: 8px 10px;
 }
-table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
-  border-top: 1px solid #ddd;
+table.dataTable.row-boarder tbody th, table.dataTable.row-boarder tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  boarder-top: 1px solid #ddd;
 }
-table.dataTable.row-border tbody tr:first-child th,
-table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th,
+table.dataTable.row-boarder tbody tr:first-child th,
+table.dataTable.row-boarder tbody tr:first-child td, table.dataTable.display tbody tr:first-child th,
 table.dataTable.display tbody tr:first-child td {
-  border-top: none;
+  boarder-top: none;
 }
-table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
-  border-top: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+table.dataTable.cell-boarder tbody th, table.dataTable.cell-boarder tbody td {
+  boarder-top: 1px solid #ddd;
+  boarder-right: 1px solid #ddd;
 }
-table.dataTable.cell-border tbody tr th:first-child,
-table.dataTable.cell-border tbody tr td:first-child {
-  border-left: 1px solid #ddd;
+table.dataTable.cell-boarder tbody tr th:first-child,
+table.dataTable.cell-boarder tbody tr td:first-child {
+  boarder-left: 1px solid #ddd;
 }
-table.dataTable.cell-border tbody tr:first-child th,
-table.dataTable.cell-border tbody tr:first-child td {
-  border-top: none;
+table.dataTable.cell-boarder tbody tr:first-child th,
+table.dataTable.cell-boarder tbody tr:first-child td {
+  boarder-top: none;
 }
 table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
   background-color: #f9f9f9;
@@ -172,7 +172,7 @@ table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.or
   background-color: #a5b2cb;
 }
 table.dataTable.no-footer {
-  border-bottom: 1px solid #111;
+  boarder-bottom: 1px solid #111;
 }
 table.dataTable.nowrap th, table.dataTable.nowrap td {
   white-space: nowrap;
@@ -298,7 +298,7 @@ table.dataTable td {
   padding-top: 0.25em;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-  box-sizing: border-box;
+  box-sizing: boarder-box;
   display: inline-block;
   min-width: 1.5em;
   padding: 0.5em 1em;
@@ -308,12 +308,12 @@ table.dataTable td {
   cursor: pointer;
   *cursor: hand;
   color: #333 !important;
-  border: 1px solid transparent;
-  border-radius: 2px;
+  boarder: 1px solid transparent;
+  boarder-radius: 2px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
   color: #333 !important;
-  border: 1px solid #979797;
+  boarder: 1px solid #979797;
   background-color: white;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #dcdcdc));
   /* Chrome,Safari4+ */
@@ -331,13 +331,13 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
   cursor: default;
   color: #666 !important;
-  border: 1px solid transparent;
+  boarder: 1px solid transparent;
   background: transparent;
   box-shadow: none;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   color: white !important;
-  border: 1px solid #111;
+  boarder: 1px solid #111;
   background-color: #585858;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
   /* Chrome,Safari4+ */
@@ -416,11 +416,11 @@ table.dataTable td {
   padding: 0 !important;
 }
 .dataTables_wrapper.no-footer .dataTables_scrollBody {
-  border-bottom: 1px solid #111;
+  boarder-bottom: 1px solid #111;
 }
 .dataTables_wrapper.no-footer div.dataTables_scrollHead table,
 .dataTables_wrapper.no-footer div.dataTables_scrollBody table {
-  border-bottom: none;
+  boarder-bottom: none;
 }
 .dataTables_wrapper:after {
   visibility: hidden;

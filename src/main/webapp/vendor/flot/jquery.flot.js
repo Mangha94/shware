@@ -519,7 +519,7 @@ Licensed under the MIT license.
                     show: true,
                     noColumns: 1, // number of colums in legend table
                     labelFormatter: null, // fn: string -> string
-                    labelBoxBorderColor: "#ccc", // border color for the little label boxes
+                    labelBoxboarderColor: "#ccc", // boarder color for the little label boxes
                     container: null, // container (as jQuery object) to put legend in, null means default on top of graph
                     position: "ne", // position of default legend container within plot
                     margin: 5, // distance from grid edge to default legend container within plot
@@ -593,13 +593,13 @@ Licensed under the MIT license.
                     aboveData: false,
                     color: "#545454", // primary color used for outline and labels
                     backgroundColor: null, // null for transparent, else color
-                    borderColor: null, // set if different from the grid color
+                    boarderColor: null, // set if different from the grid color
                     tickColor: null, // color for the ticks, e.g. "rgba(0,0,0,0.15)"
                     margin: 0, // distance from the canvas edge to the grid
                     labelMargin: 5, // in pixels
                     axisMargin: 8, // in pixels
-                    borderWidth: 2, // in pixels
-                    minBorderMargin: null, // in pixels, null means taken from points radius
+                    boarderWidth: 2, // in pixels
+                    minboarderMargin: null, // in pixels, null means taken from points radius
                     markings: null, // array of ranges or fn: axes -> array of ranges
                     markingsColor: "#f4f4f4",
                     markingsLineWidth: 2,
@@ -756,8 +756,8 @@ Licensed under the MIT license.
             if (options.yaxis.tickColor == null) // grid.tickColor for back-compatibility
                 options.yaxis.tickColor = options.grid.tickColor || options.yaxis.color;
 
-            if (options.grid.borderColor == null)
-                options.grid.borderColor = options.grid.color;
+            if (options.grid.boarderColor == null)
+                options.grid.boarderColor = options.grid.color;
             if (options.grid.tickColor == null)
                 options.grid.tickColor = $.color.parse(options.grid.color).scale('a', 0.22).toString();
 
@@ -1526,7 +1526,7 @@ Licensed under the MIT license.
             // possibly adjust plot offset to ensure everything stays
             // inside the canvas and isn't clipped off
 
-            var minMargin = options.grid.minBorderMargin,
+            var minMargin = options.grid.minboarderMargin,
                 axis, i;
 
             // check stuff from the plot (FIXME: this should just read
@@ -1578,14 +1578,14 @@ Licensed under the MIT license.
 
             executeHooks(hooks.processOffset, [plotOffset]);
 
-            // If the grid is visible, add its border width to the offset
+            // If the grid is visible, add its boarder width to the offset
 
             for (var a in plotOffset) {
-                if(typeof(options.grid.borderWidth) == "object") {
-                    plotOffset[a] += showGrid ? options.grid.borderWidth[a] : 0;
+                if(typeof(options.grid.boarderWidth) == "object") {
+                    plotOffset[a] += showGrid ? options.grid.boarderWidth[a] : 0;
                 }
                 else {
-                    plotOffset[a] += showGrid ? options.grid.borderWidth : 0;
+                    plotOffset[a] += showGrid ? options.grid.boarderWidth : 0;
                 }
             }
 
@@ -2024,7 +2024,7 @@ Licensed under the MIT license.
 
             // draw the ticks
             axes = allAxes();
-            bw = options.grid.borderWidth;
+            bw = options.grid.boarderWidth;
 
             for (var j = 0; j < axes.length; ++j) {
                 var axis = axes[j], box = axis.box,
@@ -2084,7 +2084,7 @@ Licensed under the MIT license.
                     xoff = yoff = 0;
 
                     if (isNaN(v) || v < axis.min || v > axis.max
-                        // skip those lying on the axes if we got a border
+                        // skip those lying on the axes if we got a boarder
                         || (t == "full"
                             && ((typeof bw == "object" && bw[axis.position] > 0) || bw > 0)
                             && (v == axis.min || v == axis.max)))
@@ -2120,11 +2120,11 @@ Licensed under the MIT license.
             }
 
 
-            // draw border
+            // draw boarder
             if (bw) {
-                // If either borderWidth or borderColor is an object, then draw the border
+                // If either boarderWidth or boarderColor is an object, then draw the boarder
                 // line by line instead of as one rectangle
-                bc = options.grid.borderColor;
+                bc = options.grid.boarderColor;
                 if(typeof bw == "object" || typeof bc == "object") {
                     if (typeof bw !== "object") {
                         bw = {top: bw, right: bw, bottom: bw, left: bw};
@@ -2171,7 +2171,7 @@ Licensed under the MIT license.
                 }
                 else {
                     ctx.lineWidth = bw;
-                    ctx.strokeStyle = options.grid.borderColor;
+                    ctx.strokeStyle = options.grid.boarderColor;
                     ctx.strokeRect(-bw/2, -bw/2, plotWidth + bw, plotHeight + bw);
                 }
             }
@@ -2770,7 +2770,7 @@ Licensed under the MIT license.
                 }
 
                 fragments.push(
-                    '<td class="legendColorBox"><div style="border:1px solid ' + options.legend.labelBoxBorderColor + ';padding:1px"><div style="width:4px;height:0;border:5px solid ' + entry.color + ';overflow:hidden"></div></div></td>' +
+                    '<td class="legendColorBox"><div style="boarder:1px solid ' + options.legend.labelBoxboarderColor + ';padding:1px"><div style="width:4px;height:0;boarder:5px solid ' + entry.color + ';overflow:hidden"></div></div></td>' +
                     '<td class="legendLabel">' + entry.label + '</td>'
                 );
             }

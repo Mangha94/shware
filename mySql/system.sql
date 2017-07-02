@@ -1,9 +1,9 @@
-CREATE TABLE bordSetting(
-  bordNo INT (11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE boardSetting(
+  boardNo INT (11) NOT NULL AUTO_INCREMENT,
   sequence INT (11) NOT NULL,
-  bordName VARCHAR (50) DEFAULT NULL,
+  boardName VARCHAR (50) DEFAULT NULL,
   used tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (bordNo)
+  PRIMARY KEY (boardNo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE defaultSystemSetting(
