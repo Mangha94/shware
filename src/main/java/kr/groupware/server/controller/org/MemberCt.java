@@ -9,12 +9,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
 import kr.groupware.model.member.MemberData;
 import kr.groupware.model.member.MemberSearchData;
 import kr.groupware.model.member.MemberSv;
+import kr.groupware.model.member.exception.MemberAddException;
 import kr.groupware.model.rank.department.DepartmentData;
 import kr.groupware.model.rank.department.DepartmentSv;
 import kr.groupware.model.rank.position.PositionData;
@@ -98,8 +100,8 @@ public class MemberCt {
     public ModelAndView getMember(
             @RequestParam(value = "memberId", required = false) String memberId
     ) {
-        MemberData memberData = memberSv.getMember(memberId);
-        ModelAndView mv = new ModelAndView("org/member/modifyMember");
+		Optional<MemberData> member = memberSv.getMember (memberId);
+		ModelAndView mv = new ModelAndView("org/member/modifyMember");
 
         //메뉴셋팅
         menuSetting.menuSetting(mv);
@@ -110,7 +112,7 @@ public class MemberCt {
         mv.addObject("getSpots", spots);
         mv.addObject("getPositions", positions);
         mv.addObject("getDepartments", departments);
-        mv.addObject("getMember", memberData);
+        mv.addObject("getMember", member.get ());
         return mv;
     }
 
@@ -120,17 +122,25 @@ public class MemberCt {
     )
 	{
         ModelAndView mv = new ModelAndView("pageJsonReport");
+
         try
 		{
             memberSv.addMember(memberData);
 
 			mv.addObject("success", true);
         }
-        catch (Exception e)
+        catch (MemberAddException e)
 		{
             e.printStackTrace();
 
 			mv.addObject("success", false);
+
+			if (e.getExceptionType () == MemberAddException.MemberAddExceptionType.ID_NOT_INPUT)
+				mv.addObject ("message", "아이디를 입력해주세요");
+			else if (e.getExceptionType () == MemberAddException.MemberAddExceptionType.NAME_NOT_INPUT)
+				mv.addObject ("message", "이름을 입력해주세요");
+			else if (e.getExceptionType () == MemberAddException.MemberAddExceptionType.EXIST_MEMBER)
+				mv.addObject ("message", "아이디가 존재합니다");
         }
 
         return mv;
@@ -151,16 +161,20 @@ public class MemberCt {
             @RequestParam(value = "businessNo", required = false) String businessNo
     ) {
 
-        MemberData memberData = memberSv.getMember(memberId);
-        memberData.setPw(pw).setName(name).setPositionNo(positionNo);
-        memberData.setSpotNo(spotNo);
-        memberData.setDepartmentNo(departmentNo);
-        memberData.setEmail(email);
-        memberData.setEntryDate(entryDate);
-        memberData.setUsed(used);
-        memberData.setSecurityRating(securityRating);
-        memberData.setBusinessNo(businessNo);
-        memberSv.modifyMember(memberData);
+		Optional<MemberData> member = memberSv.getMember (memberId);
+
+		member.ifPresent ((memberData) -> {
+			memberData.setPw(pw).setName(name).setPositionNo(positionNo);
+			memberData.setSpotNo(spotNo);
+			memberData.setDepartmentNo(departmentNo);
+			memberData.setEmail(email);
+			memberData.setEntryDate(entryDate);
+			memberData.setUsed(used);
+			memberData.setSecurityRating(securityRating);
+			memberData.setBusinessNo(businessNo);
+			memberSv.modifyMember(memberData);
+		});
+
         return "redirect:/org/member/memberList.do";
     }
 

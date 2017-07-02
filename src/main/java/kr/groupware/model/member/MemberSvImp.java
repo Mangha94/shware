@@ -1,22 +1,26 @@
 package kr.groupware.model.member;
 
-import kr.groupware.model.rank.event.PositionEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
+import kr.groupware.lib.StrLib;
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
+import kr.groupware.model.member.exception.MemberAddException;
+import kr.groupware.model.rank.event.PositionEvent;
 
 @Service
 public class MemberSvImp implements MemberSv, ApplicationListener<PositionEvent> {
     @Autowired MemberRepository memberRepository;
     //하나 가져오기
     @Override
-    public MemberData getMember(String memberId){
-        return memberRepository.getMember(memberId);
+    public Optional<MemberData> getMember(String memberId)
+	{
+        return Optional.ofNullable (memberRepository.getMember(memberId));
     }
 
     /**
@@ -36,22 +40,19 @@ public class MemberSvImp implements MemberSv, ApplicationListener<PositionEvent>
      * @throws Exception 필수 인자의 유무와 중복아이디 체크
      */
     @Override
-    public void addMember(MemberData memberData) throws Exception
+    public void addMember(MemberData memberData) throws MemberAddException
     {
-		if (!existMemberId(memberData.getMemberId()))
-		{
-			memberData.setRegistrationDate(new Date());
-			memberRepository.addMember(memberData);
-		}
-		if(memberData.getMemberId()==null){
-            throw new Exception("아이디를 입력하지 않았습니다");
-        }
-        if(memberData.getName()==null){
-            throw new Exception("이름을 입력하지 않았습니다");
-        }
-		else
-			throw new Exception("중복된 아이디입니다");
+		if(StrLib.isEmptyStr (memberData.getMemberId()))
+			throw new MemberAddException(MemberAddException.MemberAddExceptionType.ID_NOT_INPUT);
 
+		if(StrLib.isEmptyStr (memberData.getName()))
+			throw new MemberAddException(MemberAddException.MemberAddExceptionType.NAME_NOT_INPUT);
+
+		if (existMemberId(memberData.getMemberId()))
+			throw new MemberAddException(MemberAddException.MemberAddExceptionType.EXIST_MEMBER);
+
+		memberData.setRegistrationDate(new Date());
+		memberRepository.addMember(memberData);
     }
 
     /**

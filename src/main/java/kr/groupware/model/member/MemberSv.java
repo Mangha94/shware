@@ -1,8 +1,11 @@
 package kr.groupware.model.member;
 
 
+import java.util.Optional;
+
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
+import kr.groupware.model.member.exception.MemberAddException;
 
 public interface MemberSv {
     /**
@@ -10,7 +13,7 @@ public interface MemberSv {
      * @param memberId 가져올 회원 아이디
      * @return 해당 회원 정보
      */
-    MemberData getMember(String memberId);
+    Optional<MemberData> getMember(String memberId);
 
     /**
      * 아이디 중복체크
@@ -25,7 +28,7 @@ public interface MemberSv {
      * @param memberData 신규 회원정보
      * @throws Exception 필수값체크 및 아이디 중복체크
      */
-    void addMember(MemberData memberData) throws Exception;
+    void addMember(MemberData memberData) throws MemberAddException;
 
     /**
      * 회원탈퇴
