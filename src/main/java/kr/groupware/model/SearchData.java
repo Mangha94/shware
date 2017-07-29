@@ -33,6 +33,38 @@ public class SearchData
 	 */
 	private String orderAsc;
 
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getOrderVal() {
+		return orderVal;
+	}
+
+	public void setOrderVal(String orderVal) {
+		this.orderVal = orderVal;
+	}
+
+	public String getOrderAsc() {
+		return orderAsc;
+	}
+
+	public void setOrderAsc(String orderAsc) {
+		this.orderAsc = orderAsc;
+	}
+
 	/**
 	 * 검색 조건을 맵으로 만든다.
 	 * @return 검색맵

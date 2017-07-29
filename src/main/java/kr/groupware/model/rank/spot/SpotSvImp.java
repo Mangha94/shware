@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public class SpotSvImp implements SpotSv {
     @Autowired SpotRepository spotRepository;
+    @Autowired(required = false) List<QusSpotDelete> qusSpotDelete;
 
     @Override
     public List<SpotData>getSpots(){
@@ -30,6 +31,12 @@ public class SpotSvImp implements SpotSv {
 
     @Override
     public void deleteSpot(int spotNo){
+        SpotData spotData=getSpot(spotNo);
+        for(QusSpotDelete isQus : qusSpotDelete){
+            if(!isQus.isDelete(spotData)){
+                return;
+            }
+        }
         spotRepository.deleteSpot(spotNo);
     }
 }

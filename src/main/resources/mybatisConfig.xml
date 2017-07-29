@@ -17,6 +17,8 @@
 		 <typeAlias alias="DefaultSystemSettingData" type="kr.groupware.model.system.defaultSystem.DefaultSystemSettingData"/>
 		 <typeAlias alias="BoardSettingData" type="kr.groupware.model.system.board.BoardSettingData"/>
 		 <typeAlias alias="PostData" type="kr.groupware.model.post.postData.PostData"/>
+		 <typeAlias alias="NumberData" type="kr.groupware.model.number.NumberData"/>
+		 <typeAlias alias="WinNumberData" type="kr.groupware.model.winNumber.WinNumberData"/>
 	 </typeAliases>
 	 
 	 <mappers>

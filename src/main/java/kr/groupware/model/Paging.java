@@ -32,6 +32,94 @@ public class Paging
 
 	private int					nextBlock;
 
+	public int getTotalArticles() {
+		return totalArticles;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getShowPages() {
+		return showPages;
+	}
+
+	public void setShowPages(int showPages) {
+		this.showPages = showPages;
+	}
+
+	public int getArticlesPerPage() {
+		return articlesPerPage;
+	}
+
+	public void setArticlesPerPage(int articlesPerPage) {
+		this.articlesPerPage = articlesPerPage;
+	}
+
+	public int getLimitStart() {
+		return limitStart;
+	}
+
+	public void setLimitStart(int limitStart) {
+		this.limitStart = limitStart;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getLastPage() {
+		return lastPage;
+	}
+
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
+	}
+
+	public int getPrevPage() {
+		return prevPage;
+	}
+
+	public void setPrevPage(int prevPage) {
+		this.prevPage = prevPage;
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
+	}
+
+	public int getPrevBlock() {
+		return prevBlock;
+	}
+
+	public void setPrevBlock(int prevBlock) {
+		this.prevBlock = prevBlock;
+	}
+
+	public int getNextBlock() {
+		return nextBlock;
+	}
+
+	public void setNextBlock(int nextBlock) {
+		this.nextBlock = nextBlock;
+	}
+
+	public Map<String, Object> getSearchData() {
+		return searchData;
+	}
+
 	@JsonIgnore
 	private Map<String, Object> searchData	= null;
 
@@ -143,5 +231,9 @@ public class Paging
 	public Map<String, Object> makeCntMap ()
 	{
 		return (searchData != null) ? searchData : new HashMap<> ();
+	}
+
+	public void setSearchData(Map<String, Object> searchData) {
+		this.searchData = searchData;
 	}
 }

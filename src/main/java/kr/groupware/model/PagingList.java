@@ -14,6 +14,22 @@ public class PagingList<T>
 
 	private Paging	paging;
 
+	public List<T> getListData() {
+		return listData;
+	}
+
+	public void setListData(List<T> listData) {
+		this.listData = listData;
+	}
+
+	public Paging getPaging() {
+		return paging;
+	}
+
+	public void setPaging(Paging paging) {
+		this.paging = paging;
+	}
+
 	public PagingList ()
 	{
 	}

@@ -18,6 +18,30 @@ public class PostSearchData extends SearchData
 
     private Integer boardNo;
 
+    public String getPostedId() {
+        return postedId;
+    }
+
+    public void setPostedId(String postedId) {
+        this.postedId = postedId;
+    }
+
+    public String getPostName() {
+        return postName;
+    }
+
+    public void setPostName(String postName) {
+        this.postName = postName;
+    }
+
+    public Integer getBoardNo() {
+        return boardNo;
+    }
+
+    public void setBoardNo(Integer boardNo) {
+        this.boardNo = boardNo;
+    }
+
     @Override
     public Map<String, Object> makeMap ()
     {

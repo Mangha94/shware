@@ -7,5 +7,6 @@ CREATE TABLE postData(
   postedId VARCHAR (50) DEFAULT NULL,
   viewCnt INT (11) DEFAULT NULL,
   commentCnt INT (11) DEFAULT NULL,
+  postContent text DEFAULT NULL,
   PRIMARY KEY (postNo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8

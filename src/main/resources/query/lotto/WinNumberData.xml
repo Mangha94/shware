@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WinNumber">
+    <resultMap id="WinNumberRs" type="WinNumberData">
+
+        <result column="times" property="times"/>
+        <result column="num1" property="num1"/>
+        <result column="num2" property="num2"/>
+        <result column="num3" property="num3"/>
+        <result column="num4" property="num4"/>
+        <result column="num5" property="num5"/>
+        <result column="num6" property="num6"/>
+        <result column="bonusNum" property="bonusNum"/>
+
+    </resultMap>
+
+    <sql id="fldWinNumber">
+        times,
+        num1,
+        num2,
+        num3,
+        num4,
+        num5,
+        num6,
+        bonusNum
+    </sql>
+
+    <select id="getWinNumbers" resultMap="WinNumberRs">
+
+        SELECT <include refid="fldWinNumber"/> FROM WinNumberData
+
+    </select>
+
+    <select id="getWinNumber" parameterType="int" resultType="WinNumberData">
+
+        SELECT <include refid="fldWinNumber"/> FROM WinNumberData WHERE times=#{times}
+
+    </select>
+
+    <insert id="setWinNumber" parameterType="WinNumberData">
+
+        INSERT INTO WinNumberData(num1,num2,num3,num4,num5,num6,bonusNum,times)
+        VALUE(#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{bonusNum},#{times})
+
+    </insert>
+</mapper>

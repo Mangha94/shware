@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -354,7 +356,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="/pages/tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                        <a href="/lotto/number/pickNumber.do"><i class="fa fa-table fa-fw"></i> 번호 뽑기</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>게시판<span class="fa arrow"></span></a>

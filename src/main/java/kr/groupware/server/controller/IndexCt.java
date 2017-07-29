@@ -18,9 +18,9 @@ import java.util.List;
 @Controller
 public class IndexCt {
     @Autowired
-    BoardSettingSv boardSettingSv;
+    private BoardSettingSv boardSettingSv;
     @Autowired
-    DefaultSystemSettingSv defaultSystemSettingSv;
+    private DefaultSystemSettingSv defaultSystemSettingSv;
 
     @RequestMapping(value = "/index.do",method = RequestMethod.GET)
     public ModelAndView menuSetting(){

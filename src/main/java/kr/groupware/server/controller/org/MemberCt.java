@@ -164,7 +164,9 @@ public class MemberCt {
 		Optional<MemberData> member = memberSv.getMember (memberId);
 
 		member.ifPresent ((memberData) -> {
-			memberData.setPw(pw).setName(name).setPositionNo(positionNo);
+			memberData.setPw(pw);
+			memberData.setName(name);
+			memberData.setPositionNo(positionNo);
 			memberData.setSpotNo(spotNo);
 			memberData.setDepartmentNo(departmentNo);
 			memberData.setEmail(email);

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Number">
+    <resultMap id="NumberRs" type="NumberData">
+        <result column="no" property="no"/>
+        <result column="num1" property="num1"/>
+        <result column="num2" property="num2"/>
+        <result column="num3" property="num3"/>
+        <result column="num4" property="num4"/>
+        <result column="num5" property="num5"/>
+        <result column="num6" property="num6"/>
+        <result column="rank" property="rank"/>
+        <result column="pickDate" property="pickDate"/>
+        <result column="times" property="times"/>
+    </resultMap>
+
+    <sql id="fldNumber">
+        no,
+        num1,
+        num2,
+        num3,
+        num4,
+        num5,
+        num6,
+        rank,
+        pickDate,
+        times
+    </sql>
+
+    <select id="getNumbers" resultMap="NumberRs">
+
+        SELECT <include refid="fldNumber"/> FROM NumberData ORDER BY no DESC
+
+    </select>
+
+    <select id="getNumber_times" parameterType="int" resultType="NumberData">
+
+        SELECT <include refid="fldNumber"/> FROM NumberData WHERE times=#{times}
+
+    </select>
+
+    <select id="showPickNumber" resultType="NumberData">
+
+        SELECT <include refid="fldNumber"/> FROM NumberData WHERE pickDate>CURRENT_DATE() order by no desc limit 0,10;
+
+    </select>
+
+    <insert id="pickNumbers" parameterType="NumberData">
+
+        INSERT INTO NumberData(num1,num2,num3,num4,num5,num6,pickDate,times)
+        VALUE(#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{pickDate},#{times})
+
+    </insert>
+
+    <select id="getMaxTimes" resultType="int">
+
+        SELECT MAX(times) FROM NumberData
+
+    </select>
+
+    <select id="getCount" resultType="int">
+
+        SELECT count(times) FROM NumberData
+
+    </select>
+
+    <update id="setRank" parameterType="map">
+
+        UPDATE NumberData SET rank=#{rank} WHERE no=#{no}
+
+    </update>
+</mapper>
