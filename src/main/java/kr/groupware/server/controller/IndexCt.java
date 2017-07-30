@@ -1,17 +1,17 @@
 package kr.groupware.server.controller;
 
-import kr.groupware.model.system.board.BoardSettingData;
-import kr.groupware.model.system.board.BoardSettingSv;
-import kr.groupware.model.system.defaultSystem.DefaultSystemSettingData;
-import kr.groupware.model.system.defaultSystem.DefaultSystemSettingSv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import kr.groupware.model.system.board.BoardSettingData;
+import kr.groupware.model.system.board.BoardSettingSv;
+import kr.groupware.model.system.defaultSystem.DefaultSystemSettingData;
+import kr.groupware.model.system.defaultSystem.DefaultSystemSettingSv;
 
 /**
  * Created by Lsh on 2017-05-21.

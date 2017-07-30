@@ -61,7 +61,6 @@
                     success: function (data, textStatus) {
 
                         if (data.success) {
-                            alert("로그인 성공!");
                             location.href = "/index.do";
                         }
                         else
@@ -92,10 +91,10 @@
                         <fieldset>
 
                             <div class="form-group">
-                                <input class="form-control" placeholder="MemberId" name="memberId" type="memberId" autofocus>
+                                <input class="form-control" placeholder="MemberId" name="memberId" type="text" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="pw" type="pw" value="">
+                                <input class="form-control" placeholder="Password" name="pw" type="password" value="">
                             </div>
                             <div class="checkbox">
                                 <label>
