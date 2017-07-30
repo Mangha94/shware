@@ -1,0 +1,22 @@
+{
+  "name": "shware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RMT94/shware.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RMT94/shware/issues"
+  },
+  "homepage": "https://github.com/RMT94/shware#readme",
+  "devDependencies": {
+    "bower": "^1.8.0"
+  }
+}
