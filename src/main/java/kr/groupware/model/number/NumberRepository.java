@@ -12,7 +12,7 @@ public interface NumberRepository {
      * 뽑은 번호 목록을 가져온다
      * @return 번호 목록 리스트
      */
-    List<NumberData>getNumbers();
+    List<NumberData>getNumbers(String memberId);
 
     /**
      * 회차에 해당하는 뽑은 번호 목록을 가져온다
@@ -32,7 +32,7 @@ public interface NumberRepository {
      */
     int getMaxTimes();
 
-    List<NumberData>showPickNumber();
+    List<NumberData>showPickNumber(String memberId);
 
     /**
      * 회차에 해당하는 번호들을 조회하여 해당 회차 당첨번호와 비교하여

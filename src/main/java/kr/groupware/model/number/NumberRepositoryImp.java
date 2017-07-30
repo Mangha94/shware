@@ -17,8 +17,8 @@ public class NumberRepositoryImp extends SqlSessionDaoSupport implements NumberR
      * @return 뽑았던 목록
      */
     @Override
-    public List<NumberData>getNumbers(){
-        return getSqlSession().selectList("Number.getNumbers");
+    public List<NumberData>getNumbers(String memberId){
+        return getSqlSession().selectList("Number.getNumbers",memberId);
     }
 
     /**
@@ -40,8 +40,8 @@ public class NumberRepositoryImp extends SqlSessionDaoSupport implements NumberR
         getSqlSession().insert("Number.pickNumbers",numberData);
     }
 
-    public List<NumberData>showPickNumber(){
-        return getSqlSession().selectList("Number.showPickNumber");
+    public List<NumberData>showPickNumber(String memberId){
+        return getSqlSession().selectList("Number.showPickNumber",memberId);
     }
 
     public int getMaxTimes(){

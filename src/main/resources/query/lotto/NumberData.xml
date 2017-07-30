@@ -14,6 +14,7 @@
         <result column="rank" property="rank"/>
         <result column="pickDate" property="pickDate"/>
         <result column="times" property="times"/>
+        <result column="memberId" property="memberId"/>
     </resultMap>
 
     <sql id="fldNumber">
@@ -26,12 +27,13 @@
         num6,
         rank,
         pickDate,
-        times
+        times,
+        memberId
     </sql>
 
-    <select id="getNumbers" resultMap="NumberRs">
+    <select id="getNumbers" parameterType="String" resultMap="NumberRs">
 
-        SELECT <include refid="fldNumber"/> FROM NumberData ORDER BY no DESC
+        SELECT <include refid="fldNumber"/> FROM NumberData WHERE memberId=#{memberId} ORDER BY no DESC
 
     </select>
 
@@ -41,16 +43,16 @@
 
     </select>
 
-    <select id="showPickNumber" resultType="NumberData">
+    <select id="showPickNumber" parameterType="String" resultType="NumberData">
 
-        SELECT <include refid="fldNumber"/> FROM NumberData WHERE pickDate>CURRENT_DATE() order by no desc limit 0,10;
+        SELECT <include refid="fldNumber"/> FROM NumberData WHERE pickDate>CURRENT_DATE() AND memberId=#{memberId} order by no desc limit 0,10;
 
     </select>
 
     <insert id="pickNumbers" parameterType="NumberData">
 
-        INSERT INTO NumberData(num1,num2,num3,num4,num5,num6,pickDate,times)
-        VALUE(#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{pickDate},#{times})
+        INSERT INTO NumberData (num1,num2,num3,num4,num5,num6,pickDate,times,memberId)
+        VALUE(#{num1},#{num2},#{num3},#{num4},#{num5},#{num6},#{pickDate},#{times},#{memberId})
 
     </insert>
 

@@ -36,9 +36,8 @@ public class LoginCt {
 
         if(memberData.isPresent()){
             if(memberData.get().getPw().equals(pw)){
-                String userID = (String) session.getAttribute(memberId);
 
-                session.setAttribute("memberId", userID);
+                session.setAttribute("memberId",memberId);
                 mv.addObject("success", true);
             }
         }
@@ -54,6 +53,6 @@ public class LoginCt {
         session.setAttribute("memberId","");
         session.invalidate();
 
-        return "redirect:/index.do";
+        return "redirect:/loginPage.do";
     }
 }

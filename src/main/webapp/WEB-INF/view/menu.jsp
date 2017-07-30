@@ -58,6 +58,12 @@
                 jQuery.browser.version = RegExp.$1;
             }
         })();
+
+        function logout() {
+            if(confirm("로그아웃 하시겠습니까?")){
+                location.href="/logout.do"
+            }
+        }
     </script>
 
 </head>
@@ -279,12 +285,10 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> 내정보</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="javascript:logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -356,7 +360,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="/lotto/number/pickNumber.do"><i class="fa fa-table fa-fw"></i> 번호 뽑기</a>
+                        <a href="/lotto/number/pickNumber.do"><i class="fa fa-table fa-fw"></i>로또는 대박!!</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i>게시판<span class="fa arrow"></span></a>

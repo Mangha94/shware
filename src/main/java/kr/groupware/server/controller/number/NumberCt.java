@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,9 +26,12 @@ public class NumberCt {
     private MenuSetting menuSetting;
 
     @RequestMapping(value = "/pickNumber.do", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView pickNumber() {
+    public ModelAndView pickNumber(
+            HttpSession session
+    ) {
         ModelAndView mv = new ModelAndView("/lotto/number/pickNumber");
-        List<NumberData> numberList = numberSv.showPickNumber();
+        String memberId = (String) session.getAttribute("memberId");
+        List<NumberData> numberList = numberSv.showPickNumber(memberId);
 
         //메뉴셋팅
         menuSetting.menuSetting(mv);
@@ -37,8 +41,11 @@ public class NumberCt {
     }
 
     @RequestMapping(value = "/pickNum.do", method = RequestMethod.GET)
-    public ModelAndView pickNum() {
-        NumberData numberData = numberSv.pickNumbers();
+    public ModelAndView pickNum(
+            HttpSession session
+    ) {
+        String memberId = (String) session.getAttribute("memberId");
+        NumberData numberData = numberSv.pickNumbers(memberId);
 
         ModelAndView mv = new ModelAndView("/lotto/number/showPickNumber");
 
@@ -50,10 +57,13 @@ public class NumberCt {
     }
 
     @RequestMapping(value = "/numberList.do", method = RequestMethod.GET)
-    public ModelAndView numberList() {
+    public ModelAndView numberList(
+            HttpSession session
+    ) {
         ModelAndView mv = new ModelAndView("/lotto/number/numberList");
 
-        List<NumberData> numberList = numberSv.getNumbers();
+        String memberId = (String) session.getAttribute("memberId");
+        List<NumberData> numberList = numberSv.getNumbers(memberId);
         List<WinNumberData> winNumberList = winNumberSv.getWinNumbers();
 
         //메뉴셋팅
@@ -65,10 +75,13 @@ public class NumberCt {
     }
 
     @RequestMapping(value = "/showPickNumber.do", method = RequestMethod.GET)
-    public ModelAndView showPickNumber() {
+    public ModelAndView showPickNumber(
+            HttpSession session
+    ) {
 
         ModelAndView mv = new ModelAndView("/lotto/number/showPickNumber");
-        List<NumberData> numberList = numberSv.showPickNumber();
+        String memberId = (String) session.getAttribute("memberId");
+        List<NumberData> numberList = numberSv.showPickNumber(memberId);
 
         //메뉴셋팅
         menuSetting.menuSetting(mv);

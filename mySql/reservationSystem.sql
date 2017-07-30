@@ -1,0 +1,8 @@
+CREATE TABLE reservationSystem(
+  reservationNo int(11) NOT NULL AUTO_INCREMENT,
+  startTime DATETIME NOT NULL,
+  endTime DATETIME NOT NULL,
+  place VARCHAR(50) NOT NULL,
+  memberId VARCHAR (50) NOT NULL,
+  PRIMARY KEY (reservationNo)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

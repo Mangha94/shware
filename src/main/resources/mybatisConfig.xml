@@ -19,6 +19,7 @@
 		 <typeAlias alias="PostData" type="kr.groupware.model.post.postData.PostData"/>
 		 <typeAlias alias="NumberData" type="kr.groupware.model.number.NumberData"/>
 		 <typeAlias alias="WinNumberData" type="kr.groupware.model.winNumber.WinNumberData"/>
+		 <typeAlias alias="reservationData" type="kr.groupware.model.reservationSystem.ReservationData"/>
 	 </typeAliases>
 	 
 	 <mappers>

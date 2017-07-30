@@ -17,6 +17,15 @@ public class NumberData {
     private int rank;
     private int times;
     private Date pickDate;
+    private String memberId;
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
 
     public int getNo() {
         return no;

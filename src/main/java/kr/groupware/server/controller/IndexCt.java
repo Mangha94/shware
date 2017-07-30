@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -23,8 +24,10 @@ public class IndexCt {
     private DefaultSystemSettingSv defaultSystemSettingSv;
 
     @RequestMapping(value = "/index.do",method = RequestMethod.GET)
-    public ModelAndView menuSetting(){
+    public ModelAndView menuSetting(
+    ){
         ModelAndView mv=new ModelAndView("index");
+
         List<BoardSettingData>boardSettings= boardSettingSv.getBoardSettings();
         mv.addObject("boardSettings",boardSettings);
 
