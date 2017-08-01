@@ -1,4 +1,4 @@
-package kr.groupware.model.reservationSystem;
+package kr.groupware.model.reservationSystem.reservation;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -17,6 +17,11 @@ public class ReservationRepositoryImp extends SqlSessionDaoSupport implements Re
     @Override
     public List<ReservationData>getReservation(Date date){
         return getSqlSession().selectList("reservation.getReservation",date);
+    }
+
+    @Override
+    public ReservationData getMaxReservation(Date startTime){
+        return getSqlSession().selectOne("reservation.getMaxReservation",startTime);
     }
 
     @Override

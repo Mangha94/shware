@@ -1,4 +1,4 @@
-package kr.groupware.model.reservationSystem;
+package kr.groupware.model.reservationSystem.reservation;
 
 import lombok.Data;
 
