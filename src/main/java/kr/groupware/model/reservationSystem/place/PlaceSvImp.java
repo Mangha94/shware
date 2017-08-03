@@ -25,6 +25,8 @@ public class PlaceSvImp implements PlaceSv{
 
     @Override
     public void insertPlace(PlaceData placeData){
+        System.out.println (placeData);
+
         placeRepository.insertPlace(placeData);
     }
 

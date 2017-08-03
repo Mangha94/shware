@@ -3,6 +3,7 @@ package kr.groupware.server.controller.reservation;
 import kr.groupware.model.reservationSystem.place.PlaceData;
 import kr.groupware.model.reservationSystem.place.PlaceSv;
 import kr.groupware.server.controller.MenuSetting;
+import kr.groupware.server.controller.reservation.dto.PlaceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
+import static sun.misc.PerformanceLogger.getStartTime;
 
 @Controller
 @RequestMapping(value = "/reservation/place")
@@ -48,10 +51,20 @@ public class PlaceCt {
 
     @RequestMapping(value = "/insertPlace.do",method = RequestMethod.POST)
     public String insertPlace(
-            PlaceData placeData
+            PlaceDto.AddPlaceDto placeData
     ){
+        PlaceData place=new PlaceData();
 
-        placeSv.insertPlace(placeData);
+        place.setPlace(placeData.getPlace());
+        String[]startTimeAry=placeData.getStartTime().split(":");
+        place.setStartHour(Integer.parseInt(startTimeAry[0]));
+        place.setStartMin(Integer.parseInt(startTimeAry[1]));
+
+        String[]endTimeAry=placeData.getEndTime().split(":");
+        place.setEndHour(Integer.parseInt(endTimeAry[0]));
+        place.setEndMin(Integer.parseInt(endTimeAry[1]));
+
+        placeSv.insertPlace(place);
 
         return "redirect:/reservation/place/placeList.do";
     }

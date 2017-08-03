@@ -7,15 +7,19 @@
     <resultMap id="PlaceRs" type="PlaceData">
         <result column="placeNo" property="placeNo" />
         <result column="place" property="place" />
-        <result column="startTime" property="startTime" />
-        <result column="endTime" property="endTime" />
+        <result column="startHour" property="startHour" />
+        <result column="startMin" property="startMin" />
+        <result column="endHour" property="endHour" />
+        <result column="endMin" property="endMin" />
     </resultMap>
 
     <sql id = "fldPlace">
         placeNo,
         place,
-        startTime,
-        endTime
+        startHour,
+        startMin,
+        endHour,
+        endMin
     </sql>
 
     <select id="getPlaces" resultType="PlaceData">
@@ -32,13 +36,13 @@
 
     <insert id="insertPlace" parameterType="PlaceData">
 
-        INSERT INTO Place (place,startTime,endTime) VALUE (#{place},#{startTime},#{endTime})
+        INSERT INTO Place (place,startHour,startMin,endHour,endMin) VALUE (#{place},#{startHour},#{startMin},#{endHour},#{endMin})
 
     </insert>
 
     <update id="modifyPlace" parameterType="PlaceData">
 
-        UPDATE Place SET(place=#{place},startTime=#{startTime},endTime=#{endTime}) WHERE placeNo=#{placeNo}
+        UPDATE Place SET(place=#{place},startHour=#{startHour},startMin=#{startMin},endHour=#{endHour},endMin=#{endMin}) WHERE placeNo=#{placeNo}
 
     </update>
 

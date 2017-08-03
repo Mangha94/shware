@@ -38,11 +38,11 @@ public class ReservationSvImp implements ReservationSv{
     public void insertReservation(ReservationData reservationData){
         ReservationData beforeReservation=getMaxReservation(reservationData.getStartTime(),reservationData.getPlace());
         PlaceData placeData=placeSv.getPlace(reservationData.getPlace());
-        if(placeData.getStartTime().compareTo(reservationData.getStartTime())>=0 && placeData.getEndTime().compareTo(reservationData.getEndTime())<=0) {
-            if (beforeReservation.getEndTime().compareTo(reservationData.getStartTime()) >= 0) {
-                reservationRepository.insertReservation(reservationData);
-            }
-        }
+//        if(placeData.getStartTime().compareTo(reservationData.getStartTime())>=0 && placeData.getEndTime().compareTo(reservationData.getEndTime())<=0) {
+//            if (beforeReservation.getEndTime().compareTo(reservationData.getStartTime()) >= 0) {
+//                reservationRepository.insertReservation(reservationData);
+//            }
+//        }
     }
 
     @Override

@@ -3,11 +3,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--full calendar--%>
-<link href='./fullcalendar.min.css' rel='stylesheet' />
+<link href='/fullcalendar.min.css' rel='stylesheet' />
 <link href='./fullcalendar.print.min.css' rel='stylesheet' media='print' />
 <script src='./lib/moment.min.js'></script>
 <script src='./lib/jquery.min.js'></script>
-<script src='./fullcalendar.min.js'></script>
+<script src='/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
 
 <script>
 
