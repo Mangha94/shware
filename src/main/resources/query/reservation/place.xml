@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="place">
+
+    <resultMap id="PlaceRs" type="PlaceData">
+        <result column="placeNo" property="placeNo" />
+        <result column="place" property="place" />
+        <result column="startTime" property="startTime" />
+        <result column="endTime" property="endTime" />
+    </resultMap>
+
+    <sql id = "fldPlace">
+        placeNo,
+        place,
+        startTime,
+        endTime
+    </sql>
+
+    <select id="getPlaces" resultType="PlaceData">
+
+        SELECT <include refid="fldPlace"></include> FROM Place
+
+    </select>
+
+    <select id="getPlace" parameterType="String" resultType="PlaceData">
+
+        SELECT <include refid="fldPlace"></include> FROM Place WHERE place=#{place}
+
+    </select>
+
+    <insert id="insertPlace" parameterType="PlaceData">
+
+        INSERT INTO Place (place,startTime,endTime) VALUE (#{place},#{startTime},#{endTime})
+
+    </insert>
+
+    <update id="modifyPlace" parameterType="PlaceData">
+
+        UPDATE Place SET(place=#{place},startTime=#{startTime},endTime=#{endTime}) WHERE placeNo=#{placeNo}
+
+    </update>
+
+    <delete id="deletePlace" parameterType="int">
+
+        DELETE FROM Place WHERE placeNo=#{placeNo}
+
+    </delete>
+</mapper>
+

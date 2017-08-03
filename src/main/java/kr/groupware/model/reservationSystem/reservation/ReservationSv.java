@@ -1,6 +1,8 @@
 package kr.groupware.model.reservationSystem.reservation;
 
 
+import kr.groupware.model.reservationSystem.place.PlaceData;
+
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface ReservationSv {
     /**
      * 해당 시작 시간 보다 작은 예약 중에 가장큰놈을 가져온다
      */
-    ReservationData getMaxReservation(Date StartTime);
+    ReservationData getMaxReservation(Date StartTime, String place);
 
     /**
      *  @return 예약을 한다

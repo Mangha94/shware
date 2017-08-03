@@ -335,12 +335,24 @@
                                     <li>
                                         <a href="/org/member/addMemberForm.do">회원등록</a>
                                     </li>
-                                    <%--<li>--%>
-                                    <%--<a href="#">Third Level Item</a>--%>
-                                    <%--</li>--%>
-                                    <%--<li>--%>
-                                    <%--<a href="#">Third Level Item</a>--%>
-                                    <%--</li>--%>
+                                </ul>
+                                <!-- /.nav-third-level -->
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa  fa-clock-o fa-fw"></i> 예약관리<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/reservation/place/placeList.do">예약장소 관리</a>
+                            </li>
+                            <li>
+                                <a href="#">예약관리<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="/reservation/reservation/reservationList.do">예약하기</a>
+                                    </li>
                                 </ul>
                                 <!-- /.nav-third-level -->
                             </li>

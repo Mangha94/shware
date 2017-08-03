@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReservationSvImp implements ReservationSv{
@@ -26,19 +27,22 @@ public class ReservationSvImp implements ReservationSv{
     }
 
     @Override
-    public ReservationData getMaxReservation(Date startTime){
-        return reservationRepository.getMaxReservation(startTime);
+    public ReservationData getMaxReservation(Date startTime,String place){
+        SearchMaxReservation searchMaxReservation=new SearchMaxReservation();
+        searchMaxReservation.setPlace(place);
+        searchMaxReservation.setStartTime(startTime);
+        Map<String,Object>mapData=searchMaxReservation.makeMap();
+        return reservationRepository.getMaxReservation(mapData);
     }
     @Override
     public void insertReservation(ReservationData reservationData){
-        ReservationData beforeReservation=getMaxReservation(reservationData.getStartTime());
+        ReservationData beforeReservation=getMaxReservation(reservationData.getStartTime(),reservationData.getPlace());
         PlaceData placeData=placeSv.getPlace(reservationData.getPlace());
         if(placeData.getStartTime().compareTo(reservationData.getStartTime())>=0 && placeData.getEndTime().compareTo(reservationData.getEndTime())<=0) {
             if (beforeReservation.getEndTime().compareTo(reservationData.getStartTime()) >= 0) {
                 reservationRepository.insertReservation(reservationData);
             }
         }
-
     }
 
     @Override

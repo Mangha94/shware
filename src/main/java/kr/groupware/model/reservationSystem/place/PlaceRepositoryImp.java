@@ -22,6 +22,16 @@ public class PlaceRepositoryImp extends SqlSessionDaoSupport implements PlaceRep
 
     @Override
     public void insertPlace(PlaceData placeData){
-        getSqlSession().insert("place.insertPlace");
+        getSqlSession().insert("place.insertPlace",placeData);
+    }
+
+    @Override
+    public void modifyPlace(PlaceData placeData){
+        getSqlSession().update("place.modifyPlace",placeData);
+    }
+
+    @Override
+    public void deletePlace(int placeNo){
+        getSqlSession().delete("place.deletePlace",placeNo);
     }
 }

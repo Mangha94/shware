@@ -20,6 +20,7 @@
 		 <typeAlias alias="NumberData" type="kr.groupware.model.number.NumberData"/>
 		 <typeAlias alias="WinNumberData" type="kr.groupware.model.winNumber.WinNumberData"/>
 		 <typeAlias alias="ReservationData" type="kr.groupware.model.reservationSystem.reservation.ReservationData"/>
+		 <typeAlias alias="PlaceData" type="kr.groupware.model.reservationSystem.place.PlaceData"/>
 	 </typeAliases>
 	 
 	 <mappers>

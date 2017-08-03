@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation">
+
+    <resultMap id="ReservationRs" type="ReservationData">
+        <result column="reservationNo" property="reservationNo" />
+        <result column="place" property="place" />
+        <result column="startTime" property="startTime" />
+        <result column="endTime" property="endTime" />
+        <result column="memberId" property="memberId" />
+    </resultMap>
+
+    <sql id = "fldReservation">
+        reservationNo,
+        place,
+        startTime,
+        endTime,
+        memberId
+    </sql>
+
+    <select id="getReservations" resultType="ReservationData">
+
+        SELECT <include refid="fldReservation"></include> FROM ReservationSystem
+
+    </select>
+
+    <select id="getReservation" parameterType="map" resultType="ReservationData">
+
+        SELECT <include refid="fldReservation"></include> FROM ReservationSystem WHERE startTime>{startTime} and place=#{place}
+
+    </select>
+
+    <insert id="insertReservation" parameterType="ReservationData">
+
+        INSERT INTO ReservationSystem (place,startTime,endTime,memberId) VALUE (#{place},#{startTime},#{endTime},#{memberId})
+
+    </insert>
+
+    <update id="modifyReservation" parameterType="ReservationData">
+
+        UPDATE ReservationSystem SET(place=#{place},startTime=#{startTime},endTime=#{endTime}) WHERE reservationNo=#{reservationNo}
+
+    </update>
+
+    <delete id="deleteReservation" parameterType="int">
+
+        DELETE FROM ReservationSystem WHERE reservationNo=#{reservationNo}
+
+    </delete>
+</mapper>

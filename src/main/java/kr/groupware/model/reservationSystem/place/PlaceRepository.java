@@ -24,8 +24,10 @@ public interface PlaceRepository {
     /**
      * 예약 장소정보를 수정한다
      */
+    void modifyPlace(PlaceData placeData);
 
     /**
      * 예약 장소정보를 삭제한다
      */
+    void deletePlace(int placeNo);
 }

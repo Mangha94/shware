@@ -12,6 +12,7 @@ import java.util.List;
 public class PlaceSvImp implements PlaceSv{
     @Autowired
     private PlaceRepository placeRepository;
+
     @Override
     public List<PlaceData>getPlaces(){
         return placeRepository.getPlaces();
@@ -26,4 +27,16 @@ public class PlaceSvImp implements PlaceSv{
     public void insertPlace(PlaceData placeData){
         placeRepository.insertPlace(placeData);
     }
+
+    @Override
+    public void modifyPlace(PlaceData placeData){
+        placeRepository.modifyPlace(placeData);
+    }
+
+    @Override
+    public void deletePlace(int placeNo){
+        placeRepository.deletePlace(placeNo);
+    }
+
+
 }

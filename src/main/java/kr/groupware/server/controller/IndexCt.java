@@ -22,11 +22,15 @@ public class IndexCt {
     private BoardSettingSv boardSettingSv;
     @Autowired
     private DefaultSystemSettingSv defaultSystemSettingSv;
+    @Autowired
+    private MenuSetting menuSetting;
 
     @RequestMapping(value = "/index.do",method = RequestMethod.GET)
     public ModelAndView menuSetting(
     ){
         ModelAndView mv=new ModelAndView("index");
+
+        menuSetting.menuSetting(mv);
 
         List<BoardSettingData>boardSettings= boardSettingSv.getBoardSettings();
         mv.addObject("boardSettings",boardSettings);
