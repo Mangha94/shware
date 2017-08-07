@@ -12,7 +12,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "src/main/webapp/bower_components/"
   ],
   "dependencies": {
     "jquery": "^3.2.1",

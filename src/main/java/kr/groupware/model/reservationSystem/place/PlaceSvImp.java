@@ -19,8 +19,8 @@ public class PlaceSvImp implements PlaceSv{
     }
 
     @Override
-    public PlaceData getPlace(String place){
-        return placeRepository.getPlace(place);
+    public PlaceData getPlace(int placeNo){
+        return placeRepository.getPlace(placeNo);
     }
 
     @Override

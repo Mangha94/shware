@@ -14,7 +14,7 @@ public interface PlaceRepository {
     /**
      * 이름에 해당하는 예약 장소정보를 가져온다
      */
-    PlaceData getPlace(String place);
+    PlaceData getPlace(int placeNo);
 
     /**
      *예약 장소정보를 등록한다

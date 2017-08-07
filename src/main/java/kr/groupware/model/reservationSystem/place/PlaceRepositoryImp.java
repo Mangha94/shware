@@ -16,8 +16,8 @@ public class PlaceRepositoryImp extends SqlSessionDaoSupport implements PlaceRep
     }
 
     @Override
-    public PlaceData getPlace(String place){
-        return getSqlSession().selectOne("place.getPlace",place);
+    public PlaceData getPlace(int placeNo){
+        return getSqlSession().selectOne("place.getPlace",placeNo);
     }
 
     @Override

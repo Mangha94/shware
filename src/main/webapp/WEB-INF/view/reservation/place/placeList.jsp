@@ -17,7 +17,7 @@
                     console.log(result);
                     alert("삭제되었습니다");
 
-                    reloadSpot();
+                    reloadPlace();
                 }
 
             });
@@ -25,7 +25,7 @@
     }
     function modifyPlacev(placeNo) {
 
-        var formData=$("#placeTr_"+placeNo).find(":input").serialize();
+        var formData=$("#placeTr"+placeNo).find(":input").serialize();
         $.ajax({
             type: "POST",
             url: "/reservation/place/modifyPlace.do",

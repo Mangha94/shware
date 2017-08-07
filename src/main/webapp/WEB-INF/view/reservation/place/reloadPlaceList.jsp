@@ -13,18 +13,17 @@
 <tbody>
 <c:forEach items="${placeList}" var="place">
     <tr id="placeTr_${place.placeNo}">
-
         <td>
             <input type="text" name="place" class="form-control" value="${place.place}">
         </td>
         <td>
-            <fmt:formatDate value='${place.startTime}' var='startTime' pattern="HH:MM"/>
-            <input type="time" id="startTime" value="${startTime}" class="form-control">
+            <fmt:formatDate value='${place.startTime}' var='startTime' pattern="HH:mm"/>
+            <input type="time" name="startTime" id="startTime" value="${startTime}" class="form-control">
 
         </td>
         <td>
-            <fmt:formatDate value='${place.endTime}' var='endTime' pattern="HH:MM"/>
-            <input type="time" id="endTime" value="${endTime}" class="form-control">
+            <fmt:formatDate value='${place.endTime}' var='endTime' pattern="HH:mm"/>
+            <input type="time" name="endTime" id="endTime" value="${endTime}" class="form-control">
 
         </td>
         <td>

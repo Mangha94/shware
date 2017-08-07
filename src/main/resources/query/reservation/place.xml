@@ -28,9 +28,9 @@
 
     </select>
 
-    <select id="getPlace" parameterType="String" resultType="PlaceData">
+    <select id="getPlace" parameterType="int" resultType="PlaceData">
 
-        SELECT <include refid="fldPlace"></include> FROM Place WHERE place=#{place}
+        SELECT <include refid="fldPlace"></include> FROM Place WHERE placeNo=#{placeNo}
 
     </select>
 
