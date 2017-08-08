@@ -12,32 +12,32 @@ public class ReservationRepositoryImp extends SqlSessionDaoSupport implements Re
 
     @Override
     public List<ReservationData>getReservations(){
-        return getSqlSession().selectList("ReservationCt.xml.getReservations");
+        return getSqlSession().selectList("reservation.getReservations");
     }
 
     @Override
     public List<ReservationData>getReservation(Date date){
-        return getSqlSession().selectList("ReservationCt.xml.getReservation",date);
+        return getSqlSession().selectList("reservation.getReservation",date);
     }
 
     @Override
     public ReservationData getMaxReservation(Map<String,Object> mapData){
-        return getSqlSession().selectOne("ReservationCt.xml.getMaxReservation",mapData);
+        return getSqlSession().selectOne("reservation.getMaxReservation",mapData);
     }
 
     @Override
     public void insertReservation(ReservationData reservationData){
-        getSqlSession().insert("ReservationCt.xml.insertReservation",reservationData);
+        getSqlSession().insert("reservation.insertReservation",reservationData);
     }
 
     @Override
     public void modifyReservation(ReservationData reservationData){
-        getSqlSession().update("ReservationCt.xml.modifyReservation",reservationData);
+        getSqlSession().update("reservation.modifyReservation",reservationData);
     }
 
     @Override
     public void deleteReservation(int reservationNo){
-        getSqlSession().delete("ReservationCt.xml.deleteReservation",reservationNo);
+        getSqlSession().delete("reservation.deleteReservation",reservationNo);
     }
 
 }

@@ -39,31 +39,31 @@ public class PlaceCt {
 
         List<PlaceTimeEncoding> timeList=new ArrayList<>();
 
-        for(PlaceData a : placeData) {
-            PlaceTimeEncoding time=new PlaceTimeEncoding();
+//        for(PlaceData a : placeData) {
+//            PlaceTimeEncoding time=new PlaceTimeEncoding();
+//
+//            LocalDate today=LocalDate.now();
+//            LocalTime start = LocalTime.of(a.getStartHour(),a.getStartMin());
+//            LocalDateTime startTime=LocalDateTime.of(today,start);
+//
+//            Date s=Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+//
+//            LocalTime end = LocalTime.of(a.getEndHour(),a.getEndMin());
+//            LocalDateTime endTime=LocalDateTime.of(today,end);
+//
+//            Date e=Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
+//
+//            System.out.println(startTime);
+//            System.out.println(endTime);
+//
+//            time.setPlaceNo(a.getPlaceNo());
+//            time.setPlace(a.getPlace());
+//            time.setStartTime(s);
+//            time.setEndTime(e);
+//            timeList.add(time);
+//        }
 
-            LocalDate today=LocalDate.now();
-            LocalTime start = LocalTime.of(a.getStartHour(),a.getStartMin());
-            LocalDateTime startTime=LocalDateTime.of(today,start);
-
-            Date s=Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
-
-            LocalTime end = LocalTime.of(a.getEndHour(),a.getEndMin());
-            LocalDateTime endTime=LocalDateTime.of(today,end);
-
-            Date e=Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
-
-            System.out.println(startTime);
-            System.out.println(endTime);
-
-            time.setPlaceNo(a.getPlaceNo());
-            time.setPlace(a.getPlace());
-            time.setStartTime(s);
-            time.setEndTime(e);
-            timeList.add(time);
-        }
-
-        mv.addObject("placeList",timeList);
+        mv.addObject("placeList",placeData);
 
         return mv;
     }

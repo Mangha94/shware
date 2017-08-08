@@ -17,12 +17,17 @@
             <input type="text" name="place" class="form-control" value="${place.place}">
         </td>
         <td>
-            <fmt:formatDate value='${place.startTime}' var='startTime' pattern="HH:mm"/>
-            <input type="time" name="startTime" id="startTime" value="${startTime}" class="form-control">
+
+
+
+            <input type="time" name="startTime" id="startTime" value="<fmt:formatNumber pattern="00" value="${place.startHour}" />:<fmt:formatNumber pattern="00" value="${place.startMin}" />" class="form-control">
 
         </td>
         <td>
-            <fmt:formatDate value='${place.endTime}' var='endTime' pattern="HH:mm"/>
+            <fmt:formatNumber pattern="00" var = "endHour" value="${place.endHour}" />
+            <fmt:formatNumber pattern="00" var="endMin" value="${place.endMin}" />
+            <c:set var="endTime" value = "${endHour}:${endMin}" />
+
             <input type="time" name="endTime" id="endTime" value="${endTime}" class="form-control">
 
         </td>

@@ -2,11 +2,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
+
 <%--full calendar--%>
 <link href='/bower_components/fullcalendar/dist/fullcalendar.min.css' rel='stylesheet' />
 <link href='/bower_components/fullcalendar/dist/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-<script src='bower_components/moment/src/lib/moment.min.js'></script>
-<script src='bower_components/jquery/dist/jquery.min.js'></script>
+<script src='/bower_components/moment/min/moment.min.js'></script>
+<%--<script src='/bower_components/jquery/dist/jquery.min.js'></script>--%>
 <script src='/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
 
 <script>
@@ -44,12 +46,6 @@
 
             myForm.endTime.focus();
         }
-//        else if (myForm.pw.value.trim() == "") {
-//            alert("비밀번호를 입력해주세요");
-//            flag = false;
-//
-//            myForm.pw.focus();
-//        }
 
         if (flag) {
             $.ajax({
@@ -74,6 +70,43 @@
 
         return false;
     }
+
+    function deleteReservationv(reservationNo) {
+        if (confirm("삭제하시겠습니까?")) {
+            $.ajax({
+                type: "GET",
+                url: "/reservation/Reservation/deleteReservation.do?reservationNo=" + reservationNo,
+                dataType: "html",
+                success: function (data, textStatus) {
+                    result = data;
+                    console.log(data);
+                    console.log(result);
+                    alert("삭제되었습니다");
+
+                    reloadReservation();
+                }
+
+            });
+        }
+    }
+    function modifyReservationv(reservationNo) {
+
+        var formData=$("#reservationTr"+reservationNo).find(":input").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/reservation/reservation/modifyReservation.do",
+            data: formData,
+            success: function (data, textStatus) {
+                result = data;
+                alert("수정되었습니다");
+
+                reloadReservation();
+            }
+        });
+    }
+    function reloadReservation() {
+        $("#placeForm").load("/reservation/reservation/reloadReservation.do");
+    }
 </script>
 <style>
 
@@ -91,7 +124,7 @@
 
 </style>
 
-<jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
+
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
