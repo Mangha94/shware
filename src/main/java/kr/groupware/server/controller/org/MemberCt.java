@@ -43,47 +43,76 @@ public class MemberCt {
     @Autowired
     private MenuSetting menuSetting;
 
-	@RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
-	public ModelAndView searchMember(
-		@RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
-		@RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
-		@RequestParam(value = "orderAsc", required = false, defaultValue = "ASC") String orderAsc,
-		@RequestParam(value = "orderVal", required = false, defaultValue = "memberId") String orderVal,
-		@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-		@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
-	) {
-		ModelAndView mv = new ModelAndView("/org/member/memberList");
+    @RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
+    public ModelAndView searchMember(
+            @RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
+            @RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
+            @RequestParam(value = "orderAsc", required = false, defaultValue = "ASC") String orderAsc,
+            @RequestParam(value = "orderVal", required = false, defaultValue = "memberId") String orderVal,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
+    ) {
+        ModelAndView mv = new ModelAndView("/org/member/memberList");
 
         //메뉴셋팅
         menuSetting.menuSetting(mv);
 
-		MemberSearchData searchData = new MemberSearchData();
-		if (searchFrom.equals("memberId")) {
-			searchData.setMemberId(searchVal);
-		} else if (searchFrom.equals("name")) {
-			searchData.setName(searchVal);
-		} else if (searchFrom.equals("email")) {
-			searchData.setEmail(searchVal);
-		}
-        if(orderVal!=null && orderAsc!=null){
+        MemberSearchData searchData = new MemberSearchData();
+
+        if (searchFrom.contains(",") && searchVal.contains(",")) {
+
+            String[] searchFromAry = searchFrom.split(",");
+            String[] searchValAry = searchVal.split(",");
+
+            for (int i = 0; i < searchFromAry.length; i++) {
+                if (searchFromAry[i].equals("name")) {
+                    searchData.setName(searchValAry[i]);
+                    mv.addObject("searchFrom", searchFromAry[i]);
+                    mv.addObject("searchVal_name", searchValAry[i]);
+                    i++;
+                }
+                if (searchValAry.length==2 && searchFromAry[i].equals("memberId")) {
+                    searchData.setMemberId(searchValAry[i]);
+                    mv.addObject("searchFrom", searchFromAry[i]);
+                    mv.addObject("searchVal_memberId", searchValAry[i]);
+                    i++;
+                }
+                if (searchValAry.length==3 && searchFromAry[i].equals("email")) {
+                    searchData.setEmail(searchValAry[i]);
+                    mv.addObject("searchFrom", searchFromAry[i]);
+                    mv.addObject("searchVal_email", searchValAry[i]);
+                }
+            }
+        } else {
+            mv.addObject("searchFrom", searchFrom);
+            mv.addObject("searchVal", searchVal);
+        }
+        if (orderVal != null && orderAsc != null) {
             searchData.setOrderVal(orderVal);
             searchData.setOrderAsc(orderAsc);
         }
 
-		Paging paging = new Paging (pageNo, 10, pageSize);
+//		if (searchFrom.equals("memberId")) {
+//			searchData.setMemberId(searchVal);
+//		} else if (searchFrom.equals("name")) {
+//			searchData.setName(searchVal);
+//		} else if (searchFrom.equals("email")) {
+//			searchData.setEmail(searchVal);
+//		}
 
-		PagingList<MemberData> pagingList = memberSv.searchMember (paging, searchData);
 
-		mv.addObject ("paging", pagingList.getPaging ());
-		mv.addObject ("pagingList", pagingList);
+        Paging paging = new Paging(pageNo, 10, pageSize);
 
-		mv.addObject("searchFrom",searchFrom);
-		mv.addObject("searchVal",searchVal);
-		mv.addObject("orderVal",orderVal);
-		mv.addObject("orderAsc",orderAsc);
+        PagingList<MemberData> pagingList = memberSv.searchMember(paging, searchData);
 
-		return mv;
-	}
+        mv.addObject("paging", pagingList.getPaging());
+        mv.addObject("pagingList", pagingList);
+        mv.addObject("orderVal", orderVal);
+        mv.addObject("orderAsc", orderAsc);
+
+
+        return mv;
+    }
 
     @RequestMapping(value = "/idCheckForm.do", method = {RequestMethod.GET})
     public ModelAndView idCheckForm(
@@ -100,8 +129,8 @@ public class MemberCt {
     public ModelAndView getMember(
             @RequestParam(value = "memberId", required = false) String memberId
     ) {
-		Optional<MemberData> member = memberSv.getMember (memberId);
-		ModelAndView mv = new ModelAndView("org/member/modifyMember");
+        Optional<MemberData> member = memberSv.getMember(memberId);
+        ModelAndView mv = new ModelAndView("org/member/modifyMember");
 
         //메뉴셋팅
         menuSetting.menuSetting(mv);
@@ -112,35 +141,31 @@ public class MemberCt {
         mv.addObject("getSpots", spots);
         mv.addObject("getPositions", positions);
         mv.addObject("getDepartments", departments);
-        mv.addObject("getMember", member.get ());
+        mv.addObject("getMember", member.get());
         return mv;
     }
 
     @RequestMapping(value = "/addMember.do", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView addMember(
             MemberData memberData
-    )
-	{
+    ) {
         ModelAndView mv = new ModelAndView("pageJsonReport");
 
-        try
-		{
+        try {
             memberSv.addMember(memberData);
 
-			mv.addObject("success", true);
-        }
-        catch (MemberAddException e)
-		{
+            mv.addObject("success", true);
+        } catch (MemberAddException e) {
             e.printStackTrace();
 
-			mv.addObject("success", false);
+            mv.addObject("success", false);
 
-			if (e.getExceptionType () == MemberAddException.MemberAddExceptionType.ID_NOT_INPUT)
-				mv.addObject ("message", "아이디를 입력해주세요");
-			else if (e.getExceptionType () == MemberAddException.MemberAddExceptionType.NAME_NOT_INPUT)
-				mv.addObject ("message", "이름을 입력해주세요");
-			else if (e.getExceptionType () == MemberAddException.MemberAddExceptionType.EXIST_MEMBER)
-				mv.addObject ("message", "아이디가 존재합니다");
+            if (e.getExceptionType() == MemberAddException.MemberAddExceptionType.ID_NOT_INPUT)
+                mv.addObject("message", "아이디를 입력해주세요");
+            else if (e.getExceptionType() == MemberAddException.MemberAddExceptionType.NAME_NOT_INPUT)
+                mv.addObject("message", "이름을 입력해주세요");
+            else if (e.getExceptionType() == MemberAddException.MemberAddExceptionType.EXIST_MEMBER)
+                mv.addObject("message", "아이디가 존재합니다");
         }
 
         return mv;
@@ -161,21 +186,21 @@ public class MemberCt {
             @RequestParam(value = "businessNo", required = false) String businessNo
     ) {
 
-		Optional<MemberData> member = memberSv.getMember (memberId);
+        Optional<MemberData> member = memberSv.getMember(memberId);
 
-		member.ifPresent ((memberData) -> {
-			memberData.setPw(pw);
-			memberData.setName(name);
-			memberData.setPositionNo(positionNo);
-			memberData.setSpotNo(spotNo);
-			memberData.setDepartmentNo(departmentNo);
-			memberData.setEmail(email);
-			memberData.setEntryDate(entryDate);
-			memberData.setUsed(used);
-			memberData.setSecurityRating(securityRating);
-			memberData.setBusinessNo(businessNo);
-			memberSv.modifyMember(memberData);
-		});
+        member.ifPresent((memberData) -> {
+            memberData.setPw(pw);
+            memberData.setName(name);
+            memberData.setPositionNo(positionNo);
+            memberData.setSpotNo(spotNo);
+            memberData.setDepartmentNo(departmentNo);
+            memberData.setEmail(email);
+            memberData.setEntryDate(entryDate);
+            memberData.setUsed(used);
+            memberData.setSecurityRating(securityRating);
+            memberData.setBusinessNo(businessNo);
+            memberSv.modifyMember(memberData);
+        });
 
         return "redirect:/org/member/memberList.do";
     }
@@ -187,7 +212,6 @@ public class MemberCt {
         memberSv.deleteMember(memberId);
         return "redirect:/org/member/memberList.do";
     }
-
 
 
     @RequestMapping(value = "/addMemberForm.do", method = RequestMethod.GET)

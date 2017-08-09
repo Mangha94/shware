@@ -3,10 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sh" uri="/WEB-INF/tlds/shUtil.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
 
+<script src='/bower_components/moment/min/moment.min.js'></script>
+
 <script>
+    $(document).ready(function () {
+        $("input[type=checkbox]").switchButton({
+            on_label: '사용',
+            off_label: '사용안함'
+        });
+    });
 
     function onPage(pageNo)
     {
@@ -72,21 +79,32 @@
 
                         <input type="hidden" name="orderAsc" value="${orderAsc}">
                         <input type="hidden" name="orderVal" value="${orderVal}">
-                        <div class="form-group">
-                            <label>
-                                <select name="searchFrom" class="form-control">
-                                    <option value="memberId"
-                                    <c:if test="${searchFrom eq 'memberId'}">selected</c:if>>아이디</option>
-                                    <option value="name"
-                                    <c:if test="${searchFrom eq 'name'}">selected</c:if>>이름</option>
-                                    <option value="email"
-                                    <c:if test="${searchFrom eq 'email'}">selected</c:if>>이메일</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="searchVal" class="form-control" value="${searchVal}"
-                                   placeholder="Search for...">
+                        <%--<div class="form-group">--%>
+                            <%--<label>--%>
+                                <%--<select name="searchFrom" class="form-control">--%>
+                                    <%--<option value="memberId"--%>
+                                    <%--<c:if test="${searchFrom eq 'memberId'}">selected</c:if>>아이디</option>--%>
+                                    <%--<option value="name"--%>
+                                    <%--<c:if test="${searchFrom eq 'name'}">selected</c:if>>이름</option>--%>
+                                    <%--<option value="email"--%>
+                                    <%--<c:if test="${searchFrom eq 'email'}">selected</c:if>>이메일</option>--%>
+                                <%--</select>--%>
+                            <%--</label>--%>
+                        <%--</div>--%>
+                        <%--<div class="form-group">--%>
+                        <div>
+                            이름
+                            <input type="hidden" name="searchFrom" value="name">
+                            <input type="text" name="searchVal" class="form-control" value="${searchVal_name}"
+                                   placeholder="Search for name"><br>
+                            아이디
+                            <input type="hidden" name="searchFrom" value="memberId">
+                            <input type="text" name="searchVal" class="form-control" value="${searchVal_memberId}"
+                                   placeholder="Search for memberId"><br>
+                            이메일
+                            <input type="hidden" name="searchFrom" value="email">
+                            <input type="text" name="searchVal" class="form-control" value="${searchVal_email}"
+                                   placeholder="Search for email"><br>
                         </div>
                         <input type="submit" class="btn btn-default" value="찾기">
                         <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
