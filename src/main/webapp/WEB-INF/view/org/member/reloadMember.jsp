@@ -74,7 +74,7 @@
                     ${paging.totalArticles-(paging.currentPage-1)*paging.articlesPerPage - (vs.count - 1)}
             </td>
             <td>
-                <input type="checkbox" name="simplyModifyMember" value="${member.memberId}">
+                <input type="checkbox" name="chkMember" value="${member.memberId}">
                 <a href="/org/member/getMember.do?memberId=${member.memberId}">${member.memberId}</a>
             </td>
             <td>${member.name}</td>
@@ -85,11 +85,16 @@
             <td>
                 <input type="checkbox" name="used" value="${member.used eq true}" checked>
             </td>
-            <td>${member.securityRating}등급</td>
+            <td>
+                <select name="securityRating" class="form-control">
+                    <c:forEach begin="1" end="5" var="idx">
+                        <option <c:if test="${idx eq member.securityRating}">selected</c:if>>${idx}등급</option>
+                    </c:forEach>
+                </select>
+            </td>
         </tr>
     </c:forEach>
-    <a href="javascript:simplyModify()" class="btn btn-warning">수정</a>
-    <a href="javascript:simplyDelete()" class="btn btn-danger">삭제</a>
+
 </form>
 
 </tbody>

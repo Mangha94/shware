@@ -36,6 +36,10 @@
 
         onPage(1);
     }
+
+    function simplyModify() {
+        $("#memberForm input[type='checkbox'][name='chkMember']:checked");
+    }
 </script>
 
 <div id="page-wrapper">
@@ -60,8 +64,11 @@
                                 <li><a href="javascript:changeArticlePerPage('50')">50개씩 보기</a></li>
                                 <li><a href="javascript:changeArticlePerPage('100')">100개씩 보기</a></li>
                             </ul>
+
+                            <a href="javascript:simplyModify()" class="btn btn-warning">수정</a>
+                            <a href="javascript:simplyDelete()" class="btn btn-danger">삭제</a>
                         </div>
-                        <form action="/org/member/memberList.do" name="memberForm">
+                        <form action="/org/member/memberList.do" name="memberForm" id = "memberForm">
                         <table id="memberTable" class="table">
                             <jsp:include page="reloadMember.jsp"></jsp:include>
                         </table>
@@ -94,16 +101,13 @@
                         <%--<div class="form-group">--%>
                         <div>
                             이름
-                            <input type="hidden" name="searchFrom" value="name">
-                            <input type="text" name="searchVal" class="form-control" value="${searchVal_name}"
+                            <input type="text" name="se_name" class="form-control" value="${se_name}"
                                    placeholder="Search for name"><br>
                             아이디
-                            <input type="hidden" name="searchFrom" value="memberId">
-                            <input type="text" name="searchVal" class="form-control" value="${searchVal_memberId}"
+                            <input type="text" name="se_memberId" class="form-control" value="${se_memberId}"
                                    placeholder="Search for memberId"><br>
                             이메일
-                            <input type="hidden" name="searchFrom" value="email">
-                            <input type="text" name="searchVal" class="form-control" value="${searchVal_email}"
+                            <input type="text" name="se_email" class="form-control" value="${se_email}"
                                    placeholder="Search for email"><br>
                         </div>
                         <input type="submit" class="btn btn-default" value="찾기">

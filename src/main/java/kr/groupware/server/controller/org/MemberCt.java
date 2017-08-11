@@ -1,5 +1,6 @@
 package kr.groupware.server.controller.org;
 
+import kr.groupware.lib.StrLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +46,9 @@ public class MemberCt {
 
     @RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
     public ModelAndView searchMember(
-            @RequestParam(value = "searchFrom", required = false, defaultValue = "") String searchFrom,
-            @RequestParam(value = "searchVal", required = false, defaultValue = "") String searchVal,
+            @RequestParam(value = "se_name", required = false, defaultValue = "") String se_name,
+            @RequestParam(value = "se_memberId", required = false, defaultValue = "") String se_memberId,
+            @RequestParam(value = "se_email", required = false, defaultValue = "") String se_email,
             @RequestParam(value = "orderAsc", required = false, defaultValue = "ASC") String orderAsc,
             @RequestParam(value = "orderVal", required = false, defaultValue = "memberId") String orderVal,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -59,34 +61,20 @@ public class MemberCt {
 
         MemberSearchData searchData = new MemberSearchData();
 
-        if (searchFrom.contains(",") && searchVal.contains(",")) {
-
-            String[] searchFromAry = searchFrom.split(",");
-            String[] searchValAry = searchVal.split(",");
-
-            for (int i = 0; i < searchFromAry.length; i++) {
-                if (searchFromAry[i].equals("name")) {
-                    searchData.setName(searchValAry[i]);
-                    mv.addObject("searchFrom", searchFromAry[i]);
-                    mv.addObject("searchVal_name", searchValAry[i]);
-                    i++;
-                }
-                if (searchValAry.length==2 && searchFromAry[i].equals("memberId")) {
-                    searchData.setMemberId(searchValAry[i]);
-                    mv.addObject("searchFrom", searchFromAry[i]);
-                    mv.addObject("searchVal_memberId", searchValAry[i]);
-                    i++;
-                }
-                if (searchValAry.length==3 && searchFromAry[i].equals("email")) {
-                    searchData.setEmail(searchValAry[i]);
-                    mv.addObject("searchFrom", searchFromAry[i]);
-                    mv.addObject("searchVal_email", searchValAry[i]);
-                }
-            }
-        } else {
-            mv.addObject("searchFrom", searchFrom);
-            mv.addObject("searchVal", searchVal);
+        if(!StrLib.isEmptyStr(se_name)){
+            searchData.setName(se_name);
         }
+        if(!StrLib.isEmptyStr(se_memberId)){
+            searchData.setMemberId(se_memberId);
+        }
+        if(!StrLib.isEmptyStr(se_email)){
+            searchData.setEmail(se_email);
+        }
+
+        mv.addObject("se_name",se_name);
+        mv.addObject("se_memberId",se_memberId);
+        mv.addObject("se_email",se_email);
+
         if (orderVal != null && orderAsc != null) {
             searchData.setOrderVal(orderVal);
             searchData.setOrderAsc(orderAsc);
@@ -171,7 +159,7 @@ public class MemberCt {
         return mv;
     }
 
-    @RequestMapping(value = "/modifyMember.do", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/modifyMember.do", method = RequestMethod.POST)
     public String modifyMember(
             @RequestParam(value = "memberId", required = false) String memberId,
             @RequestParam(value = "pw", required = false) String pw,
