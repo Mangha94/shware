@@ -51,16 +51,32 @@
     	$("#memberForm").submit ();*/
 
 	    var items = [];
+	    var datas = "";
 
 	    $("#memberForm input[type='checkbox'][name='chkMember']:checked").each (function () {
 		    var data = {'memberId':$(this).val(),
 			    "used":($("#memberForm input[type='checkbox'][name='used_" + $(this).val() + "']:checked").length > 0)
 		    };
 
-		    items.push (data);
+		    if (datas != "")
+			    datas += "###";
+
+		    datas += encodeURI(JSON.stringify(data));
 	    });
 
-	    var successCnt = 0;
+	    console.dir (datas);
+
+	    $.ajax({
+		    type: "POST",
+		    url: "modifyMember2.do",
+		    data: {"datas":datas},
+		    success: function (data, textStatus) {
+			    alert("수정되었습니다");
+			    location.reload();
+		    }
+	    });
+
+	    /*var successCnt = 0;
 
 	    for (i = 0; i < items.length; i++)
 	    {
@@ -80,7 +96,7 @@
 			        }
 			    }
 		    });
-	    }
+	    }*/
 
         // var items = [];
         /*$("#memberForm input[type='checkbox'][name='chkMember']:checked").each(function () {

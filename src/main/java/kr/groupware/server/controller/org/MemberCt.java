@@ -1,5 +1,7 @@
 package kr.groupware.server.controller.org;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -194,6 +198,35 @@ public class MemberCt {
 
         return "redirect:/org/member/memberList.do";
     }
+
+	@RequestMapping(value = "/modifyMember2.do", method = RequestMethod.POST)
+	public String modifyMember(
+		@RequestParam("datas") String datas
+	) {
+		ObjectMapper om = new ObjectMapper ();
+
+		String [] datas2 = datas.split ("###");
+
+		for (String data : datas2)
+		{
+			System.out.println (data);
+
+			try
+			{
+				System.out.println (URLDecoder.decode (data, "UTF-8"));
+
+				ModifyMemberData modifyMemberData = om.readValue (URLDecoder.decode (data, "UTF-8"), ModifyMemberData.class);
+
+				memberSv.modifyMember(modifyMemberData);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace ();
+			}
+		}
+
+		return "redirect:/org/member/memberList.do";
+	}
 
     @RequestMapping(value = "/deleteMember.do", method = RequestMethod.GET)
     public String deleteMember(
