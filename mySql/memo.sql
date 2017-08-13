@@ -1,0 +1,7 @@
+CREATE TABLE MemoData(
+  memoNo INT(11) NOT NULL AUTO_INCREMENT,
+  memo text DEFAULT NULL,
+  memberId VARCHAR(50) DEFAULT NULL,
+  writeDate DateTime NOT NULL,
+  PRIMARY KEY(memoNo)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

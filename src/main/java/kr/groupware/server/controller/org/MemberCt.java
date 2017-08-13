@@ -26,6 +26,8 @@ import kr.groupware.model.rank.spot.SpotData;
 import kr.groupware.model.rank.spot.SpotSv;
 import kr.groupware.server.controller.MenuSetting;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping(value = "/org/member")
 public class MemberCt {
@@ -52,33 +54,36 @@ public class MemberCt {
             @RequestParam(value = "orderAsc", required = false, defaultValue = "ASC") String orderAsc,
             @RequestParam(value = "orderVal", required = false, defaultValue = "memberId") String orderVal,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            HttpSession session
     ) {
         ModelAndView mv = new ModelAndView("/org/member/memberList");
+        if(1==(int)session.getAttribute("securityRating")) {
 
-        //메뉴셋팅
-        menuSetting.menuSetting(mv);
+            //메뉴셋팅
+            menuSetting.menuSetting(mv);
 
-        MemberSearchData searchData = new MemberSearchData();
 
-        if(!StrLib.isEmptyStr(se_name)){
-            searchData.setName(se_name);
-        }
-        if(!StrLib.isEmptyStr(se_memberId)){
-            searchData.setMemberId(se_memberId);
-        }
-        if(!StrLib.isEmptyStr(se_email)){
-            searchData.setEmail(se_email);
-        }
+            MemberSearchData searchData = new MemberSearchData();
 
-        mv.addObject("se_name",se_name);
-        mv.addObject("se_memberId",se_memberId);
-        mv.addObject("se_email",se_email);
+            if (!StrLib.isEmptyStr(se_name)) {
+                searchData.setName(se_name);
+            }
+            if (!StrLib.isEmptyStr(se_memberId)) {
+                searchData.setMemberId(se_memberId);
+            }
+            if (!StrLib.isEmptyStr(se_email)) {
+                searchData.setEmail(se_email);
+            }
 
-        if (orderVal != null && orderAsc != null) {
-            searchData.setOrderVal(orderVal);
-            searchData.setOrderAsc(orderAsc);
-        }
+            mv.addObject("se_name", se_name);
+            mv.addObject("se_memberId", se_memberId);
+            mv.addObject("se_email", se_email);
+
+            if (orderVal != null && orderAsc != null) {
+                searchData.setOrderVal(orderVal);
+                searchData.setOrderAsc(orderAsc);
+            }
 
 //		if (searchFrom.equals("memberId")) {
 //			searchData.setMemberId(searchVal);
@@ -89,16 +94,18 @@ public class MemberCt {
 //		}
 
 
-        Paging paging = new Paging(pageNo, 10, pageSize);
+            Paging paging = new Paging(pageNo, 10, pageSize);
 
-        PagingList<MemberData> pagingList = memberSv.searchMember(paging, searchData);
+            PagingList<MemberData> pagingList = memberSv.searchMember(paging, searchData);
 
-        mv.addObject("paging", pagingList.getPaging());
-        mv.addObject("pagingList", pagingList);
-        mv.addObject("orderVal", orderVal);
-        mv.addObject("orderAsc", orderAsc);
+            mv.addObject("paging", pagingList.getPaging());
+            mv.addObject("pagingList", pagingList);
+            mv.addObject("orderVal", orderVal);
+            mv.addObject("orderAsc", orderAsc);
 
 
+
+        }
         return mv;
     }
 
@@ -130,6 +137,24 @@ public class MemberCt {
         mv.addObject("getPositions", positions);
         mv.addObject("getDepartments", departments);
         mv.addObject("getMember", member.get());
+        return mv;
+    }
+
+    @RequestMapping(value = "memberDetail.do",method = RequestMethod.GET)
+    public ModelAndView memberDetail(
+            @RequestParam(value = "memberId",required = false)String memberId
+    ){
+        Optional<MemberData> member = memberSv.getMember(memberId);
+        ModelAndView mv=new ModelAndView("org/member/memberDetail");
+        menuSetting.menuSetting(mv);
+
+        List<SpotData> spots = spotSv.getSpots();
+        List<PositionData> positions = positionSv.getPositions();
+        List<DepartmentData> departments = departmentSv.getDepartments();
+        mv.addObject("getSpots", spots);
+        mv.addObject("getPositions", positions);
+        mv.addObject("getDepartments", departments);
+        mv.addObject("member", member.get());
         return mv;
     }
 
@@ -218,4 +243,22 @@ public class MemberCt {
         return mv;
     }
 
+    @RequestMapping(value = "simplyModify.do",method = {RequestMethod.POST,RequestMethod.GET})
+    public String simplyModify(
+            MemberData memberData
+    ){
+        memberSv.modifyMember(memberData);
+        return "redirect: /org/member/memberList.do";
+    }
+
+    @RequestMapping(value = "simplyDelete.do",method = RequestMethod.GET)
+    public String simplyDelete(
+            @RequestParam(value = "memberId",required = false)String memberId
+    ){
+        String[]memberIdArr=memberId.split(",");
+        for(String member : memberIdArr){
+            memberSv.deleteMember(member);
+        }
+        return "redirect: /org/member/memberList.do";
+    }
 }

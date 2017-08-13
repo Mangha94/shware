@@ -21,6 +21,7 @@
 		 <typeAlias alias="WinNumberData" type="kr.groupware.model.winNumber.WinNumberData"/>
 		 <typeAlias alias="ReservationData" type="kr.groupware.model.reservationSystem.reservation.ReservationData"/>
 		 <typeAlias alias="PlaceData" type="kr.groupware.model.reservationSystem.place.PlaceData"/>
+		 <typeAlias alias="MemoData" type="kr.groupware.model.memo.MemoData"/>
 	 </typeAliases>
 	 
 	 <mappers>

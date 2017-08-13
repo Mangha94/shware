@@ -8,6 +8,7 @@
         #
     </th>
     <th>
+        <input type="checkbox" id="checkall">
         <a href="javascript:orderList('memberId','${orderVal eq 'memberId' and orderAsc eq 'DESC' ? 'ASC' : 'DESC'}')">MemberId</a>
         <c:if test="${orderVal eq 'memberId'}">
             <span class="glyphicon glyphicon-triangle-${orderAsc eq 'DESC' ? 'top' : 'bottom'}"
@@ -74,8 +75,8 @@
                     ${paging.totalArticles-(paging.currentPage-1)*paging.articlesPerPage - (vs.count - 1)}
             </td>
             <td>
-                <input type="checkbox" name="chkMember" value="${member.memberId}">
-                <a href="/org/member/getMember.do?memberId=${member.memberId}">${member.memberId}</a>
+                <input type="checkbox" name="chkMember" value="${member}">
+                <a href="/org/member/memberDetail.do?memberId=${member.memberId}">${member.memberId}</a>
             </td>
             <td>${member.name}</td>
             <td>${member.positionName}</td>

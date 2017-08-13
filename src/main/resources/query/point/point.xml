@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="point">
+
+    <resultMap id="PointRs" type="PointData">
+        <result column="pointNo" property="pointNo" />
+        <result column="memberId" property="memberId" />
+        <result column="useHistory" property="useHistory" />
+        <result column="chargeHistory" property="chargeHistory" />
+        <result column="useDate" property="useDate" />
+        <result column="chargeDate" property="chargeDate" />
+        <result column="point" property="point" />
+    </resultMap>
+
+    <sql id = "fldPoint">
+        pointNo,
+        memberId,
+        useHistory,
+        chargeHistory,
+        useDate,
+        chargeDate,
+        point
+    </sql>
+
+    <select id="getHistory" resultMap="PointRs" parameterType="String">
+
+        SELECT <include refid="fldMemo"/> FROM pointData WHERE memberId=#{memberId}
+
+    </select>
+
+    <insert id="insertUseHistory" parameterType="PointData">
+
+        INSERT INTO pointData (memberId,point,useHistory,useDate) VALUE (#{memberId},#{point},#{useHistory},#{useDate})
+
+    </insert>
+
+    <insert id="insertChargeHistory" parameterType="PointData">
+
+        INSERT INTO pointData (memberId,point,chargeHistory,chargeDate) VALUE (#{memberId},#{point},#{chargeHistory},#{chargeDate})
+
+    </insert>
+
+</mapper>

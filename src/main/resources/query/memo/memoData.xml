@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memo">
+
+    <resultMap id="MemoRs" type="MemoData">
+        <result column="memoNo" property="memoNo" />
+        <result column="memberId" property="memberId" />
+        <result column="memo" property="memo" />
+        <result column="writeDate" property="writeDate" />
+    </resultMap>
+
+    <sql id = "fldMemo">
+        memoNo,
+        memberId,
+        memo,
+        writeDate
+    </sql>
+
+    <select id="getMemoList" resultMap="MemoRs">
+
+        SELECT <include refid="fldMemo"/> FROM Memodata
+
+    </select>
+
+    <select id="getMemo" resultMap="MemoRs" parameterType="String">
+
+        SELECT <include refid="fldMemo"/> FROM Memodata WHERE memberId=#{memberId}
+
+    </select>
+
+    <insert id="insertMemo" parameterType="MemoData">
+
+        INSERT INTO Memodata (memberId,memo,writeDate) VALUE (#{memberId},#{memo},#{writeDate})
+
+    </insert>
+
+    <update id="modifyMemo" parameterType="MemoData">
+
+        UPDATE Memodata SET memo=#{memo} WHERE memoNo=#{memoNo}
+
+    </update>
+
+    <delete id="deletePosition" parameterType="int">
+
+        DELETE FROM Memodata WHERE memoNo=#{memoNo}
+
+    </delete>
+</mapper>
+

@@ -40,6 +40,7 @@ public class LoginCt {
             if(memberData.get().getPw().equals(pw)){
 
                 session.setAttribute("memberId",memberId);
+                session.setAttribute("securityRating",memberData.get().getSecurityRating());
                 mv.addObject("success", true);
             }
         }
