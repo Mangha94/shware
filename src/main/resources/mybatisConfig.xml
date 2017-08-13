@@ -22,6 +22,7 @@
 		 <typeAlias alias="ReservationData" type="kr.groupware.model.reservationSystem.reservation.ReservationData"/>
 		 <typeAlias alias="PlaceData" type="kr.groupware.model.reservationSystem.place.PlaceData"/>
 		 <typeAlias alias="MemoData" type="kr.groupware.model.memo.MemoData"/>
+		 <typeAlias alias="PointData" type="kr.groupware.model.point.PointData"/>
 	 </typeAliases>
 	 
 	 <mappers>

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import kr.groupware.lib.StrLib;
+import kr.groupware.lib.Util;
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
 import kr.groupware.model.member.exception.MemberAddException;
@@ -66,12 +67,20 @@ public class MemberSvImp implements MemberSv, ApplicationListener<PositionEvent>
 
     /**
      * 회원정보를 수정한다
-     * @param memberData 수정된 회원정보
+     * @param modifyMemberData 수정된 회원정보
      */
     @Override
-    public void modifyMember(MemberData memberData){
-        memberData.setModifyDate(new Date());
-        memberRepository.modifyMember(memberData);
+    public void modifyMember(ModifyMemberData modifyMemberData){
+
+		Optional<MemberData> member = getMember (modifyMemberData.getMemberId ());
+
+		member.ifPresent ((m) -> {
+			Util.myCopyProperties (modifyMemberData, m);
+
+			m.setModifyDate(new Date());
+
+			memberRepository.modifyMember(m);
+		});
     }
 
     /**

@@ -1,6 +1,5 @@
 package kr.groupware.server.controller.org;
 
-import kr.groupware.lib.StrLib;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,15 +7,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import kr.groupware.lib.StrLib;
 import kr.groupware.model.Paging;
 import kr.groupware.model.PagingList;
 import kr.groupware.model.member.MemberData;
 import kr.groupware.model.member.MemberSearchData;
 import kr.groupware.model.member.MemberSv;
+import kr.groupware.model.member.ModifyMemberData;
 import kr.groupware.model.member.exception.MemberAddException;
 import kr.groupware.model.rank.department.DepartmentData;
 import kr.groupware.model.rank.department.DepartmentSv;
@@ -25,8 +29,6 @@ import kr.groupware.model.rank.position.PositionSv;
 import kr.groupware.model.rank.spot.SpotData;
 import kr.groupware.model.rank.spot.SpotSv;
 import kr.groupware.server.controller.MenuSetting;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "/org/member")
@@ -186,34 +188,9 @@ public class MemberCt {
 
     @RequestMapping(value = "/modifyMember.do", method = RequestMethod.POST)
     public String modifyMember(
-            @RequestParam(value = "memberId", required = false) String memberId,
-            @RequestParam(value = "pw", required = false) String pw,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "positionNo", required = false) int positionNo,
-            @RequestParam(value = "spotNo", required = false) int spotNo,
-            @RequestParam(value = "departmentNo", required = false) int departmentNo,
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "entryDate", required = false) Date entryDate,
-            @RequestParam(value = "used", required = false) Boolean used,
-            @RequestParam(value = "securityRating", required = false) int securityRating,
-            @RequestParam(value = "businessNo", required = false) String businessNo
+        ModifyMemberData modifyMemberData
     ) {
-
-        Optional<MemberData> member = memberSv.getMember(memberId);
-
-        member.ifPresent((memberData) -> {
-            memberData.setPw(pw);
-            memberData.setName(name);
-            memberData.setPositionNo(positionNo);
-            memberData.setSpotNo(spotNo);
-            memberData.setDepartmentNo(departmentNo);
-            memberData.setEmail(email);
-            memberData.setEntryDate(entryDate);
-            memberData.setUsed(used);
-            memberData.setSecurityRating(securityRating);
-            memberData.setBusinessNo(businessNo);
-            memberSv.modifyMember(memberData);
-        });
+        memberSv.modifyMember(modifyMemberData);
 
         return "redirect:/org/member/memberList.do";
     }
@@ -243,11 +220,21 @@ public class MemberCt {
         return mv;
     }
 
-    @RequestMapping(value = "simplyModify.do",method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = "/simplyModify.do",method = {RequestMethod.POST})
     public String simplyModify(
-            MemberData memberData
+        @RequestParam(value = "chkMember") String [] chkMember,
+		HttpServletRequest request
     ){
-        memberSv.modifyMember(memberData);
+        Arrays.stream (chkMember).forEach ((memberID) -> {
+
+        	ModifyMemberData modifyMemberData = new ModifyMemberData ();
+
+			modifyMemberData.setMemberId (memberID);
+			modifyMemberData.setUsed ("true".equals (request.getParameter ("used_" + memberID)));
+
+			memberSv.modifyMember (modifyMemberData);
+		});
+
         return "redirect: /org/member/memberList.do";
     }
 

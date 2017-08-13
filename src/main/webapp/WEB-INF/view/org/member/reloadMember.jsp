@@ -67,7 +67,7 @@
 </tr>
 </thead>
 <tbody>
-<form id="simplyModify" action="simplyModify.do" method="post">
+
     <c:forEach items="${pagingList.listData}" var="member" varStatus="vs">
 
         <tr>
@@ -75,7 +75,7 @@
                     ${paging.totalArticles-(paging.currentPage-1)*paging.articlesPerPage - (vs.count - 1)}
             </td>
             <td>
-                <input type="checkbox" name="chkMember" value="${member}">
+                <input type="checkbox" name="chkMember" value="${member.memberId}">
                 <a href="/org/member/memberDetail.do?memberId=${member.memberId}">${member.memberId}</a>
             </td>
             <td>${member.name}</td>
@@ -84,10 +84,11 @@
             <td>${member.departmentName}</td>
             <td>${member.email}</td>
             <td>
-                <input type="checkbox" name="used" value="${member.used eq true}" checked>
+
+                <input type="checkbox" name="used_${member.memberId}" value="true" <c:if test = "${member.used}">checked</c:if>>
             </td>
             <td>
-                <select name="securityRating" class="form-control">
+                <select name="securityRating_${member.memberId}" class="form-control">
                     <c:forEach begin="1" end="5" var="idx">
                         <option <c:if test="${idx eq member.securityRating}">selected</c:if>>${idx}등급</option>
                     </c:forEach>
@@ -95,7 +96,5 @@
             </td>
         </tr>
     </c:forEach>
-
-</form>
 
 </tbody>

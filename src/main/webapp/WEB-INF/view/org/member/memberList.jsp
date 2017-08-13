@@ -45,13 +45,50 @@
     }
 
     function simplyModify() {
-        var items = [];
-        $("#memberForm input[type='checkbox'][name='chkMember']:checked").each(function () {
+
+	    /*$("#memberForm").attr ("method", "post");
+	    $("#memberForm").attr ("action", "simplyModify.do");
+    	$("#memberForm").submit ();*/
+
+	    var items = [];
+
+	    $("#memberForm input[type='checkbox'][name='chkMember']:checked").each (function () {
+		    var data = {'memberId':$(this).val(),
+			    "used":($("#memberForm input[type='checkbox'][name='used_" + $(this).val() + "']:checked").length > 0)
+		    };
+
+		    items.push (data);
+	    });
+
+	    var successCnt = 0;
+
+	    for (i = 0; i < items.length; i++)
+	    {
+	    	var data = items[i];
+
+		    $.ajax({
+			    type: "POST",
+			    url: "modifyMember.do",
+			    data: data,
+			    success: function (data, textStatus) {
+
+				    successCnt++;
+
+			        if (items.length == successCnt) {
+				        alert("수정되었습니다");
+				        location.reload();
+			        }
+			    }
+		    });
+	    }
+
+        // var items = [];
+        /*$("#memberForm input[type='checkbox'][name='chkMember']:checked").each(function () {
                 items.push($(this).val());
             }
-        );
+        );*/
         //var item=$("#memberForm input[type='checkbox'][name='chkMember']:checked").find(':input').serialize();
-        alert(items);
+        //alert(items);
 //        var tmp = items.join(',');
 //        alert(tmp);
 //        $.ajax({
@@ -120,7 +157,7 @@
                 <!-- /.panel-body -->
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <form name="searchForm" id="searchForm" action="/org/member/memberList.do" class="form-inline">
                         <input type="hidden" name="pageNo" id="pageNo" value="${paging.currentPage}">
                         <input type="hidden" name="pageSize" value="${paging.articlesPerPage}">
@@ -140,29 +177,31 @@
                         <%--</label>--%>
                         <%--</div>--%>
                         <%--<div class="form-group">--%>
-                        <div style="border: 1px; float: left; width: 33%;">
+                        <div style="border: 1px; float: left; width: 20%; ">
 
                             이름 <input type="text" name="se_name" class="form-control" value="${se_name}"
                                    placeholder="Search for name">
                         </div>
-                        <div style="border: 1px; float: left; width: 33%;">
+                        <div style="border: 1px; float: left; width: 20%; ">
 
                             아이디 <input type="text" name="se_memberId" class="form-control" value="${se_memberId}"
                                    placeholder="Search for memberId">
                         </div>
-                        <div style="border: 1px; float: left; width: 33%;">
+                        <div style="border: 1px; float: left; width: 20%; ">
 
                             이메일 <input type="text" name="se_email" class="form-control" value="${se_email}"
                                    placeholder="Search for email">
                         </div>
 
-                        <div style="border: 1px; float: left;">
+                        <div style="border: 1px; float: left; ">
                         <input type="submit" class="btn btn-default" value="찾기">
                         </div>
-                        <div style="border: 1px; float: left;">
+                        <div style="border: 1px; float: left; ">
                         <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
                         </div>
                     </form>
+
+                    <div style="clear:both;"></div>
 
                     <sh:paging currentPage="${paging.currentPage}" totalArticles="${paging.totalArticles}"
                                showPages="${paging.showPages}" articlesPerPage="${paging.articlesPerPage}"/>
@@ -176,5 +215,8 @@
     </div>
 </div>
 
+<form name = 'modifyForm'>
+
+</form>
 
 <jsp:include page="/WEB-INF/view/bottom.jsp"></jsp:include>

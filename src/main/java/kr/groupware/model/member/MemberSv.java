@@ -38,9 +38,9 @@ public interface MemberSv {
 
     /**
      * 회원정보 수정
-     * @param memberData 수정된 회원정보
+     * @param modifyMemberData 수정된 회원정보
      */
-    void modifyMember(MemberData memberData);
+    void modifyMember(ModifyMemberData modifyMemberData);
 
     /**
      * 회원 전체수를 구한다

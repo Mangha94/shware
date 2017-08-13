@@ -7,29 +7,28 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class MemberData {
+public class ModifyMemberData
+{
     private String memberId;
     private String pw;
     private String name;
-    private int positionNo;
+    private Integer positionNo;
 
     private String positionName;
 
 
-    private int spotNo;
+    private Integer spotNo;
 
     private String spotName;
 
-    private int departmentNo;
+    private Integer departmentNo;
 
     private String departmentName;
 
     private String email;
     private Date entryDate;
-    private Date modifyDate;
-    private Date registrationDate;
-    private Date lastAccessTime;
-    private boolean used;
-    private int securityRating;
+
+    private Boolean used;
+    private Integer securityRating;
     private String businessNo;
 }

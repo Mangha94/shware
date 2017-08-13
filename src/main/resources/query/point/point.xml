@@ -26,7 +26,7 @@
 
     <select id="getHistory" resultMap="PointRs" parameterType="String">
 
-        SELECT <include refid="fldMemo"/> FROM pointData WHERE memberId=#{memberId}
+        SELECT <include refid="fldPoint"/> FROM pointData WHERE memberId=#{memberId}
 
     </select>
 
