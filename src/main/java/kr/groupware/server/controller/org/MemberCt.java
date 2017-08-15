@@ -2,6 +2,8 @@ package kr.groupware.server.controller.org;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.groupware.model.memo.MemoData;
+import kr.groupware.model.memo.MemoSv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +52,11 @@ public class MemberCt {
     private
     DepartmentSv departmentSv;
     @Autowired
-    private MenuSetting menuSetting;
+    private
+    MenuSetting menuSetting;
+    @Autowired
+    private
+    MemoSv memoSv;
 
     @RequestMapping(value = "/memberList.do", method = RequestMethod.GET)
     public ModelAndView searchMember(
@@ -64,7 +70,6 @@ public class MemberCt {
             HttpSession session
     ) {
         ModelAndView mv = new ModelAndView("/org/member/memberList");
-        if(1==(int)session.getAttribute("securityRating")) {
 
             //메뉴셋팅
             menuSetting.menuSetting(mv);
@@ -111,7 +116,6 @@ public class MemberCt {
 
 
 
-        }
         return mv;
     }
 
@@ -264,6 +268,7 @@ public class MemberCt {
 
 			modifyMemberData.setMemberId (memberID);
 			modifyMemberData.setUsed ("true".equals (request.getParameter ("used_" + memberID)));
+			modifyMemberData.setSecurityRating(Integer.parseInt(request.getParameter("securityRating_"+memberID)));
 
 			memberSv.modifyMember (modifyMemberData);
 		});
@@ -280,5 +285,36 @@ public class MemberCt {
             memberSv.deleteMember(member);
         }
         return "redirect: /org/member/memberList.do";
+    }
+
+    @RequestMapping(value = "getMemoList.do",method = RequestMethod.GET)
+    public ModelAndView getMemoList(
+            @RequestParam(value = "memberId",required = false)String memberId
+    ){
+        List<MemoData> memoList=memoSv.getMemo(memberId);
+
+        ModelAndView mv=new ModelAndView("/org/member/memberList");
+
+        mv.addObject("memoList",memoList);
+
+        return mv;
+    }
+
+    @RequestMapping(value="insertMemo.do",method = RequestMethod.POST)
+    public ModelAndView insertMemo(
+            MemoData memoData,
+            @RequestParam(value = "memberId",required = false)String memberId
+    ){
+        ModelAndView mv=new ModelAndView("pageJsonReport");
+
+        memoData.setMemberId(memberId);
+
+        if(memoSv.insertMemo(memoData)){
+            mv.addObject("success",true);
+        }
+        else
+            mv.addObject("success",false);
+
+        return mv;
     }
 }

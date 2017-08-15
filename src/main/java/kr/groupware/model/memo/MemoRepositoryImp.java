@@ -19,8 +19,8 @@ public class MemoRepositoryImp extends SqlSessionDaoSupport implements MemoRepos
     }
 
     @Override
-    public void insertMemo(MemoData memoData){
-        getSqlSession().insert("memo.insertMemo",memoData);
+    public boolean insertMemo(MemoData memoData){
+        return getSqlSession().insert("memo.insertMemo",memoData)>0;
     }
 
     @Override

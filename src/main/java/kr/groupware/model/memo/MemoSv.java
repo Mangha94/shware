@@ -8,7 +8,7 @@ public interface MemoSv {
 
     List<MemoData> getMemo(String memberId);
 
-    void insertMemo(MemoData memoData);
+    boolean insertMemo(MemoData memoData);
 
     void modifyMemo(MemoData memoData);
 

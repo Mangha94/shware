@@ -23,9 +23,9 @@ public class MemoSvImp implements MemoSv{
     }
 
     @Override
-    public void insertMemo(MemoData memoData){
+    public boolean insertMemo(MemoData memoData){
         memoData.setWriteDate(new Date());
-        memoRepository.insertMemo(memoData);
+        return memoRepository.insertMemo(memoData);
     }
 
     @Override

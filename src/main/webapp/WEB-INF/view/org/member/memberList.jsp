@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sh" uri="/WEB-INF/tlds/shUtil.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
 
 <script src='/bower_components/moment/min/moment.min.js'></script>
@@ -19,12 +20,12 @@
     });
 
 
-    $(document).ready(function () {
-        $("input[type=checkbox]").switchButton({
-            on_label: '사용',
-            off_label: '사용안함'
-        });
-    });
+//    $(document).ready(function () {
+//        $("input[type=checkbox]").switchButton({
+//            on_label: '사용',
+//            off_label: '사용안함'
+//        });
+//    });
 
     function onPage(pageNo) {
         $("#pageNo").val(pageNo);
@@ -50,12 +51,12 @@
 	    $("#memberForm").attr ("action", "simplyModify.do");
     	$("#memberForm").submit ();*/
 
-	    var items = [];
 	    var datas = "";
 
 	    $("#memberForm input[type='checkbox'][name='chkMember']:checked").each (function () {
 		    var data = {'memberId':$(this).val(),
-			    "used":($("#memberForm input[type='checkbox'][name='used_" + $(this).val() + "']:checked").length > 0)
+			    "used":($("#memberForm input[type='checkbox'][name='used_" + $(this).val() + "']:checked").length > 0),
+                "securityRating":($("#memberForm select[id='securityRating_" + $(this).val() + "'] option:selected")).val()
 		    };
 
 		    if (datas != "")

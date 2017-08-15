@@ -64,6 +64,22 @@
                 location.href="/logout.do"
             }
         }
+        
+//        function securityChk_org() {
+//            $.ajax({
+//                type:"GET",
+//                url: "/securityChk_org.do",
+//                success: function (data, textStatus){
+//
+//                    if(data.success){
+//                        alert("접근 성공");
+//                    }
+//                    else
+//                        alert("접근 권한이 없습니다");
+//                        location.href="/index.do";
+//                }
+//            });
+//        }
     </script>
 
 </head>
@@ -315,7 +331,7 @@
                         <a href="index.do"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> 조직관리<span class="fa arrow"></span></a>
+                        <a href="#" id="securityChk_org" onclick="securityChk_org();"><i class="fa fa-sitemap fa-fw"></i> 조직관리<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/org/rank/departmentList.do">부서관리</a>

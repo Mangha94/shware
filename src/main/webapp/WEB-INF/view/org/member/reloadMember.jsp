@@ -88,9 +88,9 @@
                 <input type="checkbox" name="used_${member.memberId}" value="true" <c:if test = "${member.used}">checked</c:if>>
             </td>
             <td>
-                <select name="securityRating_${member.memberId}" class="form-control">
+                <select id="securityRating_${member.memberId}" class="form-control">
                     <c:forEach begin="1" end="5" var="idx">
-                        <option <c:if test="${idx eq member.securityRating}">selected</c:if>>${idx}등급</option>
+                        <option value="${idx}" <c:if test="${idx eq member.securityRating}">selected</c:if>>${idx}등급</option>
                     </c:forEach>
                 </select>
             </td>

@@ -25,7 +25,7 @@ public class LoginCt {
         return mv;
     }
 
-    @RequestMapping(value = "/login.do",method = {RequestMethod.POST})
+    @RequestMapping(value = "/login.do",method = RequestMethod.POST)
     public ModelAndView login(
             HttpSession session,
             @RequestParam(value = "memberId",required = false) String memberId,
