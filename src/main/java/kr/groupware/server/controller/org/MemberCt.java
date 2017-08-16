@@ -95,16 +95,6 @@ public class MemberCt {
                 searchData.setOrderVal(orderVal);
                 searchData.setOrderAsc(orderAsc);
             }
-
-//		if (searchFrom.equals("memberId")) {
-//			searchData.setMemberId(searchVal);
-//		} else if (searchFrom.equals("name")) {
-//			searchData.setName(searchVal);
-//		} else if (searchFrom.equals("email")) {
-//			searchData.setEmail(searchVal);
-//		}
-
-
             Paging paging = new Paging(pageNo, 10, pageSize);
 
             PagingList<MemberData> pagingList = memberSv.searchMember(paging, searchData);
@@ -203,35 +193,6 @@ public class MemberCt {
         return "redirect:/org/member/memberList.do";
     }
 
-	@RequestMapping(value = "/modifyMember2.do", method = RequestMethod.POST)
-	public String modifyMember(
-		@RequestParam("datas") String datas
-	) {
-		ObjectMapper om = new ObjectMapper ();
-
-		String [] datas2 = datas.split ("###");
-
-		for (String data : datas2)
-		{
-			System.out.println (data);
-
-			try
-			{
-				System.out.println (URLDecoder.decode (data, "UTF-8"));
-
-				ModifyMemberData modifyMemberData = om.readValue (URLDecoder.decode (data, "UTF-8"), ModifyMemberData.class);
-
-				memberSv.modifyMember(modifyMemberData);
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace ();
-			}
-		}
-
-		return "redirect:/org/member/memberList.do";
-	}
-
     @RequestMapping(value = "/deleteMember.do", method = RequestMethod.GET)
     public String deleteMember(
             @RequestParam(value = "memberId", required = false) String memberId
@@ -259,32 +220,77 @@ public class MemberCt {
 
     @RequestMapping(value = "/simplyModify.do",method = {RequestMethod.POST})
     public String simplyModify(
-        @RequestParam(value = "chkMember") String [] chkMember,
-		HttpServletRequest request
-    ){
-        Arrays.stream (chkMember).forEach ((memberID) -> {
+            @RequestParam("datas") String datas
+    ) {
+        ObjectMapper om = new ObjectMapper ();
 
-        	ModifyMemberData modifyMemberData = new ModifyMemberData ();
+        String [] datas2 = datas.split ("###");
 
-			modifyMemberData.setMemberId (memberID);
-			modifyMemberData.setUsed ("true".equals (request.getParameter ("used_" + memberID)));
-			modifyMemberData.setSecurityRating(Integer.parseInt(request.getParameter("securityRating_"+memberID)));
+        for (String data : datas2)
+        {
+            System.out.println (data);
 
-			memberSv.modifyMember (modifyMemberData);
-		});
+            try
+            {
+                System.out.println (URLDecoder.decode (data, "UTF-8"));
 
-        return "redirect: /org/member/memberList.do";
+                ModifyMemberData modifyMemberData = om.readValue (URLDecoder.decode (data, "UTF-8"), ModifyMemberData.class);
+
+                memberSv.modifyMember(modifyMemberData);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace ();
+            }
+        }
+
+        return "redirect:/org/member/memberList.do";
     }
+
+//        @RequestParam(value = "chkMember") String [] chkMember,
+//		HttpServletRequest request
+//    ){
+//        Arrays.stream (chkMember).forEach ((memberID) -> {
+//
+//        	ModifyMemberData modifyMemberData = new ModifyMemberData ();
+//
+//			modifyMemberData.setMemberId (memberID);
+//			modifyMemberData.setUsed ("true".equals (request.getParameter ("used_" + memberID)));
+//			modifyMemberData.setSecurityRating(Integer.parseInt(request.getParameter("securityRating_"+memberID)));
+//
+//			memberSv.modifyMember (modifyMemberData);
+//		});
+//
+//        return "redirect: /org/member/memberList.do";
+//    }
 
     @RequestMapping(value = "simplyDelete.do",method = RequestMethod.GET)
     public String simplyDelete(
-            @RequestParam(value = "memberId",required = false)String memberId
-    ){
-        String[]memberIdArr=memberId.split(",");
-        for(String member : memberIdArr){
-            memberSv.deleteMember(member);
+            @RequestParam("datas") String datas
+    ) {
+        ObjectMapper om = new ObjectMapper ();
+
+        String [] datas2 = datas.split ("###");
+
+        for (String data : datas2)
+        {
+            System.out.println (data);
+
+            try
+            {
+                System.out.println (URLDecoder.decode (data, "UTF-8"));
+
+                ModifyMemberData modifyMemberData = om.readValue (URLDecoder.decode (data, "UTF-8"), ModifyMemberData.class);
+
+                memberSv.deleteMember(modifyMemberData.getMemberId());
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace ();
+            }
         }
-        return "redirect: /org/member/memberList.do";
+
+        return "redirect:/org/member/memberList.do";
     }
 
     @RequestMapping(value = "getMemoList.do",method = RequestMethod.GET)

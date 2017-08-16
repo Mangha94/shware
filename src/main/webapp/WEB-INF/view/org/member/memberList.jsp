@@ -20,12 +20,12 @@
     });
 
 
-//    $(document).ready(function () {
-//        $("input[type=checkbox]").switchButton({
-//            on_label: '사용',
-//            off_label: '사용안함'
-//        });
-//    });
+    //    $(document).ready(function () {
+    //        $("input[type=checkbox]").switchButton({
+    //            on_label: '사용',
+    //            off_label: '사용안함'
+    //        });
+    //    });
 
     function onPage(pageNo) {
         $("#pageNo").val(pageNo);
@@ -46,94 +46,74 @@
     }
 
     function simplyModify() {
+        var datas = "";
 
-	    /*$("#memberForm").attr ("method", "post");
-	    $("#memberForm").attr ("action", "simplyModify.do");
-    	$("#memberForm").submit ();*/
+        $(
+            "#memberForm input[type='checkbox'][name='chkMember']:checked").each(function () {
+            var data = {
+                'memberId': $(this).val(),
+                "used": ($("#memberForm input[type='checkbox'][name='used_" + $(this).val() + "']:checked").length > 0),
+                "securityRating": ($("#memberForm select[id='securityRating_" + $(this).val() + "'] option:selected")).val()
+            };
 
-	    var datas = "";
+            if
 
-	    $("#memberForm input[type='checkbox'][name='chkMember']:checked").each (function () {
-		    var data = {'memberId':$(this).val(),
-			    "used":($("#memberForm input[type='checkbox'][name='used_" + $(this).val() + "']:checked").length > 0),
-                "securityRating":($("#memberForm select[id='securityRating_" + $(this).val() + "'] option:selected")).val()
-		    };
+            (datas != "")
+                datas += "###";
 
-		    if (datas != "")
-			    datas += "###";
+            datas += encodeURI(JSON.stringify(data));
+        });
 
-		    datas += encodeURI(JSON.stringify(data));
-	    });
+        console.dir(datas);
 
-	    console.dir (datas);
-
-	    $.ajax({
-		    type: "POST",
-		    url: "modifyMember2.do",
-		    data: {"datas":datas},
-		    success: function (data, textStatus) {
-			    alert("수정되었습니다");
-			    location.reload();
-		    }
-	    });
-
-	    /*var successCnt = 0;
-
-	    for (i = 0; i < items.length; i++)
-	    {
-	    	var data = items[i];
-
-		    $.ajax({
-			    type: "POST",
-			    url: "modifyMember.do",
-			    data: data,
-			    success: function (data, textStatus) {
-
-				    successCnt++;
-
-			        if (items.length == successCnt) {
-				        alert("수정되었습니다");
-				        location.reload();
-			        }
-			    }
-		    });
-	    }*/
-
-        // var items = [];
-        /*$("#memberForm input[type='checkbox'][name='chkMember']:checked").each(function () {
-                items.push($(this).val());
-            }
-        );*/
-        //var item=$("#memberForm input[type='checkbox'][name='chkMember']:checked").find(':input').serialize();
-        //alert(items);
-//        var tmp = items.join(',');
-//        alert(tmp);
-//        $.ajax({
-//            type: "POST",
-//            url: "/org/member/simplyModify.do",
-//            dataType: "html",
-//            data: tmp,
-//            success: function (data, textStatus) {
-//                alert("수정되었습니다");
-//
-//                location.href="/org/member/memberList.do";
-//            }
-//        });
-
-    }
-
-    function simplyDelete() {
         $.ajax({
             type: "POST",
-            url: "/org/member/simplyDelete.do",
-            dataType: "html",
-            data: $("#memberForm input[type='checkbox'][name='chkMember']:checked").serialize(),
+            url: "simplyModify.do",
+            data: {"datas": datas},
             success: function (data, textStatus) {
-                alert("삭제되었습니다");
-
-                location.href = "/org/member/memberList.do";
+                alert("수정되었습니다");
+                location.reload();
             }
         });
+    }
+
+
+    function simplyDelete() {
+
+        var datas = "";
+
+        $(
+            "#memberForm input[type='checkbox'][name='chkMember']:checked").each(function () {
+            var data = {
+                'memberId': $(this).val()
+            };
+
+            if (datas != "")
+                datas += "###";
+
+            datas += encodeURI(JSON.stringify(data));
+        });
+
+        console.dir(datas);
+
+        $.ajax({
+            type: "GET",
+            url: "simplyDelete.do",
+            data: {"datas": datas},
+            success: function (data, textStatus) {
+                alert("삭제되었습니다");
+                location.reload();
+            }
+        });
+    }
+
+    function show_layer() {
+        var lay_pop = $('#msgArea');
+        var pos = $('#btn_pos').position();    // 버튼의 위치에 레이어를 띄우고자 할 경우, 위치 정보 가져옴
+        lay_pop.css('top', (pos.top) + 'px');    // 레이어 위치 지정
+        lay_pop.css('left', (pos.left) + 'px');
+        lay_pop.fadeIn();
+        lay_pop.focus();
     }
 </script>
 
@@ -148,6 +128,9 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
+                        <div id="msgArea" style="display:none;position:absolute;">
+                            레이어레이어
+                        </div>
                         <div class="btn-group">
                             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
@@ -163,6 +146,7 @@
                             <a href="javascript:simplyModify()" class="btn btn-warning">수정</a>
                             <a href="javascript:simplyDelete()" class="btn btn-danger">삭제</a>
                         </div>
+
                         <form action="/org/member/memberList.do" name="memberForm" id="memberForm">
                             <table id="memberTable" class="table">
                                 <jsp:include page="reloadMember.jsp"></jsp:include>
@@ -181,40 +165,27 @@
 
                         <input type="hidden" name="orderAsc" value="${orderAsc}">
                         <input type="hidden" name="orderVal" value="${orderVal}">
-                        <%--<div class="form-group">--%>
-                        <%--<label>--%>
-                        <%--<select name="searchFrom" class="form-control">--%>
-                        <%--<option value="memberId"--%>
-                        <%--<c:if test="${searchFrom eq 'memberId'}">selected</c:if>>아이디</option>--%>
-                        <%--<option value="name"--%>
-                        <%--<c:if test="${searchFrom eq 'name'}">selected</c:if>>이름</option>--%>
-                        <%--<option value="email"--%>
-                        <%--<c:if test="${searchFrom eq 'email'}">selected</c:if>>이메일</option>--%>
-                        <%--</select>--%>
-                        <%--</label>--%>
-                        <%--</div>--%>
-                        <%--<div class="form-group">--%>
                         <div style="border: 1px; float: left; width: 20%; ">
 
                             이름 <input type="text" name="se_name" class="form-control" value="${se_name}"
-                                   placeholder="Search for name">
+                                      placeholder="Search for name">
                         </div>
                         <div style="border: 1px; float: left; width: 20%; ">
 
                             아이디 <input type="text" name="se_memberId" class="form-control" value="${se_memberId}"
-                                   placeholder="Search for memberId">
+                                       placeholder="Search for memberId">
                         </div>
                         <div style="border: 1px; float: left; width: 20%; ">
 
                             이메일 <input type="text" name="se_email" class="form-control" value="${se_email}"
-                                   placeholder="Search for email">
+                                       placeholder="Search for email">
                         </div>
 
                         <div style="border: 1px; float: left; ">
-                        <input type="submit" class="btn btn-default" value="찾기">
+                            <input type="submit" class="btn btn-default" value="찾기">
                         </div>
                         <div style="border: 1px; float: left; ">
-                        <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
+                            <a href="/org/member/memberList.do" class="btn btn-primary">목록으로</a>
                         </div>
                     </form>
 
@@ -232,7 +203,7 @@
     </div>
 </div>
 
-<form name = 'modifyForm'>
+<form name='modifyForm'>
 
 </form>
 
