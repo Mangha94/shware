@@ -93,7 +93,7 @@
                         <option value="${idx}" <c:if test="${idx eq member.securityRating}">selected</c:if>>${idx}등급</option>
                     </c:forEach>
                 </select>
-                <a href="#" onclick="show_layer();return false;"><img src="/images/btn/btn_application.jpg" alt="메모"  id="btn_pos" /></a>
+                <a href="#" onclick="show_layer();return false;"><img src="#" alt="메모"  id="btn_pos" /></a>
             </td>
         </tr>
     </c:forEach>

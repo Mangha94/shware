@@ -108,14 +108,28 @@
     }
 
     function show_layer() {
-        var lay_pop = $('#msgArea');
+        var lay_pop = $('#pop');
         var pos = $('#btn_pos').position();    // 버튼의 위치에 레이어를 띄우고자 할 경우, 위치 정보 가져옴
-        lay_pop.css('top', (pos.top) + 'px');    // 레이어 위치 지정
-        lay_pop.css('left', (pos.left) + 'px');
+        lay_pop.css('top', (pos) + 'px');    // 레이어 위치 지정
+        lay_pop.css('left', (pos) + 'px');
         lay_pop.fadeIn();
         lay_pop.focus();
     }
+
+    $(document).ready(function() {
+        $('#close').click(function() {
+            $('#pop').hide();
+        });
+    });
 </script>
+
+<style type="text/css">
+    #pop{
+        width:600px; height:200px; background:#3d3d3d; color:#fff;
+        position:absolute; top:10px; left:100px; text-align:left;
+        border:2px solid #000;
+    }
+</style>
 
 <div id="page-wrapper">
     <div class="row">
@@ -128,9 +142,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <div id="msgArea" style="display:none;position:absolute;">
-                            레이어레이어
-                        </div>
+
                         <div class="btn-group">
                             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
@@ -194,7 +206,19 @@
                     <sh:paging currentPage="${paging.currentPage}" totalArticles="${paging.totalArticles}"
                                showPages="${paging.showPages}" articlesPerPage="${paging.articlesPerPage}"/>
 
+                    <div id="msgArea" style="display:none;position:absolute;">
 
+                        <input type="button" href="#" class="btn btn-primary" value="등록">
+
+                    </div>
+
+                    <div id="pop" style="display:none;position:absolute;">
+                        <div style="height:370px;">
+                            <textarea class="form-control" rows="3">할로할로</textarea>
+                            <a href="/org/member/insertMemo.do" class="btn btn-primary">쓰기</a>
+                            <button id="close" class="btn btn-danger"><b>close</b></button>
+                        </div>
+                    </div>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /row-->
             <!-- /.panel -->
