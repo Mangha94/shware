@@ -214,7 +214,9 @@
 
                     <div id="pop" style="display:none;position:absolute;">
                         <div style="height:370px;">
-                            <textarea class="form-control" rows="3">할로할로</textarea>
+                            <c:forEach items="${memoList}" var="memo">
+                            <textarea class="form-control" rows="3">${memo.memo}</textarea>
+                            </c:forEach>
                             <a href="/org/member/insertMemo.do" class="btn btn-primary">쓰기</a>
                             <button id="close" class="btn btn-danger"><b>close</b></button>
                         </div>
