@@ -112,7 +112,6 @@
         $.ajax({
             type: "GET",
             url: "getMemoList.do?memberId="+memberId,
-            data: data,
             success: function (data, textStatus) {
                 var lay_pop = $('#pop');
                 var pos = $('#btn_pos').position();    // 버튼의 위치에 레이어를 띄우고자 할 경우, 위치 정보 가져옴

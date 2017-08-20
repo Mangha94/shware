@@ -2,8 +2,6 @@ package kr.groupware.server.controller.org;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.groupware.model.memo.MemoData;
-import kr.groupware.model.memo.MemoSv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import kr.groupware.lib.StrLib;
@@ -28,6 +24,8 @@ import kr.groupware.model.member.MemberSearchData;
 import kr.groupware.model.member.MemberSv;
 import kr.groupware.model.member.ModifyMemberData;
 import kr.groupware.model.member.exception.MemberAddException;
+import kr.groupware.model.memo.MemoData;
+import kr.groupware.model.memo.MemoSv;
 import kr.groupware.model.rank.department.DepartmentData;
 import kr.groupware.model.rank.department.DepartmentSv;
 import kr.groupware.model.rank.position.PositionData;
