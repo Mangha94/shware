@@ -107,13 +107,21 @@
         });
     }
 
-    function show_layer() {
-        var lay_pop = $('#pop');
-        var pos = $('#btn_pos').position();    // 버튼의 위치에 레이어를 띄우고자 할 경우, 위치 정보 가져옴
-        lay_pop.css('top', (pos) + 'px');    // 레이어 위치 지정
-        lay_pop.css('left', (pos) + 'px');
-        lay_pop.fadeIn();
-        lay_pop.focus();
+    function show_layer(memberId) {
+
+        $.ajax({
+            type: "GET",
+            url: "getMemoList.do?memberId="+memberId,
+            data: data,
+            success: function (data, textStatus) {
+                var lay_pop = $('#pop');
+                var pos = $('#btn_pos').position();    // 버튼의 위치에 레이어를 띄우고자 할 경우, 위치 정보 가져옴
+                lay_pop.css('top', (pos) + 'px');    // 레이어 위치 지정
+                lay_pop.css('left', (pos) + 'px');
+                lay_pop.fadeIn();
+                lay_pop.focus();
+            }
+        });
     }
 
     $(document).ready(function() {
@@ -126,7 +134,7 @@
 <style type="text/css">
     #pop{
         width:600px; height:200px; background:#3d3d3d; color:#fff;
-        position:absolute; top:10px; left:100px; text-align:left;
+        position:absolute; top:100px; left:100px; text-align:left;
         border:2px solid #000;
     }
 </style>

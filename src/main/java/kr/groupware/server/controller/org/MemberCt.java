@@ -302,7 +302,6 @@ public class MemberCt {
         ModelAndView mv=new ModelAndView("/org/member/memberList");
 
         mv.addObject("memoList",memoList);
-
         return mv;
     }
 
