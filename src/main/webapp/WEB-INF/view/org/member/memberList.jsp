@@ -56,9 +56,7 @@
                 "securityRating": ($("#memberForm select[id='securityRating_" + $(this).val() + "'] option:selected")).val()
             };
 
-            if
-
-            (datas != "")
+            if(datas != "")
                 datas += "###";
 
             datas += encodeURI(JSON.stringify(data));
@@ -236,12 +234,13 @@
                     <div id="pop" style="display:none;position:absolute;">
                         <div style="height:370px;">
                             <input type="hidden" name="memberId" value="${memberId}">
-                            <%--<textarea name="memo" class="form-control" rows="3"></textarea>--%>
+                            <textarea name="memo" class="form-control" rows="3"></textarea>
                             <c:forEach items="${memoList}" var="memo">
                             <textarea name="memo" class="form-control" rows="3">${memo.memo}</textarea>
                             </c:forEach>
+
                             <input type="submit" class="btn btn-primary" value="write">
-                            <button id="close" class="btn btn-danger"><b>close</b></button>
+                            <button id="close" class="btn btn-danger" type='button'><b>close</b></button>
                         </div>
                     </div>
                     </form>
