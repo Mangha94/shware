@@ -295,11 +295,13 @@ public class MemberCt {
     public ModelAndView getMemoList(
             @RequestParam(value = "memberId",required = false)String memberId
     ){
-        List<MemoData> memoList=memoSv.getMemo(memberId);
 
-        ModelAndView mv=new ModelAndView("/org/member/memberList");
+        List<MemoData> memoList=memoSv.getMemo(memberId);
+        System.out.println(memoList);
+        ModelAndView mv=new ModelAndView("/org/member/reloadMember");
 
         mv.addObject("memoList",memoList);
+        mv.addObject("memberId",memberId);
         return mv;
     }
 

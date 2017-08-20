@@ -128,6 +128,19 @@
             $('#pop').hide();
         });
     });
+
+    function insertMemo(form) {
+        $.ajax({
+            type:"POST",
+            url:form.action,
+            dataType:"html",
+            data:$(form).serialize(),
+            success:function (data,textStatus) {
+                alert("등록되었습니다");
+                location.reload();
+            }
+        })
+    }
 </script>
 
 <style type="text/css">
@@ -219,15 +232,19 @@
 
                     </div>
 
+                    <form id="popForm" method="post" action="insertMemo.do" onsubmit="insertMemo(this)" class="form-inline">
                     <div id="pop" style="display:none;position:absolute;">
                         <div style="height:370px;">
+                            <input type="hidden" name="memberId" value="${memberId}">
+                            <%--<textarea name="memo" class="form-control" rows="3"></textarea>--%>
                             <c:forEach items="${memoList}" var="memo">
-                            <textarea class="form-control" rows="3">${memo.memo}</textarea>
+                            <textarea name="memo" class="form-control" rows="3">${memo.memo}</textarea>
                             </c:forEach>
-                            <a href="/org/member/insertMemo.do" class="btn btn-primary">쓰기</a>
+                            <input type="submit" class="btn btn-primary" value="write">
                             <button id="close" class="btn btn-danger"><b>close</b></button>
                         </div>
                     </div>
+                    </form>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /row-->
             <!-- /.panel -->
