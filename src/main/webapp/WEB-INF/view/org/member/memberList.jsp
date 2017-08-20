@@ -139,7 +139,7 @@
                 alert("등록되었습니다");
                 location.reload();
             }
-        })
+        });
     }
 </script>
 
