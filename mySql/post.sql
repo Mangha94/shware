@@ -9,4 +9,4 @@ CREATE TABLE postData(
   commentCnt INT (11) DEFAULT NULL,
   postContent text DEFAULT NULL,
   PRIMARY KEY (postNo)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

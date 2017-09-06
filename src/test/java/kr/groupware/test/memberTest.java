@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.Optional;
 
 import kr.groupware.model.member.MemberData;
@@ -22,68 +23,23 @@ public class memberTest {
     @Autowired MemberSv memberSv;
     @Test
     public void Test(){
-//        MemberData memberData=new MemberData();
-//        memberData.setMemberId("test");
-//        memberData.setPw("1234");
-//        memberData.setName("test");
-//        memberData.setPositionNo(1);
-//        memberData.setSpotNo(1);
-//        memberData.setDepartmentNo(1);
-//        memberData.setEmail("test@test.com");
-//        memberData.setEntryDate(new Date());
-//        memberData.setModifyDate(new Date());
-//        memberData.setRegistrationDate(new Date());
-//        memberData.setLastAccessTime(new Date());
-//        memberData.setUsed(true);
-//        memberData.setSecurityRating(3);
-//        memberData.setBusinessNo("2017-0529");
-//        memberSv.addMember(memberData);
+        MemberData memberData=new MemberData();
+        memberData.setMemberId("test123");
+        memberData.setPw("1234");
+        memberData.setName("test");
+        memberData.setPositionNo(1);
+        memberData.setSpotNo(1);
+        memberData.setDepartmentNo(1);
+        memberData.setEmail("test@test.com");
+        memberData.setEntryDate(new Date());
+        memberData.setModifyDate(new Date());
+        memberData.setRegistrationDate(new Date());
+        memberData.setLastAccessTime(new Date());
+        memberData.setUsed(true);
+        memberData.setSecurityRating(3);
+        memberData.setBusinessNo("2017-0529");
+        memberSv.addMember(memberData);
 
-        //System.out.println(memberSv.getMembers());
-
-        Optional<MemberData> memberDataOpt = memberSv.getMember ("test");
-
-        /*if (memberDataOpt.isPresent ())
-		{
-			MemberData memberData = memberDataOpt.get ();
-
-			memberData.setPw ("123456");
-			memberData.setName ("test");
-			memberData.setPositionNo (3);
-			memberData.setSpotNo (3);
-			memberData.setDepartmentNo (3);
-			memberData.setEmail ("test1@test1.com");
-			memberData.setEntryDate (new Date ());
-			memberData.setModifyDate (new Date ());
-			memberData.setRegistrationDate (new Date ());
-			memberData.setLastAccessTime (new Date ());
-			memberData.setUsed (false);
-			memberData.setSecurityRating (3);
-			memberData.setBusinessNo ("2017-0530");
-			memberSv.modifyMember (memberData);
-		}*/
-
-		/*memberDataOpt.ifPresent ((memberData) -> {
-			memberData.setPw ("123456");
-			memberData.setName ("test");
-			memberData.setPositionNo (3);
-			memberData.setSpotNo (3);
-			memberData.setDepartmentNo (3);
-			memberData.setEmail ("test1@test1.com");
-			memberData.setEntryDate (new Date ());
-			memberData.setModifyDate (new Date ());
-			memberData.setRegistrationDate (new Date ());
-			memberData.setLastAccessTime (new Date ());
-			memberData.setUsed (false);
-			memberData.setSecurityRating (3);
-			memberData.setBusinessNo ("2017-0530");
-			memberSv.modifyMember (memberData);
-		});*/
-
-        System.out.println(memberSv.getMember("test"));
-
-        memberSv.deleteMember("test");
-        System.out.println(memberSv.getCount());
 
     }
 

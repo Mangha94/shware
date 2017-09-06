@@ -32,4 +32,7 @@ public class MemberData {
     private boolean used;
     private int securityRating;
     private String businessNo;
+    private String jibunAddr;
+    private String zipCode;
+    private String streetAddr;
 }

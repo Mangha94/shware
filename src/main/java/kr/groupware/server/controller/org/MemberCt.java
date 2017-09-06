@@ -177,7 +177,7 @@ public class MemberCt {
                 mv.addObject("message", "이름을 입력해주세요");
             else if (e.getExceptionType() == MemberAddException.MemberAddExceptionType.EXIST_MEMBER)
                 mv.addObject("message", "아이디가 존재합니다");
-        }
+       }
 
         return mv;
     }

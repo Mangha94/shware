@@ -19,6 +19,9 @@
         <result column="used" property="used" />
         <result column="securityRating" property="securityRating" />
         <result column="businessNo" property="businessNo" />
+        <result column="jibunaddr" property="jibunaddr" />
+        <result column="zipCode" property="zipCode" />
+        <result column="streetaddr" property="streetaddr" />
     </resultMap>
 
     <sql id = "fldMember">
@@ -35,7 +38,10 @@
         lastAccessTime,
         used,
         securityRating,
-        businessNo
+        businessNo,
+        streetAddr,
+        jibunAddr,
+        zipCode
     </sql>
 
 
@@ -47,13 +53,17 @@
 
     <insert id="addMember" parameterType="MemberData">
 
-        INSERT INTO memberData (memberId,pw,name,positionNo,spotNo,departmentNo,email,entryDate,used,securityRating,businessNo) VALUE (#{memberId},#{pw},#{name},#{positionNo},#{spotNo},#{departmentNo},#{email},#{entryDate},#{used},#{securityRating},#{businessNo})
+        INSERT INTO memberData (memberId,pw,name,positionNo,spotNo,departmentNo,email,entryDate,used,securityRating
+        ,businessNo,zipCode,streetaddr,jibunaddr) VALUE (#{memberId},#{pw},#{name},#{positionNo},#{spotNo},#{departmentNo}
+        ,#{email},#{entryDate},#{used},#{securityRating},#{businessNo},#{zipCode},#{streetAddr},#{jibunAddr})
 
     </insert>
 
     <update id="modifyMember" parameterType="MemberData">
 
-        UPDATE memberData SET pw=#{pw},name=#{name},positionNo=#{positionNo},spotNo=#{spotNo},departmentNo=#{departmentNo},email=#{email},entryDate=#{entryDate},modifyDate=#{modifyDate},used=#{used},securityRating=#{securityRating},businessNo=#{businessNo} WHERE memberId=#{memberId}
+        UPDATE memberData SET pw=#{pw},name=#{name},positionNo=#{positionNo},spotNo=#{spotNo},departmentNo=#{departmentNo}
+        ,email=#{email},entryDate=#{entryDate},modifyDate=#{modifyDate},used=#{used},securityRating=#{securityRating},businessNo=#{businessNo}
+        ,zipCode=#{zipCode},streetAddr=#{streetAddr},jibunAddr=#{jibunAddr} WHERE memberId=#{memberId}
 
     </update>
 

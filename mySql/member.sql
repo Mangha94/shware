@@ -13,5 +13,8 @@ CREATE TABLE memberData(
   used tinyint(1) DEFAULT NULL,
   securityRating INT(11) DEFAULT NULL,
   businessNo VARCHAR (50) DEFAULT NULL,
+  jibunAddr VARCHAR (50) DEFAULT NULL,
+  zipCode VARCHAR (11) DEFAULT NULL,
+  streetAddr VARCHAR (50) DEFAULT NULL,
   PRIMARY KEY (memberId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
